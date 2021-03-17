@@ -1,0 +1,19 @@
+img {
+    width: 45px;
+    height: 45px;
+}
+
+.table {
+    width: 100%;
+    text-align: center;
+}
+
+tr:hover {
+    background-color: #defce9;
+    color: #000000;
+}
+
+.newButton {
+    margin-bottom: 2%;
+    margin-left: 80%;
+}

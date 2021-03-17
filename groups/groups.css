@@ -1,0 +1,25 @@
+.table {
+    width: 100%;
+    text-align: center;
+}
+
+.tdImage {
+    width: 20%;
+}
+
+.tdName {
+    width: 50%;
+}
+
+.tdActions {
+    width: 30%;
+}
+
+img {
+    width: 30%;
+}
+
+.new {
+    margin-bottom: 2%;
+    margin-left: 80%;
+}
