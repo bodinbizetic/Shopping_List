@@ -2,7 +2,11 @@
     width: 100%;
 }
 
+img {
+    width: 30%;
+}
+
 .data-shown-key {
-    text-align: right;
+    text-align: left;
     padding-right: 10px;
 }
