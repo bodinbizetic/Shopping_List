@@ -8,6 +8,18 @@ img {
     text-align: center;
 }
 
+.tdImage {
+    width: 20%;
+}
+
+.tdName {
+    width: 40%;
+}
+
+.tdActions {
+    width: 40%;
+}
+
 tr:hover {
     background-color: #defce9;
     color: #000000;
