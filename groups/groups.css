@@ -15,6 +15,11 @@
     width: 30%;
 }
 
+tr:hover {
+    background-color: #defce9;
+    color: #000000;
+}
+
 img {
     width: 30%;
 }
