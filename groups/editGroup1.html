@@ -19,6 +19,7 @@
   <link href="../assets/venobox/venobox.css" rel="stylesheet">
 
   <link href="../common.css" rel="stylesheet">
+  <link href="editGroup.css" rel="stylesheet">
 
 </head>
 
@@ -139,8 +140,8 @@
                 <thead>
                   <tr>
                     <th class="tdName">Name</th>
-                    <th class="tdPermission">Permissions</th>
-                    <th class="tdActions">Actions</th>
+                    <th class="tdPermission" >Group Admin</th>
+                    <th class="tdActions" >Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -152,7 +153,7 @@
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" placeholder="Add members" aria-label="Recipient's username" aria-describedby="button-addon2">
                   <div class="input-group-append">
-                    <button class="btn btn-outline-success" type="button" id="button-addon2">Call</button>
+                    <button class="btn btn-outline-success" type="button" id="button-addon2" onclick="setRowIndex()">Call</button>
                   </div>
                 </div>
               </p>
