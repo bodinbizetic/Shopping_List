@@ -7,6 +7,9 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Group: Porodica</title>
 
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -20,6 +23,7 @@
 
   <link href="../common.css" rel="stylesheet">
   <link href="profile.css" rel="stylesheet">
+  <link href="user.css" rel="stylesheet">
 
 </head>
 
@@ -59,108 +63,102 @@
         </div>
       </header><!-- End Header -->
 
-      <main id="main">
-        <!-- ======= Profile Section ======= -->
-        <section id="profile">
-            <div class="container">
-                <div class="section-title">
-                  <h2>Profile</h2>
-                </div>
-               <div class="container">
-                  <div class="row">
-                    <div class="col-md-5">
-                      <img src="imgs/user.png" class="avatar img-circle" style="border-radius: 50%; width: 40%; margin-left: 15%; margin-right: 15%;"> 
-                    </div>
-                    <div class="col-md-5">
-                        <h2 id="name-head">Sanja Markovic</h2>
-                        <table class="tb-info">
-                            <tr>
-                                <td class="data-shown-key">
-                                    username:
-                                </td>
-                                <td class="data-shown-value">
-                                    smar95
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="data-shown-key">
-                                    email:
-                                </td>
-                                <td class="data-shown-value">
-                                    smarko@gmail.com
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="data-shown-key">
-                                    phone:
-                                </td>
-                                <td class="data-shown-value">
-                                    N/A
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="col-md-2">
-                        <a href='#' class='btn btn-block btn-outline-primary' role='button' aria-pressed='true'>Edit</a>
-                    </div>
-                  </div>
-                </div>
-            </br>
-            <h3>
-              Statistic:
-            </h3>
 
-            <a>Spending</a>
-
-            <table class="table">
-              <tr>
-                <th></th>
-                <th>Today</th>
-                <th>This month</th>
-                <th>This year</th>
-              </tr>
-              <tr>
-                <td>Money spent:</td>
-                <td>1.200,0</td>
-                <td>7.349,75</td>
-                <td>256.907,67</td>
-              </tr>
-            </table>
-
-            <h4>Groceries:</h4>
-            <a>Most frequently requested</a>
-            <table class="table">
-              <tr>
-                <th></th>
-                <th>Last 10 days</th>
-                <th>This month</th>
-                <th>This year</th>
-              </tr>
-              <tr>
-                <td>Hleb</td>
-                <td>2</td>
-                <td>7</td>
-                <td>89</td>
-              </tr>
-              <tr>
-                <td>Mleko</td>
-                <td>2</td>
-                <td>6</td>
-                <td>76</td>
-              </tr>
-              <tr>
-                <td>Cokolada</td>
-                <td>1</td>
-                <td>4</td>
-                <td>64</td>
-              </tr>
-            </table>
-
-          </div> 
-             
+      <section id="groups">
+        <div class="container">
+          <div class="section-title">
+            <h2>My Profile</h2>
           </div>
-        </section> <!-- End Profile section-->
-      </main><!-- End #main -->
+        </div>
+      </section>
+      
+      <div class="content">
+        <div class="slide">
+    
+          <div class="div-img">
+            <img src="imgs/person1.jpg" class="avatar img-circle">
+            <h3>Sanja Markovic</h3>
+          </div>
+          
+          <div class="my-form">
+            <form>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-prepend"><i class="input-group-text fa fa-user"></i></span>
+                  <input type="text" name="username" class="form-control" placeholder="Sanja Markovic">
+                </div>              
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-prepend"><i class="input-group-text fa fa-envelope"></i></span>
+                  <input type="email" name="email" class="form-control" placeholder="smarko@gmail.com">
+                </div>              
+              </div>
+              <div class="form-group ">
+                <div class="input-group">
+                    <span class="input-group-prepend"><i class="input-group-text fa fa-phone"></i></span>
+                    <input type="tel" name="phone" class="form-control" placeholder="N/A">
+                </div>
+              </div>
+              <input type="button" value="Edit" class="btn btn-success btn-block">
+            </form>
+          </div>
+          
+        </div>
+
+        <div class="statistic">
+          <table class="table">
+            <caption>Spending</caption>
+            <tr>
+              <th></th>
+              <th>Today</th>
+              <th>This month</th>
+              <th>This year</th>
+            </tr>
+            <tr>
+              <td>Money spent</td>
+              <td>1.200,0</td>
+              <td>7.349,75</td>
+              <td>256.907,67</td>
+            </tr>
+            <tr>
+              <td>No of lists</td>
+              <td>1</td>
+              <td>11</td>
+              <td>179</td>
+            </tr>
+          </table>
+          <table class="table">
+            <caption>Most frequently requested</caption>
+            <tr>
+              <th></th>
+              <th>Last 10 days</th>
+              <th>This month</th>
+              <th>This year</th>
+            </tr>
+            <tr>
+              <td>Hleb</td>
+              <td>2/4</td>
+              <td>7/11</td>
+              <td>89/179</td>
+            </tr>
+            <tr>
+              <td>Mleko</td>
+              <td>2/4</td>
+              <td>6/11</td>
+              <td>76/179</td>
+            </tr>
+            <tr>
+              <td>Cokolada</td>
+              <td>1/4</td>
+              <td>4/11</td>
+              <td>64/179</td>
+            </tr>
+          </table>
+    
+        </div>
+      </div>
+
 
   <!-- ======= Footer ======= -->
   <footer id="footer">

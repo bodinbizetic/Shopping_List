@@ -1,0 +1,69 @@
+div.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 5%;
+}
+
+div.content .statistic {
+    width: 70%;
+}
+
+div.content .slide {
+    width: 25%;
+    margin-left: 5%;
+}
+
+div.content .slide .div-img {
+    width: 100%;
+    max-height: 20px;
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+div.content .slide .div-img img {
+    border-radius: 50%;
+    width: 30%;
+}
+
+div.content .slide .my-form {
+    width: 100%;
+    margin-top: 50%;
+}
+
+
+
+caption {
+  color: green;
+  font-size: 1.2rem;
+  padding: 10px;
+  caption-side: top  !important;
+  text-align: center;
+}
+
+div.content .statistic table {
+    width: 70%;
+    margin: 10%;
+    margin-top: 0;
+    text-align: center;
+}
+
+div.content .statistic table td, div.content .statistic table th {
+    text-align: center;
+}
+
+
+div.content .statistic table td:first-child {
+    font-weight: bold;
+    text-align: left  !important;
+}
+
+.section-title {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+section, .container {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
