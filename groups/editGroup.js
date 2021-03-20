@@ -21,7 +21,7 @@ class Table {
 
 var NUM_ROWS = 4;
 var names = ["Sanja Markovic (You)","Vesna Markovic", "Goran Markovic", "Luka Markovic"];
-var per = ["R W X", "R", "R", "R"];
+var per = [true, false, false, false];
 
 function onLoad() {
     var table = Table.getInstance();
@@ -32,9 +32,14 @@ function onLoad() {
         cellPermission = row.insertCell(1);
         cellActions = row.insertCell(2);
         cellName.innerHTML = names[i];
-        cellPermission.innerHTML=per[i];
+
+        radio = document.createElement("input");
+        radio.setAttribute("type", "radio");
+        radio.checked = per[i];
+        cellPermission.appendChild(radio);
+        radio.checked = per[i];
+
         cellActions.innerHTML = "<div class='btn-group btn-group' role='group'>" +                      
-            "<a href='#' class='btn btn-outline-warning' role='button' aria-pressed='true' data-toggle='modal' data-target='#permissionsModal'>Change Permissions</a>" +
             "<a href='#' class='btn btn-outline-danger' onclick='setRowIndex(this)' role='button' aria-pressed='true' data-toggle='modal' data-target='#exampleModalCenter'>Remove</a>" +
          "</div>";
     }
