@@ -27,9 +27,16 @@ img {
 }
 
 .newButton {
-    float: right;
+    float: left;
+    text-align: center;
+    width: 75px;
+    margin-left: calc(50% - 75px / 2);
 }
 
 .textCell {
     text-align: left;
+}
+
+.buttonCell {
+    padding-left: 50%;
 }
