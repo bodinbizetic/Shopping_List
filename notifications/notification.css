@@ -1,4 +1,35 @@
+img {
+    width: 45px;
+    height: 45px;
+}
+
 .table {
     width: 100%;
     text-align: center;
+}
+
+.tdNew {
+    width: 5%;
+}
+
+.tdImage {
+    width: 35%;
+}
+
+.tdText {
+    width: 60%;
+    text-align: center;
+}
+
+.unread {
+    background-color: #e2e2e2;
+    color: #000000;
+}
+
+.newButton {
+    float: right;
+}
+
+.textCell {
+    text-align: left;
 }

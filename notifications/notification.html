@@ -17,8 +17,8 @@
     <link href="../assets/animate.css/animate.min.css" rel="stylesheet">
     <link href="../assets/venobox/venobox.css" rel="stylesheet">
 
-    <link href = "./list.css" rel = "stylesheet">
     <link href="../common.css" rel="stylesheet">
+    <link href = "./notification.css" rel = "stylesheet">
 
   </head>
 
@@ -43,7 +43,7 @@
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
 
-            <h1 class="logo mr-auto"><a href="#">Jel ti usput?</a></h1>
+            <h1 class="logo mr-auto"><a href="../home/home.html">Jel ti usput?</a></h1>
             <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
             <nav class="nav-menu d-none d-lg-block">
@@ -69,13 +69,25 @@
         <table class="table" id="my-table">
           <thead>
             <tr>
+              <th class="tdNew"></th>
               <th class="tdImage">Image</th>
               <th class="tdText">Message</th>
             </tr>
           </thead>
           <tbody>
+            <tr class="unread">
+              <td>*</td>
+              <td><img src="../groups/imgs/friends.jpg" style='border-radius: 50%;' class='avatar img-circle'></td>
+              <td class="textCell">The user <b>Stojan Stojadinovic</b> has left the group <b>More</b></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><img src="../groups/imgs/friends.jpg" style='border-radius: 50%;' class='avatar img-circle'></td>
+              <td class="textCell">The user <b>Stojan Stojadinovic</b> has joined the group <b>More</b></td>
+            </tr>
           </tbody>
         </table>
+        <a href="" type="button" class="btn btn-success newButton">More</a>
       </div>
     </section> <!-- End Group section-->
   </main><!-- End #main -->
