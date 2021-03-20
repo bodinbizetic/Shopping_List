@@ -4,6 +4,7 @@ class ListTable {
     constructor() {
         this.table = document.getElementsByTagName("tbody")[0];
         this.selectedRowIndex = undefined;
+        this.shareLink = undefined;
     }
 
     static getInstance() {
@@ -35,7 +36,7 @@ function onLoad() {
         cellName.innerHTML = names[i]; // GOBELJA PAGE
         cellActions.innerHTML = "<div class='btn-group btn-group' role='group'>" +
             "<a href='./singleList1.html' class='btn btn-outline-info' role='button' aria-pressed='true'>Info</a>" +
-            "<a href='#' class='btn btn-outline-success' role='button' aria-pressed='true'>Create Link</a>" +
+            "<a href='#' class='btn btn-outline-success' role='button' aria-pressed='true' data-toggle='modal' data-target='#createLinkModal' onclick='setShareLink(this)'>Create Link</a>" +
             "<a href='./editList1.html' class='btn btn-outline-primary' role='button' aria-pressed='true'>Edit</a>" +
             "<a href='#' class='btn btn-outline-danger' onclick='setRowIndex(this)' role='button' aria-pressed='true' data-toggle='modal' data-target='#exampleModalCenter'>Mark done</a>" +
          "</div>";
@@ -45,4 +46,12 @@ function onLoad() {
 function deleteList() {
     table = ListTable.getInstance();
     table.table.deleteRow(table.selectedRowIndex);
+}
+
+function setShareLink(a_href) {
+    table = Table.getInstance();
+    while(a_href.nodeName.toLowerCase() != 'tr')
+        a_href = a_href.parentNode;
+    selectedRowIndex = a_href.rowIndex - 1;
+    shareLink = "listLink"
 }
