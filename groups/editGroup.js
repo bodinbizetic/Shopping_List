@@ -33,11 +33,11 @@ function onLoad() {
         cellActions = row.insertCell(2);
         cellName.innerHTML = names[i];
 
-        radio = document.createElement("input");
-        radio.setAttribute("type", "radio");
-        radio.checked = per[i];
-        cellPermission.appendChild(radio);
-        radio.checked = per[i];
+        cb = document.createElement("input");
+        cb.setAttribute("type", "checkbox");
+        cb.checked = per[i];
+        cellPermission.appendChild(cb);
+        cb.checked = per[i];
 
         cellActions.innerHTML = "<div class='btn-group btn-group' role='group'>" +                      
             "<a href='#' class='btn btn-outline-danger' onclick='setRowIndex(this)' role='button' aria-pressed='true' data-toggle='modal' data-target='#exampleModalCenter'>Remove</a>" +
