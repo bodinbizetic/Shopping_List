@@ -9,15 +9,15 @@ img {
 }
 
 .tdNew {
-    width: 5%;
+    width: 16%;
 }
 
 .tdImage {
-    width: 35%;
+    width: 16%;
 }
 
 .tdText {
-    width: 60%;
+    width: 68%;
     text-align: center;
 }
 
@@ -39,4 +39,5 @@ img {
 
 .buttonCell {
     padding-left: 50%;
+    text-align: center;
 }
