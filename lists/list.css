@@ -38,3 +38,12 @@ img {
     padding-left: 5% !important;
     vertical-align: middle !important;
 }
+
+.hoverable-row tr:hover {
+    background-color: #defce9;
+    color: #000000;
+}
+
+.hoverable-row {
+    text-align: left;
+}
