@@ -20,12 +20,21 @@ img {
     width: 40%;
 }
 
-tr:hover {
+.group-info:hover {
     background-color: #defce9;
     color: #000000;
 }
 
 .newButton {
-    margin-bottom: 2%;
-    margin-left: 80%;
+    float: right;
+}
+
+.group-info {
+    text-align: left;
+    font-weight: bold;
+}
+
+.group-name {
+    padding-left: 5% !important;
+    vertical-align: middle !important;
 }

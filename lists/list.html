@@ -76,7 +76,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteList()">Yes</button>
+                <!-- <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteList()">Yes</button> -->
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
             </div>
             </div>
         </div>
@@ -125,17 +126,40 @@
         <div class="section-title">
           <h2>Shopping Lists</h2>
         </div>
-        <a href="../lists/newList.html" type="button" class="btn btn-success newButton">Create New</a>
-        <table class="table" id="my-table">
+
+        <table class="table">
           <thead>
             <tr>
-              <th class="tdImage">Image</th>
-              <th class="tdName">List Name</th>
-              <th class="tdActions">Actions</th>
+              <th colspan="2" class="group-header">Groups:</th>
             </tr>
           </thead>
           <tbody>
-
+            <!-- Row1 -->
+            <tr data-toggle="collapse" data-target="#tbody1" class="group-info">
+              <td class="group-name">More</td>
+              <td><a href="../lists/newList.html" type="button" class="btn btn-success newButton">Create New</a></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <table class="table" id="table1">
+                  <tbody class="collapse" id="tbody1">
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <!-- Row2 -->
+            <tr data-toggle="collapse" data-target="#tbody2" class="group-info">
+              <td class="group-name">Elektrijada</td>
+              <td><a href="../lists/newList.html" type="button" class="btn btn-success newButton">Create New</a></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <table class="table" id="table2">
+                  <tbody class="collapse" id="tbody2">
+                  </tbody>
+                </table>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
