@@ -7,6 +7,9 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Edit list</title>
 
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -90,15 +93,16 @@
         </div>
         <div class="form-group">
           <div class="input-group">
-            <label for="shops">Select a shop:</label>
-              <select type="text" name="Shops" id="shops" width="10" class="form-control" placeholder="Shop">
-                <option class="form-control" value="maxi">Maxi</option>
-                <option class="form-control" value="idea">Idea</option>
-                <option class="form-control" value="roda">Roda</option>
-                <option class="form-control" value="merkator">Merkator</option>
-              </select>
-          </div>
+            <span class="input-group-prepend"><i class="input-group-text">Select a shop</i></span>
+            <select type="text" name="Shops" id="shops" width="10" class="form-control" placeholder="Shop">
+              <option class="form-control" value="maxi">Maxi</option>
+              <option class="form-control" value="idea">Idea</option>
+              <option class="form-control" value="roda">Roda</option>
+              <option class="form-control" value="merkator">Merkator</option>
+            </select>
+          </div>              
         </div>
+       
         <a href="./newItem.html" type="button" class="btn btn-success newButton">Add New</a> <!--GOBELJA PAGE-->
         <table class="table" id="my-table">
           <thead>
