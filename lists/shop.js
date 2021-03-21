@@ -1,4 +1,4 @@
-class ItemTable {
+class ShopTable {
     static instance = null;
 
     constructor() {
@@ -7,10 +7,10 @@ class ItemTable {
     }
 
     static getInstance() {
-        if(ItemTable.instance == null) {
-            ItemTable.instance = new ItemTable();
+        if(ShopTable.instance == null) {
+            ShopTable.instance = new ShopTable();
         }   
-        return ItemTable.instance;
+        return ShopTable.instance;
     }
 
     setRowIndex(index) {
@@ -24,7 +24,7 @@ var names = ["Hleb", "Mleko", "Secer"];
 var quantities = ["2", "2", "200g"];
 
 function onLoad() {
-    var table = ItemTable.getInstance();
+    var table = ShopTable.getInstance();
 
     for (let i = 0; i < NUM_ROWS; i++) {
         row = table.table.insertRow(table.table.length); // create empty <tr> element at last position
@@ -34,13 +34,12 @@ function onLoad() {
         cellQuantity.innerHTML = quantities[i];
         cellName.innerHTML = names[i]; // GOBELJA PAGE
         cellActions.innerHTML = "<div class='btn-group btn-group' role='group'>" +
-            "<a href='./editItem.html' class='btn btn-outline-primary' role='button' aria-pressed='true'>Edit</a>" +
-            "<a href='#' class='btn btn-outline-danger' onclick='setRowIndex(this)' role='button' aria-pressed='true' data-toggle='modal' data-target='#exampleModalCenter'>Delete</a>" +
+            "<input type='checkbox' id='item" + i + "'" +
          "</div>";
     }
 }
 
 function deleteList() {
-    table = ItemTable.getInstance();
+    table = ShopTable.getInstance();
     table.table.deleteRow(table.selectedRowIndex);
 }
