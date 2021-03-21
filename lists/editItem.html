@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>New item</title>
+    <title>Edit item</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -90,11 +90,13 @@
 
         <div class="row">
           <div class="col col-md-9">
-              <form class="form-group" autocomplete="off">
-                <div class="input-group">
-                  <input class="form-control" id="itemInput" type="text" name="itemName" placeholder="Item Name">
-                </div>
-              </form>
+              <div class="form-group ">
+                  <div class="input-group">
+                      <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                      <input type="text" name="register_username" class="form-control" placeholder="Item Name">
+                  </div>
+              </div>
+
               <div class="form-group ">
                   <div class="input-group">
                       <div class="input-group-addon"><i class="fa fa-male"></i></div>
@@ -103,7 +105,7 @@
               </div>
               
               
-              <input type="submit" value="Add" class="btn btn-success btn-block"> 
+              <input type="submit" value="Finish" class="btn btn-success btn-block"> 
           </div>
 </div>
 
@@ -133,10 +135,6 @@
 
   <!-- Template Main JS File -->
   <script src="../assets/js/main.js"></script>
-  <script src="itemRecommendations.js"></script>
-  <script>
-    autocomplete(document.getElementById("itemInput"), countries);
-  </script> 
 
 </body>
 

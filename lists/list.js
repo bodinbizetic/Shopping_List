@@ -38,7 +38,7 @@ function onLoad() {
             "<a href='./singleList1.html' class='btn btn-outline-info' role='button' aria-pressed='true'>Info</a>" +
             "<a href='#' class='btn btn-outline-success' role='button' aria-pressed='true' data-toggle='modal' data-target='#createLinkModal' onclick='setShareLink(this)'>Create Link</a>" +
             "<a href='./editList1.html' class='btn btn-outline-primary' role='button' aria-pressed='true'>Edit</a>" +
-            "<a href='#' class='btn btn-outline-danger' onclick='setRowIndex(this)' role='button' aria-pressed='true' data-toggle='modal' data-target='#exampleModalCenter'>Mark done</a>" +
+            "<a href='./shop.html' class='btn btn-outline-danger' onclick='setRowIndex(this)' role='button' aria-pressed='true'>Shop!</a>" +
          "</div>";
     }
 }
