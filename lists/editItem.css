@@ -58,3 +58,67 @@ td {
 .hoverable-row {
     text-align: left;
 }
+
+
+
+
+
+div.Menu div.header-category div.title {
+    text-align: center;
+}
+
+
+div.Menu div.items {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+div.Menu div.items div.item {
+    border-bottom: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    display: inline-block;
+    width: 25%;
+    min-height: 176px;
+    padding: 4px 0;
+    text-align: center;
+}
+
+div.Menu div.items div.item .item-link {
+    font-weight: 400;
+    font-size: 12px;
+    color: #292e31;
+    position: relative;
+    -webkit-box-pack: justify;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+
+div.Menu div.items div.item .item-img {
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+div.Menu div.items div.item .item-img img {
+    margin: auto;
+    width: 100%;
+    max-width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    height: auto;
+    border: 0;
+}
+
+div.Menu div.items div.item .item-title {
+    font-weight: 700;
+    text-align: center;
+    margin: 4px 0;
+}
+
+

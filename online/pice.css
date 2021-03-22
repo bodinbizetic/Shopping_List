@@ -1,0 +1,239 @@
+* {
+    box-sizing: border-box;
+}
+
+.product-list {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    margin: 0;
+    border-top: 1pz solid #e1e1e1;
+    position: relative;
+    list-style-type: none;
+    padding: 0;
+
+
+}
+
+.item {
+    padding: 16px;
+    margin-bottom: 0;
+    display: flex;
+    float: left;
+    width: 25%;
+    border-right: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+    position: relative;
+    min-height: 1px;
+}
+
+.component {
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.product-layout {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.product-img {
+    display: block;
+    width: auto;
+    position: relative;
+    text-align: center;
+}
+
+.product-img div {
+    margin-bottom: 12px;
+    display: block;
+    text-align: center;
+    position: initial;
+    height: 100%;
+}
+
+img {
+    max-width: 128px;
+    width: auto;
+    height: 128px;
+    display: inline-block;
+    opacity: 1;
+    transition: opacity .6s;
+    border-radius: 2px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+.content-layout {
+    padding: 0;
+    height: calc(100% - 120px);
+    width: 100%;
+    display: flex;
+    flex-grow: 1;
+    -webkit-box-flex: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    text-align: start;
+    min-height: 176px;
+}
+
+.title {
+    margin: 0;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    text-align: center;
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+}
+
+.header {
+    width: 100%;
+    padding-top: 8px;
+    min-height: 50px;
+    margin-bottom: 4px;
+    display: block;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.description1 {
+    color: #292e31;
+    text-decoration: none;
+}
+
+.p1 {
+    font-size: 14px;
+    margin-bottom: 0;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0 0 1em;
+}
+
+
+.p2 {
+    font-size: 14px;
+    margin-bottom: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0 0 1em;
+}
+
+.price {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-top: 16px;
+    width: 100%;
+    min-height: 64px;
+}
+
+.price div {
+    width: 100%;
+}
+
+.price div .property {
+    display: block;
+    line-height: 1;
+    margin-bottom: 8px;
+    font-size: 12px;
+    text-align: right;
+}
+
+.super-bold {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.add {
+    display: flex;
+    text-align: center;
+}
+
+.my-btn {
+    flex-basis: 100%;
+}
+
+button {
+    margin-right: 0;
+    flex-basis: 100%;
+    padding: 0 16px;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+}
+
+.btn-primary {
+    font-weight: 700;
+    box-shadow: 0 -1px 0 rgba(0,0,0,.04) inset;
+    display: inline-block;
+    color: #fff;
+    background-color: #090;
+}
+
+.btn {
+    padding: 0 16px;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+
+.btn {
+    position: relative;
+    padding: 0 16px;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    outline: 0 !important;
+}
+
+.btn-primary {
+    border-color: green;
+}
+
+.btn{
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 14px;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+button {
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    -webkit-appearance: none;
+    outline: 0;
+}

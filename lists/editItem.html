@@ -60,10 +60,6 @@
         </div>
       </header><!-- End Header -->
 
-  <section>
-    <div>
-    </div>
-  </section><!-- End Hero -->
 
   <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -89,7 +85,9 @@
     <!-- ======= New Item Section ======= -->
     <section id="new-group">
       <div class="container">
-
+        <div class="section-title">
+          <h2>New Item</h2>
+        </div>
               <table id="itemTable" class="table">
                 
                 <tbody>
@@ -108,7 +106,7 @@
                         <div class="searchQuant" class="form-group" >
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-male"></i></div>
-                                <input type="number" name="register_fullname" class="form-control" placeholder="Quantity/Measurement">
+                                <input type="number" min = 0 name="register_fullname" class="form-control" placeholder="Quantity/Measurement">
                             </div>
                         </div>
                         </td>
@@ -117,53 +115,102 @@
                         
                       </td>
                    </tr>
-
-                  <!-- Row1 -->
-                  
-                  <tr data-toggle="collapse" data-target="#tbody1" class="group-info">
-                    <td> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="margin-right: 10px;">
-                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                    </svg></td>
-                    <td class="group-name">Mlecni proizvodi</td>
-                  </tr>
-                  <tr>
-                    <td colspan="3">
-                      <table class="table1" id="table1">
-                        <tbody class="collapse" id="tbody1">
-                        </tbody>
-                      </table>
-                    </td>
-                    <td></td>
-                  </tr>
-
-                  <!-- Row2 -->
-                  <tr data-toggle="collapse" data-target="#tbody2" class="group-info">
-                    <td> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="margin-right: 10px;">
-                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                    </svg></td>
-                    <td class="group-name">Hleb</td>
-                  </tr>
-                  <tr>
-                    <td colspan="3">
-                      <table class="table1" id="table2">
-                        <tbody class="collapse" id="tbody2">
-                        </tbody>
-                      </table>
-                    </td>
-                    <td></td>
-                  </tr>
-
-                  <!--Row3-->
-                  <tr>
-                    <td>
-                      <a href='editList1.html' class='btn btn-outline-success' role='button' aria-pressed='true'>Done</a>
-                    </td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-
                 </tbody>
               </table>
+
+               <!-- My -->
+               <div class="Menu">
+
+                  <div class="row header-category">
+                    <div class="col col-md-3"></div>
+                    <div class="col col-md-6 title"><h3>Categories</h3></div>
+                    <div class="col col-md-3"></div>
+                  </div>
+
+                  <div class="items">
+                    <div class="item">
+                      <a class="item-link" href="../online/pice.html">
+                        <div class="item-img">
+                          <img src="imgs/pice.jpg">
+                        </div>
+                        <div class="item-title">
+                          Pice, kafa i caj
+                        </div>
+                      </a>
+                    </div>
+
+                    <div class="item">
+                      <a class="item-link" href="../online/pice-kafa-caj">
+                        <div class="item-img">
+                          <img src="imgs/mlecni_proizvodi.jpg">
+                        </div>
+                        <div class="item-title">
+                          Mlecni proizvodi i jaja
+                        </div>
+                      </a>
+                    </div>
+
+                    <div class="item">
+                      <a class="item-link" href="../online/pice-kafa-caj">
+                        <div class="item-img">
+                          <img src="imgs/voce_povrce.jpg">
+                        </div>
+                        <div class="item-title">
+                          Voce i porvce
+                        </div>
+                      </a>
+                    </div>
+
+                    <div class="item">
+                      <a class="item-link" href="../online/pice-kafa-caj">
+                        <div class="item-img">
+                          <img src="imgs/meso.jpg">
+                        </div>
+                        <div class="item-title">
+                          Mesi, mesne i riblje preradjevine
+                        </div>
+                      </a>
+                    </div>
+
+                    <div class="item">
+                      <a class="item-link" href="../online/pice-kafa-caj">
+                        <div class="item-img">
+                          <img src="imgs/pekara.jpg">
+                        </div>
+                        <div class="item-title">
+                          Pekara
+                        </div>
+                      </a>
+                    </div>
+
+                    <div class="item">
+                      <a class="item-link" href="../online/pice-kafa-caj">
+                        <div class="item-img">
+                          <img src="imgs/za_kucu.jpg">
+                        </div>
+                        <div class="item-title">
+                          Sve za kucu
+                        </div>
+                      </a>
+                    </div>
+
+                    <div class="item">
+                      <a class="item-link" href="../online/pice-kafa-caj">
+                        <div class="item-img">
+                          <img src="imgs/kozmetika.jpg">
+                        </div>
+                        <div class="item-title">
+                          Licna higijena i kozmetika
+                        </div>
+                      </a>
+                    </div>
+
+                  </div>
+
+                 
+                
+                
+              </div> 
 
       </div>
     </section><!-- End New Item Section -->
