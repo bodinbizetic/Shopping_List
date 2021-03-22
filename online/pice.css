@@ -237,3 +237,17 @@ button {
     -webkit-appearance: none;
     outline: 0;
 }
+
+
+.quant {
+    display: flex;
+    flex-direction: row;
+}
+
+input {
+    display: block;
+    line-height: 1;
+    margin-bottom: 8px;
+    font-size: 12px;
+    text-align: left;
+}
