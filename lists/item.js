@@ -43,6 +43,8 @@ function onLoad() {
         cellPrice.innerHTML = cene[i];
         cellCheck.innerHTML = "<div><input type=checkbox></input></div>"
     }
+    
+
     row = table.table.insertRow(table.table.length); // create empty <tr> element at last position
     cellName = row.insertCell(0);
     cellQuantity = row.insertCell(1);

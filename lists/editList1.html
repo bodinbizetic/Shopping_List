@@ -23,6 +23,7 @@
   <link href = "./list.css" rel = "stylesheet">
   <link href="../common.css" rel="stylesheet">
   <link href="itemRecommendations.css" rel="stylesheet">
+  <link href="./editList.css" rel="stylesheet">
 
 </head>
 
@@ -68,13 +69,13 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Are you sure you want to leave?</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Are you sure you want to remove item?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                If you click Yes you the list would be removed permanently
+                If you click Yes item would be removed permanently
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
@@ -91,6 +92,15 @@
         <div class="section-title">
           <h2>Edit list</h2>
           <h3>Maxi</h3>
+        </div>
+        <div class="row">
+          <div class="col col-md-2">
+            <a href="./newItem.html" type="button" class="btn btn-primary shop-btn">Add New</a>
+          </div>
+          <div class="col col-md-8"></div>
+          <div class="col col-md-2">
+            <a href="./list.html" type="button" class="btn btn-success shop-btn">SHOP!</a>
+          </div>
         </div>
         
         <table class="table" id="my-table">
@@ -117,8 +127,10 @@
             </select>
           </div>              
         </div>
+        
         <a href="./editItem.html" type="button" class="btn btn-primary">Add New</a>
         <a href="./list.html" type="button" class="btn btn-success">SHOP!</a>
+
       </div>
     </section> <!-- End Group section-->
   </main><!-- End #main -->
