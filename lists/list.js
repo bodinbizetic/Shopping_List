@@ -40,6 +40,7 @@ function onLoad() {
             cellActions.innerHTML = "<div class='btn-group btn-group' role='group'>" +
             "<a href='./editList1.html' class='btn btn-outline-primary' role='button' aria-pressed='true'>Edit</a>" +
             "<a href='#' class='btn btn-outline-success' role='button' aria-pressed='true' data-toggle='modal' data-target='#createLinkModal' onclick='setShareLink(this)'>Create Link</a>" +
+            "<a href='#' class='btn btn-outline-danger' onclick='setRowIndex(this)' role='button' aria-pressed='true' data-toggle='modal' data-target='#deleteLinkModal'>Delete</a>" +
             "</div>";
         }
     }
