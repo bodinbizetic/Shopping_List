@@ -20,7 +20,7 @@ class Table {
 }
 
 var NUM_ROWS = 5;
-var names = ["Prvi maj", "Porodica", "Zurka", "Nova godina", "More", "Zimovanje", "Drustvo", "Posao", "Piknik"];
+var names = ["Elektrijada", "Porodica", "Zurka", "Nova godina", "More", "Zimovanje", "Drustvo", "Posao", "Piknik"];
 var img_srcs = ["./imgs/friends.jpg", "./imgs/friends.jpg", "./imgs/friends.jpg", "./imgs/friends.jpg", "./imgs/friends.jpg", "./imgs/friends.jpg", "./imgs/friends.jpg", "./imgs/friends.jpg", "./imgs/friends.jpg"]; 
 
 function onLoad() {

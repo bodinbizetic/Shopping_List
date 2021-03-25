@@ -86,27 +86,25 @@
   </div>
 </div>
 
-   <!-- Modal#2 -->
-   <div class="modal fade" id="permissionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Permissions</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <input type="checkbox" checked>&nbsp;R - They can only read group information
-          <br/><input type="checkbox" >&nbsp;W - They can edit group information - except members
-          <br/><input type="checkbox" >&nbsp;X - They can edit all group information
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-dismiss="modal">Done</button>
-        </div>
+<!-- Modal#2 -->
+<div class="modal fade" id="membersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Invite sent</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        You sent someone invite to join your group. They will recive notification to join the group. You will get notification only if they accept.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">OK</button>
       </div>
     </div>
   </div>
+</div>
 
   <main id="main">
     <!-- ======= Edit Group Section ======= -->
@@ -151,10 +149,10 @@
               <div>
                 <p>
                 <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Add members" aria-label="Recipient's username" aria-describedby="button-addon2">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-success" type="button" id="button-addon2" onclick="setRowIndex()">Invite</button>
-                  </div>
+                    <input type="text" class="form-control" placeholder="Invite members" aria-label="Invite user" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-success" type="button" data-toggle='modal' data-target='#membersModal'>Add</button>
+                    </div>
                 </div>
               </p>
               </div>

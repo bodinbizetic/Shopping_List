@@ -18,6 +18,7 @@
   <link href="../assets/venobox/venobox.css" rel="stylesheet">
 
   <link href="../common.css" rel="stylesheet">
+  <link rel="stylesheet" href="newGroup.css">
 
 </head>
 
@@ -63,26 +64,6 @@
     </div>
   </section><!-- End Hero -->
 
-  <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalCenterTitle">Invite sent</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          You sent someone invite to join your group. They will recive notification to join the group. You will get notification only if they accept.
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">OK</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <main id="main">
     <!-- ======= New Group Section ======= -->
     <section id="new-group">
@@ -118,12 +99,26 @@
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" placeholder="Invite members" aria-label="Recipient's username" aria-describedby="button-addon2">
                   <div class="input-group-append">
-                    <button class="btn btn-outline-success" type="button" data-toggle="modal" data-target="#exampleModalCenter" id="button-addon2">Invite</button>
+                    <button class="btn btn-outline-success" type="button">Add</button>
                   </div>
                 </div>
               </p>
+              <p>
+                <div class="alert alert-light" class="members" role="alert">
+                  <button class='close' data-dismiss="alert">&times;</button>
+                  <img src="imgs/person1.jpg" class="avatar img-circle" style="width: 5%;">Marko Markovic &nbsp; @markoMarko
+                </div>
+                <div class="alert alert-light" role="alert">
+                  <button class='close' data-dismiss="alert">&times;</button>
+                  <img src="imgs/person1.jpg" class="avatar img-circle" style="width: 5%;">Jovana Markovic &nbsp; @jMarkovic
+                </div>
+                <div class="alert alert-light" role="alert">
+                  <button class='close' data-dismiss="alert">&times;</button>
+                  <img src="imgs/person1.jpg" class="avatar img-circle" style="width: 5%;">Katarina Markovic &nbsp; @kacam
+                </div>
+              </p>
               </div>
-              <input type="submit" value="Save changes" class="btn btn-success btn-block"> 
+              <input type="submit" value="Create Group" class="btn btn-success btn-block"> 
           </div>
 </div>
 
