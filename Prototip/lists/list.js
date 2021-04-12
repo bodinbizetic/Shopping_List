@@ -46,8 +46,16 @@ function onLoad() {
     }
 }
 
+function setRowIndex(a_href) {
+    table = Table.getInstance();
+    while(a_href.nodeName.toLowerCase() != 'tr')
+        a_href = a_href.parentNode;
+    table.selectedRowIndex = a_href.rowIndex - 1;
+}
+
+
 function deleteList() {
-    table = ListTable.getInstance();
+    table = Table.getInstance();
     table.table.deleteRow(table.selectedRowIndex);
 }
 

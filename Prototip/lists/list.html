@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Groups</title>
+    <title>Lists</title>
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
@@ -63,25 +63,26 @@
 
     <!-- Modal -->
     <div class="modal fade" id="deleteLinkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Are you sure you want to leave?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                If you click Yes the list would be removed permanently and would not contribute to statistics.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <!-- <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteList()">Yes</button> -->
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
-            </div>
-            </div>
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Are you sure you want to delete this list?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            If you click Yes the list would be removed permanently and would not contribute to statistics.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteList()">Yes</button>
+          </div>
         </div>
+      </div>
     </div>
+    
+    
 
     <!-- Create Link Modal -->
     <div class="modal fade" id="createLinkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -98,7 +99,8 @@
               <div class="input-group input-group-lg">
                 <span class="input-group-prepend"><i class="input-group-text fa fa-link"></i></span>
                 <input type="text" class="form-control" value="https://lists/porodica/maxi/edit">
-                <span class="input-group-prepend"><i class="input-group-text fa fa-clone"></i></span>
+               <!-- <span class="input-group-prepend"><i class="input-group-text fa fa-clone"></i></span> -->
+                <button><i class="fa fa-clone"></i></button>
               </div>
             </div>
             <div class="form-group">
@@ -112,8 +114,7 @@
             </div>
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteList()">Yes</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
           </div>
           </div>
       </div>
