@@ -1,5 +1,7 @@
 class ListTable {
     static instance = {};
+    static lastTable = null;
+    static lastIndex = -1;
 
     constructor(name) {
         this.table = document.getElementById(name);
@@ -14,8 +16,9 @@ class ListTable {
         return ListTable.instance[name];
     }
 
-    setRowIndex(index) {
-        this.selectedRowIndex = index;
+    static setRowIndex(name, index) {
+        ListTable.lastTable = name
+        ListTable.lastIndex = index
     }
 
 }
@@ -36,11 +39,11 @@ function onLoad() {
             cellName = row.insertCell(1);
             cellActions = row.insertCell(2);
             cellImg.innerHTML = "<img src=" + img_srcs[i] + " style='border-radius: 50%;' class='avatar img-circle'>";
-            cellName.innerHTML = names[i]; // GOBELJA PAGE
+            cellName.innerHTML = names[i];
             cellActions.innerHTML = "<div class='btn-group btn-group' role='group'>" +
             "<a href='./editList1.html' class='btn btn-outline-primary' role='button' aria-pressed='true'>Edit</a>" +
             "<a href='#' class='btn btn-outline-success' role='button' aria-pressed='true' data-toggle='modal' data-target='#createLinkModal' onclick='setShareLink(this)'>Create Link</a>" +
-            "<a href='#' class='btn btn-outline-danger' onclick='setRowIndex(this)' role='button' aria-pressed='true' data-toggle='modal' data-target='#deleteLinkModal'>Delete</a>" +
+            "<a href='#' class='btn btn-outline-danger' onclick='ListTable.setRowIndex(\"" + NAMES_TABLES[j] + "\", this)' role='button' aria-pressed='true' data-toggle='modal' data-target='#deleteLinkModal'>Delete</a>" +
             "</div>";
         }
     }
@@ -55,8 +58,11 @@ function setRowIndex(a_href) {
 
 
 function deleteList() {
-    table = Table.getInstance();
-    table.table.deleteRow(table.selectedRowIndex);
+    if (ListTable.lastTable == null)
+        return;
+
+    table = ListTable.getInstance(ListTable.lastTable);
+    table.table.deleteRow(ListTable.lastIndex.parentNode.parentNode.parentNode.rowIndex)
 }
 
 function setShareLink(a_href) {
