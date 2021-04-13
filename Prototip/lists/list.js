@@ -49,6 +49,14 @@ function onLoad() {
     }
 }
 
+function setRowIndex(a_href) {
+    table = Table.getInstance();
+    while(a_href.nodeName.toLowerCase() != 'tr')
+        a_href = a_href.parentNode;
+    table.selectedRowIndex = a_href.rowIndex - 1;
+}
+
+
 function deleteList() {
     if (ListTable.lastTable == null)
         return;
