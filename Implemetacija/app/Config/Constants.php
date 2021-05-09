@@ -47,7 +47,7 @@ defined('DECADE') || define('DECADE', 315360000);
  | Exit Status Codes
  | --------------------------------------------------------------------------
  |
- | Used to indicate the conditions under which the script is exit()ing.
+ | Used to indicate the conditions under which the script.sql is exit()ing.
  | While there is no universal standard for error codes, there are some
  | broad conventions.  Three such conventions are mentioned below, for
  | those who wish to make use of them.  The CodeIgniter defaults were

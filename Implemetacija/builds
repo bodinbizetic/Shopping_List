@@ -8,7 +8,7 @@ define('GITHUB_URL', 'https://github.com/codeigniter4/codeigniter4');
  * --------------------------------------------------------------------
  * Stability Toggle
  * --------------------------------------------------------------------
- * Use this script to toggle the CodeIgniter dependency between the
+ * Use this script.sql to toggle the CodeIgniter dependency between the
  * latest stable release and the most recent development update.
  *
  * Usage: php builds [release|development]
