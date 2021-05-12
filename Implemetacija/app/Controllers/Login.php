@@ -6,27 +6,27 @@ use App\Models\UserModel;
 
 class Login extends BaseController {
 
-    public function index(): string
+    public function index()
     {
+        if($this->session->has('user'))
+            return redirect()->to('/homePage/index');
+
         return $this->renderLogin(null);
     }
 
     public function renderLogin($errors = null): string
     {
-        return view('login', ['errors' => $errors]);
+        return view('login/login', ['errors' => $errors]);
     }
 
     public function renderRegistration($errors = null): string
     {
-        return view('registration', ['errors' => $errors]);
+        return view('login/registration', ['errors' => $errors]);
     }
 
 
-    public function login(): string
+    public function login()
     {
-        if($this->session->has('user'))
-            return $this->renderLogin(["You are already logged in"]);
-
         $userModel = new UserModel();
         $user = $userModel->findByUsername($this->request->getPost('login_username'));
 
@@ -37,7 +37,13 @@ class Login extends BaseController {
             return $this->renderLogin(["Password is incorrect!"]);
 
         $this->session->set('user', $user);
-        return $this->renderLogin(["Successfully"]);
+        return redirect()->to('/homePage/index');
+    }
+
+    public function logout()
+    {
+        $this->session->remove('user');
+        return $this->renderLogin(null);
     }
 
     public function register(): string

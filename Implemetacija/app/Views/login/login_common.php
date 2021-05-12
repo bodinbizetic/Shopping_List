@@ -9,6 +9,7 @@
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <link href="<?php echo base_url('css/login.css')?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url('css/common.css')?>" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -20,10 +21,10 @@
     <div class="col-md-9 content">
         <ul class="nav nav-pills" role="tablist">
             <li class="nav-item">
-                <button class="btn btn-primary" onclick="window.location='<?= base_url(); ?>/login/renderLogin'">Login</button>
+                <a href="<?php echo base_url('login/renderLogin')?>" class="get-started-btn scrollto">Login</a>
             </li>
             <li class="nav-item">
-                <button class="btn btn-primary" onclick="window.location='<?= base_url(); ?>/login/renderRegistration'">Registration</button>
+                <a href="<?php echo base_url('login/renderRegistration')?>" class="get-started-btn scrollto">Registration</a>
             </li>
         </ul>
         <?= $this->renderSection('content') ?>

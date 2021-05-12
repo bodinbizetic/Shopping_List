@@ -1,4 +1,4 @@
-<?= $this->extend('login_common') ?>
+<?= $this->extend('login/login_common') ?>
 
 <?= $this->section('content') ?>
 
