@@ -8,8 +8,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-    <link href="<?php echo base_url('css/login.css')?>" rel="stylesheet" type="text/css">
-    <link href="<?php echo base_url('css/common.css')?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url('/css/login.css')?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url('/css/common.css')?>" rel="stylesheet" type="text/css">
 </head>
 <body>
 

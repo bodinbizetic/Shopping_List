@@ -30,7 +30,7 @@ USE `jel_ti_usput`;
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
+-- DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `idUser` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
@@ -46,12 +46,66 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 -- Dumping data for table `user`
 --
+--
+-- INSERT INTO `user` (`idUser`, `username`, `password`, `fullName`, `email`, `image`, `phone`, `type`) VALUES
+-- (3, 'admin', 'admin123', 'Bodin Bizetic', 'admin@etf.bg.ac.rs', NULL, NULL , 1),
+-- (2, 'drazen', 'drazen123',  'Drazen Draskovic', 'drazen@etf.bg.ac.rs', NULL, NULL, 0);
 
-INSERT INTO `user` (`idUser`, `username`, `password`, `fullName`, `email`, `image`, `phone`, `type`) VALUES
-(1, 'admin', 'admin123', 'Bodin Bizetic', 'admin@etf.bg.ac.rs', NULL, NULL , 1),
-(2, 'drazen', 'drazen123',  'Drazen Draskovic', 'drazen@etf.bg.ac.rs', NULL, NULL, 0);
 
 -- --------------------------------------------------------
+
+--
+-- Table structure for table `group`
+--
+-- type (JOIN_GROUP, NEW_MEMBERS, REMOVE_FROM_GROUP, LIST_STATUS)
+-- DROP TABLE IF EXISTS `group`;
+CREATE TABLE IF NOT EXISTS `group` (
+    `idGroup` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+    `description` varchar(60) COLLATE utf8_unicode_ci,
+    `image` BLOB DEFAULT NULL,
+    PRIMARY KEY (`idGroup`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `group`
+--
+
+-- INSERT INTO `group` (`idGroup`, `name`, `description`, `image`) VALUES
+-- (1, 'Porodica', 'Group for family', NULL);
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification`
+--
+-- type (JOIN_GROUP, NEW_MEMBERS, REMOVE_FROM_GROUP, LIST_STATUS)
+DROP TABLE IF EXISTS `notification`;
+
+CREATE TABLE IF NOT EXISTS `notification` (
+    `idNotification` int(11) NOT NULL AUTO_INCREMENT,
+    `text` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
+    `idUser` int(11) NOT NULL,
+    `idGroup` int(11) NOT NULL,
+    `type` tinyint(1) NOT NULL DEFAULT '0',
+    `isRead` tinyint(1) NOT NULL DEFAULT '0',
+    PRIMARY KEY (`idNotification`),
+    KEY `user` (`idUser`),
+    KEY `group` (`idGroup`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`idNotification`, `text`, `idUser`, `idGroup`, `type`, `isRead`) VALUES
+(1, 'Join group Porodica', 1, 1, 0, 1),
+(2, 'New member group Porodica', 1, 1, 2, 0),
+(3, 'List status Porodica List1', 1, 1, 3, 0);
+
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

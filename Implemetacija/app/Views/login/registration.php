@@ -1,7 +1,16 @@
 <?= $this->extend('login/login_common') ?>
 
 <?= $this->section('content') ?>
-
+<script>
+    $(document).ready(function() {
+        value= "<?php echo set_value('register_phone'); ?>";
+        if(value == "") {
+            value = "Phone";
+        }
+        console.log(value);
+        $("input[name='register_phone']").val(value);
+    })
+</script>
 <form class="form-horizontal row" method="post" action="/login/register">
     <div class="col col-md-9">
         <div class="form-group ">
@@ -28,7 +37,7 @@
         <div class="form-group ">
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-phone"></i></div>
-                <input type="text" name="register_phone" class="form-control" placeholder="Phone" value="<?php echo set_value('register_phone'); ?>">
+                <input type="tel" name="register_phone" class="form-control" placeholder="Phone" value="<?php echo set_value('register_phone'); ?>">
             </div>
         </div>
         <div class="form-group ">
