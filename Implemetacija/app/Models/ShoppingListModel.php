@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 
 
-class ShopChainModel extends Model
+class ShoppingListModel extends Model
 {
     protected $table      = 'shoppinglist';
     protected $primaryKey = 'idShoppingList';
