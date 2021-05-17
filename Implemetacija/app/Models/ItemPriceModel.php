@@ -8,7 +8,7 @@ use CodeIgniter\Model;
 
 class ItemPriceModel extends Model
 {
-    protected $table      = 'item';
+    protected $table      = 'itemprice';
     protected $primaryKey = array('idItem', 'idShopChain');
     protected $useAutoIncrement = true;
     protected $returnType     = 'array';
