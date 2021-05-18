@@ -41,7 +41,7 @@
 <!-- ======= Header ======= -->
 <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
-        <h1 class="logo mr-auto"><a href="#">Jel ti usput?</a></h1>
+        <h1 class="logo mr-auto"><a href="<?php echo base_url('homePage/index')?>">Jel ti usput?</a></h1>
 
         <nav class="nav-menu d-none d-lg-block">
             <ul>
