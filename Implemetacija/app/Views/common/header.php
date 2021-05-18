@@ -45,11 +45,11 @@
 
         <nav class="nav-menu d-none d-lg-block">
             <ul>
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="<?php echo base_url('homePage/index')?>">Home</a></li>
                 <li><a href="<?php echo base_url('homePage/lists')?>">Shopping list</a></li>
                 <li><a href="<?php echo base_url('homePage/groups')?>">Groups</a></li>
-                <li><a href="<?php echo base_url('homePage/notifications')?>">Notifications</a></li>
-                <li><a href="<?php echo base_url('homePage/profile')?>">Profile</a></li>
+                <li><a href="<?php echo base_url('notification/index')?>">Notifications</a></li>
+                <li><a href="<?php echo base_url('profile/index')?>">Profile</a></li>
             </ul>
         </nav>
         <a href="<?php echo base_url('login/logout')?>" class="get-started-btn scrollto">Logout</a>
