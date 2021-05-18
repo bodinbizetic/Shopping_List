@@ -16,19 +16,18 @@ div.content .slide {
 
 div.content .slide .div-img {
     width: 100%;
-    max-height: 20px;
     text-align: center;
-    margin-bottom: 5%;
+    margin-bottom: 50px;
 }
 
 div.content .slide .div-img img {
-    border-radius: 50%;
-    width: 30%;
+    width: 60%;
+    height: 80%;
+    margin-bottom: 20px;
 }
 
 div.content .slide .my-form {
     width: 100%;
-    margin-top: 50%;
 }
 
 
@@ -41,19 +40,29 @@ caption {
     text-align: center;
 }
 
-div.content .statistic table {
-    width: 70%;
-    margin: 10%;
-    margin-top: 0;
+div.statistic-freq {
+    display: flex;
+    margin-left: 5%;
+}
+
+div.content .statistic table.freq-month, div.content .statistic table.freq-year {
+    width: 47%;
     text-align: center;
 }
+
+div.content .statistic table.spending {
+    width: 90%;
+    margin: 5%;
+    text-align: center;
+}
+
 
 div.content .statistic table td, div.content .statistic table th {
     text-align: center;
 }
 
 
-div.content .statistic table td:first-child {
+div.content .statistic table.spending td:first-child {
     font-weight: bold;
     text-align: left  !important;
 }

@@ -8,7 +8,7 @@ use CodeIgniter\Model;
 
 class InGroupModel extends Model
 {
-    protected $table      = 'shopchain';
+    protected $table      = 'ingroup';
     protected $primaryKey = array('idGroup', 'idUser');
     protected $useAutoIncrement = true;
     protected $returnType     = 'array';
@@ -23,7 +23,6 @@ class InGroupModel extends Model
 
 
     protected $skipValidation     = false;
-
 
 
 

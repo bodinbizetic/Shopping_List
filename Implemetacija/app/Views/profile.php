@@ -13,6 +13,8 @@
 <div class="content">
     <div class="slide">
 
+
+
         <div class="div-img">
             <?php if(isset($user['image']) && $user['image'] != ""): ?>
                 <img height="50" width="50" src="data:image;base64,'.base64_encode(<?= $user['image'] ?>).'">
@@ -50,44 +52,55 @@
 
     </div>
 
-<!--    <div class="statistic">-->
-<!--        <table class="table">-->
-<!--            <caption>Spending</caption>-->
-<!--            <tr>-->
-<!--                <th></th>-->
-<!--                <th>Today</th>-->
-<!--                <th>This month</th>-->
-<!--                <th>This year</th>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>Money spent</td>-->
-<!--                <td>--><?//= $spending['today'] ?><!--</td>-->
-<!--                <td>--><?//= $spending['month'] ?><!--</td>-->
-<!--                <td>--><?//= $spending['year'] ?><!--</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>No of lists</td>-->
-<!--                <td>--><?//= $noLists['today'] ?><!--</td>-->
-<!--                <td>--><?//= $noLists['month'] ?><!--</td>-->
-<!--                <td>--><?//= $noLists['year'] ?><!--</td>-->
-<!--            </tr>-->
-<!--        </table>-->
-<!--        <table class="table">-->
-<!--            <caption>Most frequently requested</caption>-->
-<!--            <tr>-->
-<!--                <th></th>-->
-<!--                <th>Last 10 days</th>-->
-<!--                <th>This month</th>-->
-<!--                <th>This year</th>-->
-<!--            </tr>-->
-<!--            --><?php //for ($i = 0; $i < count($items); $i++): ?>
-<!--            <tr>-->
-<!--                <td>--><?//= $items[$i]['name'] ?><!--</td>-->
-<!--                <td>--><?//= $items[$i]['days'] ?><!--</td>-->
-<!--                <td>--><?//= $items[$i]['month'] ?><!--</td>-->
-<!--                <td>--><?//= $items[$i]['year'] ?><!--</td>-->
-<!--            </tr>-->
-<!--        </table>-->
-
+    <div class="statistic">
+        <table class="table spending">
+            <caption>Spending</caption>
+            <tr>
+                <th></th>
+                <th>Today</th>
+                <th>This month</th>
+                <th>This year</th>
+            </tr>
+            <tr>
+                <td>Money spent</td>
+                <td><?= $prices[0] ?></td>
+                <td><?= $prices[1] ?></td>
+                <td><?= $prices[2] ?></td>
+            </tr>
+            <tr>
+                <td>No of lists</td>
+                <td><?= $noLists[0] ?></td>
+                <td><?= $noLists[1] ?></td>
+                <td><?= $noLists[2] ?></td>
+            </tr>
+        </table>
+        <div class="statistic-freq">
+            <table class="table freq-month">
+                <caption>Most frequently requested Last Month</caption>
+                <tr>
+                    <th>Name</th>
+                    <th>Count</th>
+                </tr>
+                <?php foreach($items['month'] as $name => $cnt) : ?>
+                    <tr>
+                        <td><?= $name ?></td>
+                        <td><?= $cnt ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+            <table class="table freq-year">
+                <caption>Most frequently requested Last Year</caption>
+                <tr>
+                    <th>Name</th>
+                    <th>Count</th>
+                </tr>
+                <?php foreach($items['month'] as $name => $cnt) : ?>
+                    <tr>
+                        <td><?= $name ?></td>
+                        <td><?= $cnt ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
     </div>
 </div>

@@ -24,5 +24,4 @@ class GroupModel extends Model
 
 
 
-
 }

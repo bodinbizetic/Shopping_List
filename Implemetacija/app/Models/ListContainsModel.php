@@ -18,6 +18,7 @@ class ListContainsModel extends Model
     protected $validationRules    = [
         'idShoppingList'     => 'required|in_db[`shoppinglist`]',
         'idItem'     => 'required|in_db[`item`]',
+        'idUser'     => 'required|in_db[`user`]',
         'bought'     => 'required'
     ];
 
