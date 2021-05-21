@@ -57,13 +57,26 @@ class Login extends BaseController {
             'fullName' => $this->request->getPost('register_fullname'),
             'email'    => $this->request->getPost('register_email'),
             'phone'    => $this->request->getPost('register_phone'),
-            'password' => $this->request->getPost('register_password'),
-            'image'    => $this->request->getPost('image')
+            'password' => $this->request->getPost('register_password')
         ];
+
+        if($data['phone'] == "")
+            $data['phone'] = null;
+
+        $avatar = $this->request->getFile('image');
+        if($avatar->getName() != "") {
+            $data['image'] = '/uploads/'. $data['username']. '/'. $avatar->getName();
+        } else {
+            $data['image'] = null;
+        }
 
         $userModel = new UserModel();
         if(!$userModel->save($data))
             return $this->renderRegistration($userModel->errors());
+
+        if($avatar->getName() != "") {
+            $avatar->move(ROOTPATH . 'public\uploads\\'. $data['username']);
+        }
 
         return $this->renderRegistration(['Successfully!']);
     }

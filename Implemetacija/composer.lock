@@ -4,8 +4,82 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f9d2bd099423e1089da15d4a9f6cb564",
+    "content-hash": "7f19b81190341678275bf7578add1d01",
     "packages": [
+        {
+            "name": "bdk/debug",
+            "version": "v2.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bkdotcom/PHPDebugConsole.git",
+                "reference": "09d4ed5aaa33c33e61e6815267d2f98818b20a18"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bkdotcom/PHPDebugConsole/zipball/09d4ed5aaa33c33e61e6815267d2f98818b20a18",
+                "reference": "09d4ed5aaa33c33e61e6815267d2f98818b20a18",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "replace": {
+                "bdk/errorhandler": "2.3.1",
+                "bdk/pubsub": "2.3"
+            },
+            "require-dev": {
+                "bdk/css-xpath": "^1.0",
+                "psr/log": "^1.0"
+            },
+            "suggest": {
+                "bdk/debug-wamp-client": "Client to display logging published via PHPDebugConsole's WAMP plugin",
+                "bdk/wamp-publisher": "Publish messages to a WAMP (Web Application Messaging Protocol) router",
+                "psr/log": "PSR-3 : Common interface for logging libraries"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/Debug/Debug.php",
+                    "src/ErrorHandler/ErrorHandler.php"
+                ],
+                "psr-4": {
+                    "bdk\\Debug\\": "src/Debug/",
+                    "bdk\\ErrorHandler\\": "src/ErrorHandler/",
+                    "bdk\\PubSub\\": "src/PubSub/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brad Kent",
+                    "email": "bkfake-github@yahoo.com",
+                    "homepage": "http://www.bradkent.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Browser/javascript like console class for PHP",
+            "homepage": "http://github.com/bkdotcom/PHPDebugConsole",
+            "keywords": [
+                "ChromeLogger",
+                "debug",
+                "debugging",
+                "errorhandler",
+                "firephp",
+                "inspect",
+                "logger",
+                "phpdebugconsole",
+                "psr-3",
+                "var_dump"
+            ],
+            "support": {
+                "issues": "https://github.com/bkdotcom/PHPDebugConsole/issues",
+                "source": "https://github.com/bkdotcom/PHPDebugConsole/tree/v2.3.1"
+            },
+            "time": "2020-06-02T15:53:56+00:00"
+        },
         {
             "name": "codeigniter4/framework",
             "version": "v4.1.1",
@@ -261,6 +335,61 @@
                 }
             ],
             "time": "2021-02-25T21:54:58+00:00"
+        },
+        {
+            "name": "php-console/php-console",
+            "version": "3.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barbushin/php-console.git",
+                "reference": "aa1d71d4ea3dc91e126edc9aa4f3c10eb8559cff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barbushin/php-console/zipball/aa1d71d4ea3dc91e126edc9aa4f3c10eb8559cff",
+                "reference": "aa1d71d4ea3dc91e126edc9aa4f3c10eb8559cff",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "ext-mbstring": "*",
+                "phpunit/phpunit": "^4.8",
+                "psr/log": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PhpConsole\\": "src/PhpConsole"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sergey Barbushin",
+                    "email": "barbushin@gmail.com",
+                    "homepage": "http://linkedin.com/in/barbushin"
+                }
+            ],
+            "description": "PHP library for Google Chrome extension \"PHP Console\".",
+            "homepage": "https://github.com/barbushin/php-console",
+            "keywords": [
+                "chrome",
+                "debug",
+                "error handler",
+                "errors",
+                "google chrome",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/barbushin/php-console/issues",
+                "source": "https://github.com/barbushin/php-console/tree/master"
+            },
+            "time": "2019-07-25T03:43:28+00:00"
         },
         {
             "name": "psr/log",

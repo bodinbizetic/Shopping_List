@@ -17,7 +17,6 @@ class Notification extends BaseController
 
     public function index()
     {
-
         $notificationModel = new NotificationModel();
 
         $notifications = $notificationModel->select('*')->orderBy('isRead', 'ASC')

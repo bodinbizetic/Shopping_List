@@ -7,11 +7,10 @@
         if(value == "") {
             value = "Phone";
         }
-        console.log(value);
         $("input[name='register_phone']").val(value);
     })
 </script>
-<form class="form-horizontal row" method="post" action="/login/register">
+<form class="form-horizontal row" method="post" action="/login/register" enctype="multipart/form-data">
     <div class="col col-md-9">
         <div class="form-group ">
             <div class="input-group">

@@ -1,6 +1,207 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
 <link href="<?php echo base_url(); ?>/css/profile.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<!-- javascript -->
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+
+        drawSpending();
+        drawLists();
+        drawPopularYear();
+        drawPopularMonth();
+
+        function drawSpending() {
+            //get the bar chart canvas
+            var cData = JSON.parse(`<?php echo $chart_data_spending; ?>`);
+            console.log(cData);
+            var ctx = $("#spending-chart");
+
+            //bar chart data
+            var data = {
+                labels: cData.label,
+                datasets: [
+                    {
+                        //label: cData.label,
+                        data: cData.data,
+                        backgroundColor: [
+                            "#F4A460",
+                            "#CDA776",
+                            "#DEB887",
+                            "#A9A9A9",
+                            "#DC143C",
+                            "#F4A460",
+                            "#2E8B57",
+                            "#CDA776",
+                            "#989898",
+                            "#CB252B",
+                            "#E39371",
+                            "#1D7A46"
+                        ],
+                        borderColor: [
+                            "#F4A460",
+                            "#CDA776",
+                            "#DEB887",
+                            "#A9A9A9",
+                            "#DC143C",
+                            "#F4A460",
+                            "#2E8B57",
+                            "#CDA776",
+                            "#989898",
+                            "#CB252B",
+                            "#E39371",
+                            "#1D7A46"
+                        ],
+                        borderWidth: [1, 1, 1, 1, 1,1,1,1, 1, 1, 1,1,1]
+                    }
+                ]
+            };
+
+            //options
+            var options = {
+                responsive: true,
+                legend: {
+                    display: false
+                }
+
+            };
+
+            //create bar Chart class object
+            var chart1 = new Chart(ctx, {
+                type: "bar",
+                data: data,
+                options: options
+            });
+        }
+
+        function drawLists() {
+            //get the bar chart canvas
+            var cData = JSON.parse(`<?php echo $chart_data_lists; ?>`);
+            console.log(cData);
+            var ctx = $("#lists-chart");
+
+            //bar chart data
+            var data = {
+                labels: cData.label,
+                datasets: [
+                    {
+                        //label: cData.label,
+                        data: cData.data,
+                        backgroundColor: [
+                            "#DC143C",
+                            "#CB252B",
+                            "#F4A460",
+                            "#2E8B57",
+                            "#1D7A46",
+                            "#CDA776",
+                            "#CDA776",
+                            "#989898",
+                            "#E39371",
+                            "#DEB887",
+                            "#A9A9A9",
+                        ],
+                        borderColor: [
+                            "#DC143C",
+                            "#CB252B",
+                            "#F4A460",
+                            "#2E8B57",
+                            "#1D7A46",
+                            "#CDA776",
+                            "#CDA776",
+                            "#989898",
+                            "#E39371",
+                            "#DEB887",
+                            "#A9A9A9",
+                        ],
+                        borderWidth: [1, 1, 1, 1, 1,1,1,1, 1, 1, 1,1,1]
+                    }
+                ]
+            };
+
+            //options
+            var options = {
+                responsive: true,
+                legend: {
+                    display: false
+                }
+
+            };
+
+            //create bar Chart class object
+            var chart1 = new Chart(ctx, {
+                type: "bar",
+                data: data,
+                options: options
+            });
+        }
+
+        function drawPopularYear() {
+            google.charts.load('current', { 'packages' : ['corechart', 'bar', 'timeline']});
+
+            google.charts.setOnLoadCallback(function() {
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Topping');
+                data.addColumn('number', 'Slices');
+                var rows = JSON.parse(`<?php echo $data_for_pie_year; ?>`);
+                console.log(rows);
+                data.addRows(rows);
+
+
+                var options = {
+                    'width':500,
+                    'height':400
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementsByClassName('year-popular')[0]);
+                chart.draw(data, options);
+            });
+        }
+
+        function drawPopularMonth() {
+            google.charts.load('current', { 'packages' : ['corechart', 'bar', 'timeline']});
+
+            google.charts.setOnLoadCallback(function() {
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Topping');
+                data.addColumn('number', 'Slices');
+                var rows = JSON.parse(`<?php echo $data_for_pie_month; ?>`);
+                console.log(rows);
+                data.addRows(rows);
+
+                // Set chart options
+                var options = {
+                    'width':500,
+                    'height':400
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementsByClassName('month-popular')[0]);
+                chart.draw(data, options);
+            });
+        }
+
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $("input[name='username']").val("<?php echo $user['username']; ?>");
+        $("input[name='fullName']").val("<?php echo $user['fullName']; ?>");
+        $("input[name='phone']").val("<?php echo $user['phone']; ?>");
+        $("input[name='password']").val("<?php echo $user['password']; ?>");
+        $("input[name='email']").val("<?php echo $user['email']; ?>");
+    })
+</script>
 
 <section id="profile">
     <div class="container">
@@ -11,96 +212,115 @@
 </section>
 
 <div class="content">
-    <div class="slide">
-
-
-
-        <div class="div-img">
-            <?php if(isset($user['image']) && $user['image'] != ""): ?>
-                <img height="50" width="50" src="data:image;base64,'.base64_encode(<?= $user['image'] ?>).'">
-            <?php else: ?>
-                <img height="50" width="50" src="<?php echo base_url(); ?>/images/profile/person.jpg">
-            <?php endif; ?>
-            <h3>
-                <?= $user['fullName'] ?>
-            </h3>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="slide">
+                <div class="my-form">
+                    <form method="post" action="/profile/edit"  enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="image">
+                                <input type="file" name="image" id="image" align="center" style="display:none;"/>
+                                <?php
+                                if(isset($user['image'])): ?>
+                                    <img src="<?php echo base_url(). $user['image']; ?>">
+                                <?php else: ?>
+                                    <img src="<?php echo base_url(). '/images/profile/person.jpg'; ?>">
+                                <?php endif; ?>
+                            </label>
+                            <h3>
+                                <?= $user['fullName'] ?>
+                            </h3>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-prepend"><i class="input-group-text fa fa-user"></i></span>
+                                <input type="text" name="username" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-prepend"><i class="input-group-text fa fa-male"></i></span>
+                                <input type="text" name="fullName" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-prepend"><i class="input-group-text fa fa-envelope"></i></span>
+                                <input type="email" name="email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-prepend"><i class="input-group-text fa fa-lock"></i></span>
+                                <input type="password" name="password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="input-group">
+                                <span class="input-group-prepend"><i class="input-group-text fa fa-phone"></i></span>
+                                <input type="tel" name="phone" class="form-control">
+                            </div>
+                        </div>
+                        <input type="submit" value="Save changes" class="btn btn-success btn-block">
+                        <br>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="my-form">
-            <form>
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-prepend"><i class="input-group-text fa fa-user"></i></span>
-                        <input type="text" name="username" class="form-control" placeholder="<?= $user['fullName'] ?>">
-                    </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <span class="title">Most frequently requested YEAR</span>
                 </div>
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-prepend"><i class="input-group-text fa fa-envelope"></i></span>
-                        <input type="email" name="email" class="form-control" placeholder="<?= $user['email'] ?>">
-                    </div>
+                <div class="card-body">
+                    <div class="year-popular"></div>
                 </div>
-                <div class="form-group ">
-                    <div class="input-group">
-                        <span class="input-group-prepend"><i class="input-group-text fa fa-phone"></i></span>
-                        <input type="tel" name="phone" class="form-control" placeholder="<?= $user['phone'] ?>">
-                    </div>
-                </div>
-                <input type="button" value="Edit" class="btn btn-success btn-block">
-            </form>
+            </div>
         </div>
-
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <span class="title">Most frequently requested MONTH</span>
+                </div>
+                <div class="card-body">
+                    <div class="month-popular"></div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="statistic">
-        <table class="table spending">
-            <caption>Spending</caption>
-            <tr>
-                <th></th>
-                <th>Today</th>
-                <th>This month</th>
-                <th>This year</th>
-            </tr>
-            <tr>
-                <td>Money spent</td>
-                <td><?= $prices[0] ?></td>
-                <td><?= $prices[1] ?></td>
-                <td><?= $prices[2] ?></td>
-            </tr>
-            <tr>
-                <td>No of lists</td>
-                <td><?= $noLists[0] ?></td>
-                <td><?= $noLists[1] ?></td>
-                <td><?= $noLists[2] ?></td>
-            </tr>
-        </table>
-        <div class="statistic-freq">
-            <table class="table freq-month">
-                <caption>Most frequently requested Last Month</caption>
-                <tr>
-                    <th>Name</th>
-                    <th>Count</th>
-                </tr>
-                <?php foreach($items['month'] as $name => $cnt) : ?>
-                    <tr>
-                        <td><?= $name ?></td>
-                        <td><?= $cnt ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
-            <table class="table freq-year">
-                <caption>Most frequently requested Last Year</caption>
-                <tr>
-                    <th>Name</th>
-                    <th>Count</th>
-                </tr>
-                <?php foreach($items['month'] as $name => $cnt) : ?>
-                    <tr>
-                        <td><?= $name ?></td>
-                        <td><?= $cnt ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
+    <div class="row">
+        <div class="col-sm-3">&nbsp;
+            <?php if(isset($errors)) { ?>
+                <div class="alert alert-danger" role="alert">
+                    <?php
+                    echo $errors. "<br>";
+                    ?>
+                </div>
+            <?php } ?>
+        </div>
+        <div class="col-sm-4 offset-3">
+            <div class="card">
+                <div class="card-header">
+                    <span class="title">Monthly Spending</span>
+                </div>
+                <div class="card-body">
+                    <div class="spending">
+                        <canvas id="spending-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <span class="title">Monthly No Of Lists</span>
+                </div>
+                <div class="card-body">
+                    <div class="lists">
+                        <canvas id="lists-chart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

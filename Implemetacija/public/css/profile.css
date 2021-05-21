@@ -1,26 +1,24 @@
-div.content {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-bottom: 5%;
-}
 
-div.content .statistic {
-    width: 70%;
+div.form-group {
+    text-align: center;
 }
 
 div.content .slide {
-    width: 25%;
-    margin-left: 5%;
+    width: 80%;
+    margin-left: 10%;
 }
 
-div.content .slide .div-img {
+input {
+    background-color: gray;
+}
+
+input[type='file'] {
     width: 100%;
     text-align: center;
     margin-bottom: 50px;
 }
 
-div.content .slide .div-img img {
+img  {
     width: 60%;
     height: 80%;
     margin-bottom: 20px;
@@ -30,49 +28,20 @@ div.content .slide .my-form {
     width: 100%;
 }
 
-
-
-caption {
+span.title {
     color: green;
     font-size: 1.2rem;
-    padding: 10px;
-    caption-side: top  !important;
     text-align: center;
 }
 
-div.statistic-freq {
-    display: flex;
+div.col-sm-5, div.col-sm-6, div.col-sm-4, div.col-sm-3 {
+    margin-bottom: 2%;
+}
+
+div.col-sm-4 {
+    margin-left: 1%;
+}
+
+div.col-sm-5:nth-of-type(1), div.col-sm-5:nth-of-type(2) {
     margin-left: 5%;
-}
-
-div.content .statistic table.freq-month, div.content .statistic table.freq-year {
-    width: 47%;
-    text-align: center;
-}
-
-div.content .statistic table.spending {
-    width: 90%;
-    margin: 5%;
-    text-align: center;
-}
-
-
-div.content .statistic table td, div.content .statistic table th {
-    text-align: center;
-}
-
-
-div.content .statistic table.spending td:first-child {
-    font-weight: bold;
-    text-align: left  !important;
-}
-
-.section-title {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-section, .container {
-    margin-bottom: 0;
-    padding-bottom: 0;
 }

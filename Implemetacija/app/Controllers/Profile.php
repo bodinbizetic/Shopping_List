@@ -2,97 +2,177 @@
 
 namespace App\Controllers;
 
-use App\Models\ItemPriceModel;
+use App\Models\InGroupModel;
 use App\Models\ListContainsModel;
-use App\Models\ShoppingListModel;
+use App\Models\UserModel;
 
 class Profile extends BaseController
 {
-
-    private function filterByPeriodBought($arr, $period) {
-        if($period == "today")
-            return array_filter($arr, function ($row) { return $row['bought'] == date("Y-m-d"); });
-        if($period == "year")
-            return array_filter($arr, function ($row) { $time = strtotime($row['bought']); return date("Y", $time) == date("Y", strtotime(date("Y-m-d"))); });
-        return array_filter($arr, function ($row) { $time = strtotime($row['bought']); return date("F", $time) == date("F", strtotime(date("Y-m-d"))); });
-    }
-
-    private function filterByPeriodCreatedAt($arr, $period) {
-        if($period == "today")
-            return array_filter($arr, function ($row) {
-                $time = strtotime($row['createdAt']);
-                $today = strtotime(date("Y-m-d"));
-                return date("D", $time) == date("D", $today) && date("F", $time) == date("F", $today) && date("Y", $time) == date("Y", $today) ;
-            });
-        if($period == "year")
-            return array_filter($arr, function ($row) { $time = strtotime($row['createdAt']); return date("Y", $time) == date("Y", strtotime(date("Y-m-d"))); });
-        return array_filter($arr, function ($row) { $time = strtotime($row['createdAt']); return date("F", $time) == date("F", strtotime(date("Y-m-d"))); });
-    }
-
-    private function getPrice($arr, $period) {
-        $data = $this->filterByPeriodBought($arr, $period);
-
-        $itemPriceModel = new ItemPriceModel();
-        $price = 0;
-
-        foreach ($data as $row){
-            $priceRow = $itemPriceModel->where('idItem', $row['idItem'])->where('idShopChain', $row['idShop'])->first();
-            if($priceRow == null)
-                $priceRow = $itemPriceModel->where('idItem', $row['idItem'])->first();
-            if($priceRow != null)
-                $price += $priceRow['price'];
-        }
-
-        return $price;
-    }
-
-    private function getItems() {
-        $user = $this->session->get('user');
-        $listContainsModel = new ListContainsModel();
-        return $listContainsModel->where('idUser', $user['idUser'])->join('item', 'item.idItem = listcontains.idItem')->findAll();
-    }
-
-    private function groupItems($items) {
-        $nameCnt = [];
-        foreach ($items as $item) {
-            if(!isset($nameCnt[$item['name']]))
-                $nameCnt[$item['name']] = 1;
-            else
-                $nameCnt[$item['name']]++;
-        }
-        arsort($nameCnt);
-        return $nameCnt;
-    }
-
-    public function index()
+    // month spending (only current year and shop is not NULL)
+    private function getSpendingByMonth($idUser)
     {
-        $user = $this->session->get('user');
         $listContainsModel = new ListContainsModel();
-        $shoppingListModel = new ShoppingListModel();
+        return $listContainsModel->where('idUser', $idUser)
+                ->where('YEAR(bought)', date('Y'))
+                ->join('shoppinglist', 'shoppinglist.idShoppingList = listcontains.idShoppingList')
+                ->whereNotIn('idShop', ['NULL'])
+                ->join('itemprice', 'itemprice.idItem = listcontains.idItem AND itemprice.idShopChain = shoppinglist.idShop')
+                ->join('item', 'item.idItem = listcontains.idItem')
+                ->select('MONTH(bought) AS month, SUM(itemprice.price * item.quantity) AS spending')
+                ->groupBy('MONTH(bought)')
+                ->findAll();
+    }
 
-        // idItem idShop bought
-        $prices = $listContainsModel->where('idUser', $user['idUser'])
-            ->join('shoppinglist', 'shoppinglist.idShoppingList = listcontains.idShoppingList')->findAll();
-        $shoppingLists = $shoppingListModel->join('ingroup', 'ingroup.idGroup = shoppinglist.idGroup')->where('idUser', $user['idUser'])->findAll();
-        $items = $this->getItems();
+    private function displayAsChartSpending($monthSpendings)
+    {
+        $data = [];
+        $months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        foreach ($monthSpendings as $monthSpending) {
+            $data['label'][] = $months[$monthSpending['month'] - 1];
+            $data['data'][] = $monthSpending['spending'];
 
-        $itemsMonth = $this->filterByPeriodBought($items, "month");
-        $itemsYear = $this->filterByPeriodBought($items, "year");
+        }
+        $data['chart_data_spending'] = json_encode($data);
+        return $data;
+    }
 
-        $nameCntMonth = $this->groupItems($itemsMonth);
-        $nameCntYear = $this->groupItems($itemsYear);
+    private function displayAsChartNoLists($monthNoLists)
+    {
+        $noLists = [];
+        $months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        foreach ($monthNoLists as $monthNoList) {
+            $noLists['label'][] = $months[$monthNoList['month'] - 1];
+            $noLists['data'][] = $monthNoList['count'];
 
-        $priceToday = $this->getPrice($prices, "today");
-        $priceMonth = $this->getPrice($prices, "month");
-        $priceYear = $this->getPrice($prices, "year");
+        }
+        $noLists['chart_data_lists'] = json_encode($noLists);
+        return $noLists;
+    }
 
-        $noToday = count($this->filterByPeriodCreatedAt($shoppingLists, "today"));
-        $noMonth = count($this->filterByPeriodCreatedAt($shoppingLists, "month"));
-        $noYear = count($this->filterByPeriodCreatedAt($shoppingLists, "year"));
+    private function getPopularItemsYear($limit, $idUser)
+    {
+        $listContainsModel = new ListContainsModel();
+        return $listContainsModel->where('idUser', $idUser)
+            ->where('YEAR(bought)', date('Y'))
+            ->join('item', 'item.idItem = listcontains.idItem')
+            ->select('listcontains.idItem AS idItem, item.name AS name, COUNT(listcontains.idItem) AS count')
+            ->groupBy('listcontains.idItem')
+            ->orderBy('count', "DESC")
+            ->findAll($limit);
+    }
+
+    private function displayAsPie($popularItems)
+    {
+        $arrOfArr = [];
+        foreach ($popularItems as $popularItem) {
+            array_push($arrOfArr, [$popularItem['name'], (int)$popularItem['count']]);
+        }
+        return $arrOfArr;
+    }
+
+    private function getPopularItemsMonth($limit, $idUser)
+    {
+        $listContainsModel = new ListContainsModel();
+        return $listContainsModel->where('idUser', $idUser)
+            ->where('MONTH(bought)', date('m'))
+            ->join('item', 'item.idItem = listcontains.idItem')
+            ->select('listcontains.idItem AS idItem, item.name AS name, COUNT(listcontains.idItem) AS count')
+            ->groupBy('listcontains.idItem')
+            ->orderBy('count', "DESC")
+            ->findAll($limit);
+    }
+
+
+    private function getNoListsByMonth($idUser)
+    {
+        $inGroupModel = new InGroupModel();
+        $toReturn =  $inGroupModel->where('idUser', $idUser)
+            ->where('MONTH(createdAt)', date('m'))
+            ->join('shoppinglist', 'shoppinglist.idGroup = ingroup.idGroup')
+            ->select('MONTH(createdAt) as month, COUNT(*) as count')
+            ->findAll();
+        return array_filter($toReturn, function($elem) {
+            return $elem['month'] != null;
+        });
+    }
+
+    public function edit()
+    {
+        // auth guard
+        if(!$this->session->has('user'))
+            return redirect()->to('/login/index');
+        $user = $this->session->get('user');
+
+        $data = [
+            'username' => $this->request->getPost('username'),
+            'fullName' => $this->request->getPost('fullName'),
+            'email'    => $this->request->getPost('email'),
+            'phone'    => $this->request->getPost('phone'),
+            'password' => $this->request->getPost('password')
+        ];
+
+        if($data['phone'] == "")
+            $data['phone'] = null;
+
+        $avatar = $this->request->getFile('image');
+        if($avatar->getName() != "")
+            $data['image'] = '/uploads/'. $data['username']. '/'. $avatar->getName();
+        else
+            $data['image'] = $user['image'];
+
+        $userModel = new UserModel();
+
+        if(!$userModel->update($user['idUser'], $data)) {
+            $errors = $userModel->getValidationMessages();
+
+            if((isset($errors['username']) && $data['username'] == $user['username']) || (isset($errors['email']) && $data['email'] == $user['email'])
+                && !isset($errors['password']) && !isset($errors['fullName'])) {
+                $userModel->skipValidation(true);
+                $userModel->update($user['idUser'], $data);
+            } else {
+                $error_str = "";
+                foreach ($errors as $error)
+                    $error_str = $error_str. join("\N", array_values($error));
+                return redirect()->to('profile/index/'. $error_str);
+            }
+        }
+
+        if($user['image'] != null && $avatar->getName() != "") {
+            delete_files(ROOTPATH . 'public\uploads\\'. $data['username'], true);
+            rmdir(ROOTPATH . 'public\uploads\\'. $data['username']);
+            $avatar->move(ROOTPATH . 'public\uploads\\'. $data['username']);
+        }
+
+        $this->session->set('user', $userModel->where('username', $data['username'])->first());
+        return redirect()->to(site_url('profile/index/'));
+    }
+
+    public function index($errors = null)
+    {
+        // auth guard
+        if(!$this->session->has('user'))
+            return redirect()->to('/login/index');
+        $user = $this->session->get('user');
+
+        $monthSpending = $this->getSpendingByMonth($user['idUser']);
+        $data = $this->displayAsChartSpending($monthSpending);
+
+        $popularItemsYear = $this->getPopularItemsYear(5, $user['idUser']);
+        $matrixYear = $this->displayAsPie($popularItemsYear);
+        $popularItemsMonth= $this->getPopularItemsMonth(5, $user['idUser']);
+        $matrixMonth = $this->displayAsPie($popularItemsMonth);
+
+        $noListsByMonth = $this->getNoListsByMonth($user['idUser']);
+        $noLists = $this->displayAsChartNoLists($noListsByMonth);
+
+        $data['chart_data_lists'] = $noLists['chart_data_lists'];
+        $data['data_for_pie_year'] = json_encode($matrixYear);
+        $data['data_for_pie_month'] = json_encode($matrixMonth);
+        $data['user'] = $user;
+        $data['errors'] = $errors;
 
         echo view('common/header');
-        echo view('profile', ['user' => $user, 'prices' => [$priceToday, $priceMonth, $priceYear],
-            'noLists' => [$noToday, $noMonth, $noYear], 'items' => ['month' => $nameCntMonth, 'year' => $nameCntYear]]);
+        echo view('profile', $data);
         echo view('common/footer');
     }
 }
