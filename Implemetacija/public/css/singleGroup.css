@@ -1,0 +1,98 @@
+div.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 5%;
+}
+
+
+
+div.content .statistic {
+    width: 75%;
+}
+
+div.content .slide {
+    width: 20%;
+    margin-left: 5%;
+}
+
+div.content .slide .div-img {
+    width: 100%;
+    max-height: 20px;
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+div.content .slide .div-img img {
+    border-radius: 50%;
+    width: 30%;
+}
+
+div.content .slide .members {
+    width: 100%;
+    margin-top: 70%;
+}
+
+div.content .slide .members .count {
+    width: 100%;
+    text-align: center;
+}
+
+
+div.content .slide .members .count p {
+    color: green;
+}
+
+div.content .slide .members .list {
+    width: 100%;
+}
+
+div.content .slide .members .list ul {
+    list-style-type: none;
+    list-style-position: outside;
+    padding: 0;
+    padding-left: 10px;
+}
+
+div.content .slide .members .list li img {
+    border-radius: 50%;
+    width: 20%;
+    margin: 0;
+    padding-right: 10px;
+}
+
+
+caption {
+  color: green;
+  font-size: 1.2rem;
+  padding: 10px;
+  caption-side: top  !important;
+  text-align: center;
+}
+
+div.content .statistic table {
+    width: 70%;
+    margin: 10%;
+    margin-top: 0;
+    text-align: center;
+}
+
+div.content .statistic table td, div.content .statistic table th {
+    text-align: center;
+}
+
+
+div.content .statistic table td:first-child {
+    font-weight: bold;
+    text-align: left  !important;
+}
+
+.section-title {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+section, .container {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
