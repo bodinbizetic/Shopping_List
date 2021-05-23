@@ -3,18 +3,22 @@
 namespace App\Controllers;
 
 use App\Models\GroupModel;
+use App\Models\InGroupModel;
+use CodeIgniter\Model;
 
 class Group extends BaseController
 {
     public function index()
     {
         $groupModel = new GroupModel();
-        $groups = $groupModel->select('*');
+        $inGroup = new InGroupModel();
+        $user = $this->session->get('user');
 
-
+        $groups = $inGroup->findUsersGroups($user['idUser']);
+        $groups = $groupModel->findAll();
 
         echo view('common/header');
-        echo view('groups/groups',['groups'=>$groups]);
+        echo view('Views/groups/groups',['groups'=>$groups]);
         echo view('common/footer');
     }
 

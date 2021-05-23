@@ -25,10 +25,14 @@ class InGroupModel extends Model
 
     protected $skipValidation = false;
 
+
     public function findByUserId(int $userId): array
     {
         return $this->where('idUser', $userId)->get()->getResultArray();
     }
 
+    public function findUsersGroups($user) {
+        return $this->where('idUser', $user)->get()->getResultArray();
+    }
 
 }
