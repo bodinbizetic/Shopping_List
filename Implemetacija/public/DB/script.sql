@@ -121,11 +121,10 @@ DROP TABLE IF EXISTS `ingroup`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ingroup` (
                            `type` int NOT NULL DEFAULT '0',
+                           `idInGroup` int NOT NULL,
                            `idGroup` int NOT NULL,
                            `idUser` int NOT NULL,
-                           PRIMARY KEY (`idGroup`,`idUser`),
-                           KEY `FK_InGroup_Group_idx` (`idGroup`),
-                           KEY `FK_InGroup_User_idx` (`idUser`),
+                           PRIMARY KEY (`idInGroup`)
                            CONSTRAINT `FK_InGroup_Group` FOREIGN KEY (`idGroup`) REFERENCES `group` (`idGroup`),
                            CONSTRAINT `FK_InGroup_User` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

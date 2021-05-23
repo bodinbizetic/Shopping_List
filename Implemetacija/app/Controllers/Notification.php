@@ -45,8 +45,11 @@ class Notification extends BaseController
     public function approve($idNotification)
     {
         $notificationModel = new NotificationModel();
+        $groupModel = new GroupModel();
+        $inGroupModel = new InGroupModel();
+
         $notification = $notificationModel->where('idNotification', $idNotification)->first();
-        $group = (new GroupModel())->where('idGroup', $notification['idGroup'])->first();
+        $group = $groupModel->where('idGroup', $notification['idGroup'])->first();
 
         $new_notification = [
             'idGroup' => $notification['idGroup'],
@@ -55,15 +58,22 @@ class Notification extends BaseController
             'text'    => NEW_GROUP_MEMBER['msg']. " ". $group['name'],
         ];
 
-        $group_members = (new InGroupModel())->where('idGroup', $group['idGroup'])->findAll();
+        $group_members = $inGroupModel->where('idGroup', $group['idGroup'])->findAll();
 
         foreach ($group_members as $group_member) {
             if($group_member['idUser'] == $this->session->get('user')['idUser'])
                 continue;
             $new_notification['idUser'] = $group_member['idUser'];
-            $notificationModel->save($new_notification);
+            $notificationModel->insert($new_notification);
         }
 
+        $new_inGroup = [
+            'type' => USER,
+            'idGroup' => $group['idGroup'],
+            'idUser' => $this->session->get('user')['idUser']
+        ];
+
+        $inGroupModel->save($new_inGroup);
         $notificationModel->update($idNotification, ['isRead' => 1]);
 
         return redirect()->to('/notification/index');
