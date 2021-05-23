@@ -222,7 +222,7 @@
                                 <input type="file" name="image" id="image" align="center" style="display:none;"/>
                                 <?php
                                 if(isset($user['image'])): ?>
-                                    <img src="<?php echo base_url(). $user['image']; ?>">
+                                    <img src="<?php echo base_url(). '/uploads/'. $user['image']; ?>">
                                 <?php else: ?>
                                     <img src="<?php echo base_url(). '/images/profile/person.jpg'; ?>">
                                 <?php endif; ?>
@@ -291,10 +291,13 @@
     <div class="row">
         <div class="col-sm-3">&nbsp;
             <?php if(isset($errors)) { ?>
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <?php
                     echo $errors. "<br>";
                     ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             <?php } ?>
         </div>

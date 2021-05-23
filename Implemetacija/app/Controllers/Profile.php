@@ -19,35 +19,24 @@ class Profile extends BaseController
                 ->join('itemprice', 'itemprice.idItem = listcontains.idItem AND itemprice.idShopChain = shoppinglist.idShop')
                 ->join('item', 'item.idItem = listcontains.idItem')
                 ->select('MONTH(bought) AS month, SUM(itemprice.price * item.quantity) AS spending')
-                ->groupBy('MONTH(bought)')
+                ->groupBy('month')
                 ->findAll();
     }
 
-    private function displayAsChartSpending($monthSpendings)
-    {
-        $data = [];
-        $months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        foreach ($monthSpendings as $monthSpending) {
-            $data['label'][] = $months[$monthSpending['month'] - 1];
-            $data['data'][] = $monthSpending['spending'];
 
-        }
-        $data['chart_data_spending'] = json_encode($data);
-        return $data;
+    private function getNoListsByMonth($idUser)
+    {
+        $inGroupModel = new InGroupModel();
+        $toReturn =  $inGroupModel->where('idUser', $idUser)
+            ->join('shoppinglist', 'shoppinglist.idGroup = ingroup.idGroup')
+            ->select('MONTH(createdAt) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->findAll();
+        return array_filter($toReturn, function($elem) {
+            return $elem['month'] != null;
+        });
     }
 
-    private function displayAsChartNoLists($monthNoLists)
-    {
-        $noLists = [];
-        $months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        foreach ($monthNoLists as $monthNoList) {
-            $noLists['label'][] = $months[$monthNoList['month'] - 1];
-            $noLists['data'][] = $monthNoList['count'];
-
-        }
-        $noLists['chart_data_lists'] = json_encode($noLists);
-        return $noLists;
-    }
 
     private function getPopularItemsYear($limit, $idUser)
     {
@@ -59,15 +48,6 @@ class Profile extends BaseController
             ->groupBy('listcontains.idItem')
             ->orderBy('count', "DESC")
             ->findAll($limit);
-    }
-
-    private function displayAsPie($popularItems)
-    {
-        $arrOfArr = [];
-        foreach ($popularItems as $popularItem) {
-            array_push($arrOfArr, [$popularItem['name'], (int)$popularItem['count']]);
-        }
-        return $arrOfArr;
     }
 
     private function getPopularItemsMonth($limit, $idUser)
@@ -82,18 +62,63 @@ class Profile extends BaseController
             ->findAll($limit);
     }
 
-
-    private function getNoListsByMonth($idUser)
+    private function displayAsChartSpending($monthSpendings)
     {
-        $inGroupModel = new InGroupModel();
-        $toReturn =  $inGroupModel->where('idUser', $idUser)
-            ->where('MONTH(createdAt)', date('m'))
-            ->join('shoppinglist', 'shoppinglist.idGroup = ingroup.idGroup')
-            ->select('MONTH(createdAt) as month, COUNT(*) as count')
-            ->findAll();
-        return array_filter($toReturn, function($elem) {
-            return $elem['month'] != null;
-        });
+        $data = [];
+        $months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        foreach ($monthSpendings as $monthSpending) {
+            $data['label'][] = $months[$monthSpending['month'] - 1];
+            $data['data'][] = $monthSpending['spending'];
+
+        }
+        return json_encode($data);
+    }
+
+    private function displayAsChartNoLists($monthNoLists)
+    {
+        $noLists = [];
+        $months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        foreach ($monthNoLists as $monthNoList) {
+            $noLists['label'][] = $months[$monthNoList['month'] - 1];
+            $noLists['data'][] = $monthNoList['count'];
+
+        }
+        return json_encode($noLists);
+    }
+
+    private function displayAsPie($popularItems)
+    {
+        $arrOfArr = [];
+        foreach ($popularItems as $popularItem) {
+            array_push($arrOfArr, [$popularItem['name'], (int)$popularItem['count']]);
+        }
+        return json_encode($arrOfArr);
+    }
+
+    private function updateUser($oldUser, $newUser) {
+
+        $this->validation->reset();
+        $this->validation->setRuleGroup('edit');
+        if(!$this->validation->run($newUser)) {
+            $err_str = "";
+            foreach ($this->validation->getErrors() as $key => $value) {
+                $err_str = $err_str. "<br>". $value;
+            }
+            return $err_str;
+        }
+
+        $userModel = new UserModel();
+
+        $userWithSameUsername = $userModel->findByUsername($newUser['username']);
+        if(isset($userWithSameUsername) && $userWithSameUsername['idUser'] != $oldUser['idUser'])
+            return "Sorry. That username has already been taken. Please choose another.";
+
+        $userWithSameEmail = $userModel->findByEmail($newUser['email']);
+        if(isset($userWithSameEmail) && $userWithSameEmail['idUser'] != $oldUser['idUser'])
+            return "Sorry. That email has already been taken. Please choose another.";
+
+        $userModel->update($oldUser['idUser'], $newUser);
+        return null;
     }
 
     public function edit()
@@ -108,42 +133,37 @@ class Profile extends BaseController
             'fullName' => $this->request->getPost('fullName'),
             'email'    => $this->request->getPost('email'),
             'phone'    => $this->request->getPost('phone'),
-            'password' => $this->request->getPost('password')
+            'password' => $this->request->getPost('password'),
+            'idUser'   => $user['idUser']
         ];
 
         if($data['phone'] == "")
             $data['phone'] = null;
 
-        $avatar = $this->request->getFile('image');
-        if($avatar->getName() != "")
-            $data['image'] = '/uploads/'. $data['username']. '/'. $avatar->getName();
-        else
+        if($this->request->getFile('image')->getName() != "") {
+            $time_unique = strtotime("now");
+            $data['image'] = $time_unique. "/". $this->request->getFile('image')->getName();
+        } else
             $data['image'] = $user['image'];
 
-        $userModel = new UserModel();
+        $errors = $this->updateUser($user, $data);
 
-        if(!$userModel->update($user['idUser'], $data)) {
-            $errors = $userModel->getValidationMessages();
+        if(isset($errors))
+            return redirect()->to(site_url('profile/index/'. $errors));
 
-            if((isset($errors['username']) && $data['username'] == $user['username']) || (isset($errors['email']) && $data['email'] == $user['email'])
-                && !isset($errors['password']) && !isset($errors['fullName'])) {
-                $userModel->skipValidation(true);
-                $userModel->update($user['idUser'], $data);
-            } else {
-                $error_str = "";
-                foreach ($errors as $error)
-                    $error_str = $error_str. join("\N", array_values($error));
-                return redirect()->to('profile/index/'. $error_str);
-            }
+        if(isset($user['image']) && $data['image'] != $user['image']) {
+            $dir_file = explode( '/', $user['image']);
+
+            delete_files(ROOTPATH . 'public\uploads\\' . $dir_file[0], true);
+            rmdir(ROOTPATH . 'public\uploads\\' . $dir_file[0]);
+        }
+        if(isset($data['image']) && $data['image'] != $user['image']) {
+
+            $dir_file = explode( '/', $data['image']);
+            $this->request->getFile('image')->move(ROOTPATH . 'public\uploads\\' . $dir_file[0], $this->request->getFile('image')->getName());
         }
 
-        if($user['image'] != null && $avatar->getName() != "") {
-            delete_files(ROOTPATH . 'public\uploads\\'. $data['username'], true);
-            rmdir(ROOTPATH . 'public\uploads\\'. $data['username']);
-            $avatar->move(ROOTPATH . 'public\uploads\\'. $data['username']);
-        }
-
-        $this->session->set('user', $userModel->where('username', $data['username'])->first());
+        $this->session->set('user', $data);
         return redirect()->to(site_url('profile/index/'));
     }
 
@@ -154,20 +174,18 @@ class Profile extends BaseController
             return redirect()->to('/login/index');
         $user = $this->session->get('user');
 
+        $data = [];
+
         $monthSpending = $this->getSpendingByMonth($user['idUser']);
-        $data = $this->displayAsChartSpending($monthSpending);
+        $noListsByMonth = $this->getNoListsByMonth($user['idUser']);
 
         $popularItemsYear = $this->getPopularItemsYear(5, $user['idUser']);
-        $matrixYear = $this->displayAsPie($popularItemsYear);
         $popularItemsMonth= $this->getPopularItemsMonth(5, $user['idUser']);
-        $matrixMonth = $this->displayAsPie($popularItemsMonth);
 
-        $noListsByMonth = $this->getNoListsByMonth($user['idUser']);
-        $noLists = $this->displayAsChartNoLists($noListsByMonth);
-
-        $data['chart_data_lists'] = $noLists['chart_data_lists'];
-        $data['data_for_pie_year'] = json_encode($matrixYear);
-        $data['data_for_pie_month'] = json_encode($matrixMonth);
+        $data['chart_data_spending'] = $this->displayAsChartSpending($monthSpending);
+        $data['chart_data_lists'] = $this->displayAsChartNoLists($noListsByMonth);
+        $data['data_for_pie_year'] =  $this->displayAsPie($popularItemsYear);
+        $data['data_for_pie_month'] = $this->displayAsPie($popularItemsMonth);
         $data['user'] = $user;
         $data['errors'] = $errors;
 
