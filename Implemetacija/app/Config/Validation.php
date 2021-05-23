@@ -40,6 +40,31 @@ class Validation
 		'single' => 'CodeIgniter\Validation\Views\single',
 	];
 
+	public $registration = [
+        'password'     => 'required|min_length[6]',
+        'email'        => 'required|valid_email|is_unique[user.email]',
+        'username'     => 'required|is_unique[user.username]',
+        'fullName'     => 'required|min_length[2]'
+    ];
+
+	public $registration_errors = [
+        'email'        => [
+            'is_unique' => 'Sorry. That email has already been taken. Please choose another.'
+        ],
+        'username'        => [
+            'is_unique' => 'Sorry. That username has already been taken. Please choose another.'
+        ]
+    ];
+
+
+    public $edit = [
+        'password'     => 'required|min_length[6]',
+        'email'        => 'required|valid_email',
+        'username'     => 'required',
+        'fullName'     => 'required|min_length[2]'
+    ];
+
+
 	//--------------------------------------------------------------------
 	// Rules
 

@@ -48,7 +48,7 @@
             <ul>
                 <li class="active"><a href="<?php echo base_url('homePage/index')?>">Home</a></li>
                 <li><a href="<?php echo base_url('homePage/lists')?>">Shopping list</a></li>
-                <li><a href="<?php echo base_url('homePage/groups')?>">Groups</a></li>
+                <li><a href="<?php echo base_url('group/index')?>">Groups</a></li>
                 <li><a href="<?php echo base_url('notification/index')?>">Notifications</a></li>
                 <li><a href="<?php echo base_url('profile/index')?>">Profile</a></li>
             </ul>

@@ -1,0 +1,30 @@
+.table {
+    width: 100%;
+    text-align: center;
+}
+
+.tdImage {
+    width: 20%;
+}
+
+.tdName {
+    width: 50%;
+}
+
+.tdActions {
+    width: 30%;
+}
+
+tr:hover {
+    background-color: #defce9;
+    color: #000000;
+}
+
+img {
+    width: 30%;
+}
+
+.new {
+    margin-bottom: 2%;
+    margin-left: 80%;
+}
