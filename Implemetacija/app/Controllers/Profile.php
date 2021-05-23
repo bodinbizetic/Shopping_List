@@ -19,9 +19,24 @@ class Profile extends BaseController
                 ->join('itemprice', 'itemprice.idItem = listcontains.idItem AND itemprice.idShopChain = shoppinglist.idShop')
                 ->join('item', 'item.idItem = listcontains.idItem')
                 ->select('MONTH(bought) AS month, SUM(itemprice.price * item.quantity) AS spending')
-                ->groupBy('MONTH(bought)')
+                ->groupBy('month')
                 ->findAll();
     }
+
+
+    private function getNoListsByMonth($idUser)
+    {
+        $inGroupModel = new InGroupModel();
+        $toReturn =  $inGroupModel->where('idUser', $idUser)
+            ->join('shoppinglist', 'shoppinglist.idGroup = ingroup.idGroup')
+            ->select('MONTH(createdAt) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->findAll();
+        return array_filter($toReturn, function($elem) {
+            return $elem['month'] != null;
+        });
+    }
+
 
     private function getPopularItemsYear($limit, $idUser)
     {
@@ -45,19 +60,6 @@ class Profile extends BaseController
             ->groupBy('listcontains.idItem')
             ->orderBy('count', "DESC")
             ->findAll($limit);
-    }
-
-    private function getNoListsByMonth($idUser)
-    {
-        $inGroupModel = new InGroupModel();
-        $toReturn =  $inGroupModel->where('idUser', $idUser)
-            ->where('MONTH(createdAt)', date('m'))
-            ->join('shoppinglist', 'shoppinglist.idGroup = ingroup.idGroup')
-            ->select('MONTH(createdAt) as month, COUNT(*) as count')
-            ->findAll();
-        return array_filter($toReturn, function($elem) {
-            return $elem['month'] != null;
-        });
     }
 
     private function displayAsChartSpending($monthSpendings)
