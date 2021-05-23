@@ -1,9 +1,4 @@
-<
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
-
 <link href="<?php echo base_url(); ?>/css/groups.css" rel="stylesheet">
-
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -61,10 +56,10 @@
                   <td><?php echo $groups[$i]['name']; ?></td>
                   <td>
                       <div class="btn-group">
-                          <button class="btn-outline-info" onclick="window.location.href='<?php echo base_url("group/viewGroup");?>'">Info</button>
-                          <button class="btn-outline-success" onclick="window.location.href='<?php echo base_url("homepage/lists");?>'">Lists</button>
-                          <button class="btn-outline-primary" onclick="window.location.href='<?php echo base_url("group/editGroup");?>'">Edit</button>
-                          <button class="btn-outline-danger" data-toggle='modal' data-target='#exampleModalCenter' >Leave</button>
+                          <button class="btn btn-outline-info" onclick="window.location.href='<?php echo base_url("group/viewGroup");?>'">Info</button>
+                          <button class="btn btn-outline-success" onclick="window.location.href='<?php echo base_url("homepage/lists");?>'">Lists</button>
+                          <button class="btn btn-outline-primary" onclick="window.location.href='<?php echo base_url("group/editGroup");?>'">Edit</button>
+                          <button class="btn btn-outline-danger" data-toggle='modal' data-target='#exampleModalCenter' >Leave</button>
                       </div>
                   </td>
 
