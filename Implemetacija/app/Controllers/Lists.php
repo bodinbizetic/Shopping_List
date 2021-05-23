@@ -18,7 +18,7 @@ class Lists extends BaseController
         $groupModel = new GroupModel();
         $shoppingListModel = new ShoppingListModel();
 
-        $ingroups = $inGroupModel->findByUserId(1);
+        $ingroups = $inGroupModel->findByUserId($this->session->get('user')['idUser']);
         $groupNames = [];
         $userGroups = [];
 
