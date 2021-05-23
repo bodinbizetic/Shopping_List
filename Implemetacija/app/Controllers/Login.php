@@ -4,12 +4,17 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 
+define("ADMIN", 0);
+
 class Login extends BaseController {
 
     public function index()
     {
-        if($this->session->has('user'))
+        if($this->session->has('user')) {
+            if($this->session->get('user')['type'] == ADMIN)
+                return redirect()->to('/moderator/index');
             return redirect()->to('/homePage/index');
+        }
 
         return $this->renderLogin(null);
     }
@@ -37,6 +42,9 @@ class Login extends BaseController {
             return $this->renderLogin(["Password is incorrect!"]);
 
         $this->session->set('user', $user);
+        if($user['type'] == ADMIN)
+            return redirect()->to('/moderator/index');
+
         return redirect()->to('/homePage/index');
     }
 
