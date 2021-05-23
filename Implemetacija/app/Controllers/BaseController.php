@@ -28,7 +28,7 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
-	protected $helpers = ['html', 'url', 'form', 'file', 'filesystem'];
+	protected $helpers = ['html', 'url', 'form', 'file', 'filesystem', 'date'];
 
 	/**
 	 * Constructor.
@@ -46,5 +46,6 @@ class BaseController extends Controller
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
 		$this->session = Services::session();
+		$this->validation = Services::validation();
 	}
 }
