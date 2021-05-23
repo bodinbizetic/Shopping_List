@@ -1,8 +1,8 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
 
-<link href="<?php echo base_url(); ?>/css/notification.css" rel="stylesheet">
-<script src="<?php echo base_url(); ?>/js/notification.js" type="text/javascript"></script>
+<link href="<?php echo base_url(); ?>public/css/notification.css" rel="stylesheet">
+<script src="<?php echo base_url(); ?>public/js/notification.js" type="text/javascript"></script>
 
 
 <main id="main">

@@ -24,6 +24,12 @@ class InGroupModel extends Model
 
     protected $skipValidation     = false;
 
+    public function findGroupMembers($group) {
+        return $this->where('idGroup', $group);
+    }
 
+    public function findUsersGroups($user) {
+        return $this->where('idUser', $user);
+    }
 
 }

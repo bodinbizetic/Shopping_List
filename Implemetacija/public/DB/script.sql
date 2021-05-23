@@ -47,9 +47,9 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 --
--- INSERT INTO `user` (`idUser`, `username`, `password`, `fullName`, `email`, `image`, `phone`, `type`) VALUES
--- (3, 'admin', 'admin123', 'Bodin Bizetic', 'admin@etf.bg.ac.rs', NULL, NULL , 1),
--- (2, 'drazen', 'drazen123',  'Drazen Draskovic', 'drazen@etf.bg.ac.rs', NULL, NULL, 0);
+INSERT INTO `user` (`idUser`, `username`, `password`, `fullName`, `email`, `image`, `phone`, `type`) VALUES
+(3, 'admin', 'admin123', 'Bodin Bizetic', 'admin@etf.bg.ac.rs', NULL, NULL , 1),
+(2, 'drazen', 'drazen123',  'Drazen Draskovic', 'drazen@etf.bg.ac.rs', NULL, NULL, 0);
 
 
 -- --------------------------------------------------------
@@ -71,8 +71,8 @@ CREATE TABLE IF NOT EXISTS `group` (
 -- Dumping data for table `group`
 --
 
--- INSERT INTO `group` (`idGroup`, `name`, `description`, `image`) VALUES
--- (1, 'Porodica', 'Group for family', NULL);
+INSERT INTO `group` (`idGroup`, `name`, `description`, `image`) VALUES
+(1, 'Porodica', 'Group for family', NULL);
 
 
 -- --------------------------------------------------------
@@ -99,10 +99,10 @@ CREATE TABLE IF NOT EXISTS `notification` (
 -- Dumping data for table `notification`
 --
 
--- INSERT INTO `notification` (`idNotification`, `text`, `idUser`, `idGroup`, `type`, `isRead`) VALUES
--- (1, 'Join group Porodica', 1, 1, 0, 1),
--- (2, 'New member group Porodica', 1, 1, 2, 0),
--- (3, 'List status Porodica List1', 1, 1, 3, 0);
+INSERT INTO `notification` (`idNotification`, `text`, `idUser`, `idGroup`, `type`, `isRead`) VALUES
+(1, 'Join group Porodica', 1, 1, 0, 1),
+(2, 'New member group Porodica', 1, 1, 2, 0),
+(3, 'List status Porodica List1', 1, 1, 3, 0);
 
 
 DROP TABLE IF EXISTS `category`;
