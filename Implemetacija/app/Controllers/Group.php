@@ -52,5 +52,7 @@ class Group extends BaseController
 
         $groupModel = new GroupModel();
         $groupModel->save($data);
+
+        $this->index();
     }
 }
