@@ -12,12 +12,11 @@ class ShoppingListModel extends Model
     protected $primaryKey = 'idShoppingList';
     protected $useAutoIncrement = true;
     protected $returnType     = 'array';
-    protected $allowedFields = ['name', 'active', 'idShop'];
+    protected $allowedFields = ['name', 'active', 'idShop', 'idGroup'];
 
 
     protected $validationRules    = [
-        'idShoppingList'     => 'required',
-        'idGroup'     => 'required|in_db[`group`]',
+        'idGroup'     => 'required|in_db[group,idGroup,Not in group]',
         'name'     => 'required|max_length[45]',
         'active'     => 'required'
     ];

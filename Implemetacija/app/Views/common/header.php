@@ -16,6 +16,7 @@
     <link href="<?php echo base_url('assets/owl.carousel/assets/owl.carousel.min.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/venobox/venobox.css')?>" rel="stylesheet">
 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url('css/common.css')?>" rel="stylesheet">
 
 </head>
