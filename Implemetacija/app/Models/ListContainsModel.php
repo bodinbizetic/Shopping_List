@@ -9,23 +9,23 @@ use CodeIgniter\Model;
 class ListContainsModel extends Model
 {
     protected $table      = 'listcontains';
-    protected $primaryKey = array('idShoppingList', 'idItem');
+    protected $primaryKey = 'idListContains';
     protected $useAutoIncrement = true;
     protected $returnType     = 'array';
-    protected $allowedFields = ['bought'];
+    protected $allowedFields = ['bought', 'idShoppingList', 'idItem', 'bought'];
 
 
     protected $validationRules    = [
-        'idShoppingList'     => 'required|in_db[`shoppinglist`]',
-        'idItem'     => 'required|in_db[`item`]',
-        'idUser'     => 'required|in_db[`user`]',
-        'bought'     => 'required'
+        'idShoppingList'     => 'required|in_db[shoppinglist,idShoppingList]',
+        'idItem'     => 'required|in_db[item,idItem]',
+        'idUser'     => 'required|in_db[user,idUser]',
     ];
 
 
     protected $skipValidation     = false;
 
-
-
-
+    public function findAllInList($idShoppingList): array
+    {
+        return $this->where('idShoppingList', $idShoppingList)->get()->getResultArray();
+    }
 }

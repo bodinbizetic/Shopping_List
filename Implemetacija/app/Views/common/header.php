@@ -16,6 +16,7 @@
     <link href="<?php echo base_url('assets/owl.carousel/assets/owl.carousel.min.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/venobox/venobox.css')?>" rel="stylesheet">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
     <link href="<?php echo base_url('css/common.css')?>" rel="stylesheet">
 

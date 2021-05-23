@@ -6,6 +6,8 @@ namespace App\Controllers;
 
 use App\Models\GroupModel;
 use App\Models\InGroupModel;
+use App\Models\ItemModel;
+use App\Models\ListContainsModel;
 use App\Models\ShopChainModel;
 use App\Models\ShoppingListModel;
 use App\Models\UserModel;
@@ -111,9 +113,63 @@ class Lists extends BaseController
 
         if(!$listModel->insert($data)) {
             $this->renderCreate($groupId, $listModel->errors());
-            echo 1;
         }
 
         return redirect()->to('/lists/index');
+    }
+
+    public function shopping($idShoppingList)
+    {
+        $shoppingListModel = new ShoppingListModel();
+        $listContainsModel = new ListContainsModel();
+        $itemModel = new ItemModel();
+
+        $shoppingList = $shoppingListModel->find($idShoppingList);
+        if ($shoppingList == null)
+        {
+            die("Model not found");
+        }
+
+        $itemsListContain = $listContainsModel->findAllInList($idShoppingList);
+        $itemsList = [];
+
+        foreach ($itemsListContain as $contained)
+        {
+            $item = $itemModel->find($contained['idItem']);
+            $bought = $contained['bought'];
+
+            $itemDesc = [$item['name'], $item['quantity'].' '.$item['metrics'], $bought, $contained['idListContains']];
+            array_push($itemsList, $itemDesc);
+        }
+
+        echo view("common/header");
+        echo view("lists/shopping", ['listName' => $shoppingList['name'],
+                                            'items' => $itemsList,
+                                            ]);
+        echo view("common/footer");
+    }
+
+    public function bought($idListContains, $state)
+    {
+        $listContainsModel = new ListContainsModel();
+        $listContains = $listContainsModel->find($idListContains);
+        if ($listContains == null)
+        {
+            die ("Item not found");
+        }
+        if ($state == 'null')
+        {
+            echo 'done';
+            $listContains['bought'] = null;
+        }
+        else
+        {
+            $listContains['bought'] = date('Y-m-d');
+        }
+
+        if (!$listContainsModel->update($idListContains, $listContains))
+        {
+            echo implode(' ', $listContainsModel->errors());
+        }
     }
 }

@@ -29,9 +29,10 @@
                             <td colspan="3">
                                 <div class="collapse" id="group-row<?=$groupId?>">
                                     <table class="table">
-                                        <tbody class="" id="">
+                                        <tbody class="hoverable-row" id="">
                                             <?php foreach ($lists as $listId => $listName) { ?>
-                                            <tr>
+                                            <tr class="row-clickable" data-href="/lists/shopping/<?=$listId?>">
+
                                                 <td>
                                                     <img src="<?= base_url() ?>/images/lists/shopping-list.png" style="border-radius: 50%;" class="avatar img-circle">
                                                 </td>
@@ -58,4 +59,11 @@
     </section>
 </main>
 
+
+<script>
+    $('.row-clickable').click(function ()
+    {
+        window.location = $(this).data('href');
+    });
+</script>
 <script src="<?php echo base_url('assets/jquery/jquery.min.js')?>"></script>
