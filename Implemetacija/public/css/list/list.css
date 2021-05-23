@@ -1,0 +1,49 @@
+img {
+    width: 45px;
+    height: 45px;
+}
+
+.table {
+    width: 100%;
+    text-align: center;
+}
+
+.tdImage {
+    width: 20%;
+}
+
+.tdName {
+    width: 40%;
+}
+
+.tdActions {
+    width: 40%;
+}
+
+.group-info:hover {
+    background-color: #defce9;
+    color: #000000;
+}
+
+.newButton {
+    float: right;
+}
+
+.group-info {
+    text-align: left;
+    font-weight: bold;
+}
+
+.group-name {
+    padding-left: 5% !important;
+    vertical-align: middle !important;
+}
+
+.hoverable-row tr:hover {
+    background-color: #defce9;
+    color: #000000;
+}
+
+.hoverable-row {
+    text-align: left;
+}

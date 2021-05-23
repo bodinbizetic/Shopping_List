@@ -47,7 +47,7 @@
         <nav class="nav-menu d-none d-lg-block">
             <ul>
                 <li class="active"><a href="<?php echo base_url('homePage/index')?>">Home</a></li>
-                <li><a href="<?php echo base_url('homePage/lists')?>">Shopping list</a></li>
+                <li><a href="<?php echo base_url('lists/index')?>">Shopping list</a></li>
                 <li><a href="<?php echo base_url('group/index')?>">Groups</a></li>
                 <li><a href="<?php echo base_url('notification/index')?>">Notifications</a></li>
                 <li><a href="<?php echo base_url('profile/index')?>">Profile</a></li>

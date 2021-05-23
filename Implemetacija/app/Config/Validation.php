@@ -72,7 +72,10 @@ class Validation
         $model = new Model();
         $explodedArgs = explode(",", $args);
         if ($model->db->table($explodedArgs[0])->where($explodedArgs[1], $id)->get()->getNumRows() == 0) {
-            $error = $explodedArgs[2];
+            if (count($explodedArgs) == 3)
+                $error = $explodedArgs[2];
+            else
+                $error = "Not found in ".$explodedArgs[0];
             return false;
         }
         return true;

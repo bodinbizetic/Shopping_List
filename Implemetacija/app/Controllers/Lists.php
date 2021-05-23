@@ -14,10 +14,37 @@ class Lists extends BaseController
 {
     public function render()
     {
+        $inGroupModel = new InGroupModel();
+        $groupModel = new GroupModel();
+        $shoppingListModel = new ShoppingListModel();
+
+        $ingroups = $inGroupModel->findByUserId(1);
+        $groupNames = [];
+        $userGroups = [];
+
+        foreach ($ingroups as $ingroup) {
+            $idGroup = $ingroup['idGroup'];
+            $group = $groupModel->find($idGroup);
+            $groupNames[$idGroup] = $group['name'];
+            $groupListRaw = $shoppingListModel->where('idGroup', $idGroup)->
+                                                where('active', 1)->
+                                                get()->getResultArray();
+
+            $groupList = [];
+            foreach ($groupListRaw as $list) {
+                $groupList[$list['idShoppingList']] = $list['name'];
+            }
+
+            $userGroups[$idGroup] = $groupList;
+        }
+
+
         echo view('common/header', []);
-        echo view('lists/all_lists', []);
+        echo view('lists/all_lists', ['userGroups' => $userGroups,
+                                            'groupNames' => $groupNames]);
         echo view('common/footer', []);
     }
+
 
     public function index()
     {
@@ -26,9 +53,8 @@ class Lists extends BaseController
 
     public function renderCreate($groupId, $errors = null)
     {
-        //TODO: Remove this
-        $userCurrent = new UserModel();
-        $this->session->set('user', $userCurrent->findByUsername('Bodin'));
+//        $userCurrent = new UserModel();
+//        $this->session->set('user', $userCurrent->findByUsername('Bodin'));
 
         $user = $this->session->get('user');
 
