@@ -41,7 +41,7 @@
                             <?= $item[0] ?>
                         </td>
                         <td><?= $item[1] ?></td>
-                        <td>0</td>
+                        <td><?= $item[4]?></td>
                     </tr>
                 <?php } ?>
            </tbody>
