@@ -16,8 +16,8 @@ class ItemPriceModel extends Model
 
 
     protected $validationRules    = [
-        'idItem'     => 'required|in_db[`item`]',
-        'idShopChain'     => 'required|in_db[`shopchain`]'
+        'idItem'     => 'required|in_db[item,idItem,Not valid item]',
+        'idShopChain'     => 'required|in_db[shopchain,idShopChain, Not valid shop]'
     ];
 
 

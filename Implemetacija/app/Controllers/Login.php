@@ -3,8 +3,10 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use http\Client\Curl\User;
 
 define("ADMIN", 0);
+define("USER", 1);
 
 class Login extends BaseController {
 
@@ -65,7 +67,8 @@ class Login extends BaseController {
             'fullName' => $this->request->getPost('register_fullname'),
             'email'    => $this->request->getPost('register_email'),
             'phone'    => $this->request->getPost('register_phone'),
-            'password' => $this->request->getPost('register_password')
+            'password' => $this->request->getPost('register_password'),
+            'type'      => USER
         ];
 
         if($data['phone'] == "")

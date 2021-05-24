@@ -7,6 +7,7 @@ namespace App\Controllers;
 use App\Models\GroupModel;
 use App\Models\InGroupModel;
 use App\Models\ItemModel;
+use App\Models\ItemPriceModel;
 use App\Models\ListContainsModel;
 use App\Models\ShopChainModel;
 use App\Models\ShoppingListModel;
@@ -55,9 +56,6 @@ class Lists extends BaseController
 
     public function renderCreate($groupId, $errors = null)
     {
-//        $userCurrent = new UserModel();
-//        $this->session->set('user', $userCurrent->findByUsername('Bodin'));
-
         $user = $this->session->get('user');
 
         $groupModel = new GroupModel();
@@ -123,6 +121,7 @@ class Lists extends BaseController
     {
         $shoppingListModel = new ShoppingListModel();
         $listContainsModel = new ListContainsModel();
+        $itemPriceModel = new ItemPriceModel();
         $itemModel = new ItemModel();
 
         $shoppingList = $shoppingListModel->find($idShoppingList);
@@ -139,7 +138,20 @@ class Lists extends BaseController
             $item = $itemModel->find($contained['idItem']);
             $bought = $contained['bought'];
 
-            $itemDesc = [$item['name'], $item['quantity'].' '.$item['metrics'], $bought, $contained['idListContains']];
+            $itemPrice = $itemPriceModel->where('idItem', $item['idItem'])->
+                                        where('idShopChain', $shoppingList['idShop'])->
+                                        first();
+            echo $itemPrice['price'];
+            if ($itemPrice == null)
+            {
+                $price = 'N/A';
+            }
+            else
+            {
+                $price = $itemPrice['price'];
+            }
+
+            $itemDesc = [$item['name'], $item['quantity'].' '.$item['metrics'], $bought, $contained['idListContains'], $price];
             array_push($itemsList, $itemDesc);
         }
 
