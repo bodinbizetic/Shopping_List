@@ -1,5 +1,6 @@
 <link href="<?php echo base_url(); ?>/css/common.css" rel="stylesheet">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <section>
     <div class="container">
         <div class="section-title">
@@ -31,7 +32,6 @@
                                 </select>
                             </div>
                         </div>
-                        <input type="text" name="description" class="form-control m-2" placeholder="Description">
                         <input type="hidden" name="group" value="<?php echo $group_id ?>">
                         <input type="submit" value="Create" class="btn btn-success btn-block m-2">
                     </div>

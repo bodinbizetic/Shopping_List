@@ -88,12 +88,13 @@ class Lists extends BaseController
         echo view('common/footer', []);
     }
 
-    public function createNew() {
-        $listModel = new ShoppingListModel();
+    public function createNew()
+    {
         $listName = $this->request->getPost('list_name');
         $shopId = $this->request->getPost('shop_id');
         $groupId = $this->request->getPost('group');
 
+        $listModel = new ShoppingListModel();
         $groupModel = new GroupModel();
         if ($groupModel->find($groupId) == null) {
             die("Parameter failure");
@@ -125,9 +126,9 @@ class Lists extends BaseController
         $itemModel = new ItemModel();
 
         $shoppingList = $shoppingListModel->find($idShoppingList);
-        if ($shoppingList == null)
+        if ($shoppingList == null || $shoppingList['active'] == 0)
         {
-            die("Model not found");
+            die("List not found");
         }
 
         $itemsListContain = $listContainsModel->findAllInList($idShoppingList);
@@ -145,6 +146,7 @@ class Lists extends BaseController
         echo view("common/header");
         echo view("lists/shopping", ['listName' => $shoppingList['name'],
                                             'items' => $itemsList,
+                                            'listId' => $shoppingList['idShoppingList'],
                                             ]);
         echo view("common/footer");
     }
@@ -171,5 +173,52 @@ class Lists extends BaseController
         {
             echo implode(' ', $listContainsModel->errors());
         }
+    }
+
+    public function finish($idShoppingList, $createNewList)
+    {
+        $shoppingListModel = new ShoppingListModel();
+
+        $shoppingList = $shoppingListModel->find($idShoppingList);
+        if ($shoppingList == null)
+        {
+            die("Invalid api call");
+        }
+
+        if ($createNewList == 'yes')
+        {
+            $data = [
+                'name' => $shoppingList['name'],
+                'active' => 1,
+                'idShop' => $shoppingList['idShop'],
+                'idGroup' => $shoppingList['idGroup'],
+            ];
+
+            $newListId = $shoppingListModel->insert($data);
+            if ($newListId == null)
+            {
+                die('List not saved');
+            }
+
+            $listContainsModel = new ListContainsModel();
+            $listContainsToUpdate = $listContainsModel->where('idShoppingList', $idShoppingList)->
+                                                        where('bought', null)->find();
+            foreach ($listContainsToUpdate as $listContains)
+            {
+                $listContains['idShoppingList'] = $newListId;
+                if (!$listContainsModel->update($listContains['idListContains'], $listContains))
+                {
+                    die('Server error');
+                }
+            }
+        }
+
+        $shoppingList['active'] = 0;
+        if (!$shoppingListModel->update($idShoppingList, $shoppingList))
+        {
+            die("Server error");
+        }
+
+        return redirect()->to('/lists/index');
     }
 }

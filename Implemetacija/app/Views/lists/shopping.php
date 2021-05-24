@@ -1,3 +1,24 @@
+<div class="modal fade" id="finishList" tabindex="-1" role="dialog" aria-labelledby="finishListTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="finishListLongTitle">Are you finished shopping?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                If you click Delete the list would be removed permanently. You can chose to Move to new list with non bought items.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" data-dismiss="modal" onclick="window.location = '/lists/finish/<?=$listId?>/yes'">Move</button>
+                <button class="btn btn-primary" data-dismiss="modal" onclick="window.location = '/lists/finish/<?=$listId?>/no'">Delete</button>
+                <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <section>
    <div class="container">
        <div class="section-title">
@@ -26,7 +47,7 @@
            </tbody>
        </table>
        <div class="w-100 text-center">
-           <a href="" type="button" class="btn btn-outline-danger">Finish</a>
+           <a href="" type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#finishList">Finish</a>
        </div>
    </div>
 </section>
