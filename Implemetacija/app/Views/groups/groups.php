@@ -58,7 +58,9 @@
                       <div class="btn-group">
                           <button class="btn btn-outline-info" onclick="window.location.href='<?php echo base_url("group/viewGroup");?>'">Info</button>
                           <button class="btn btn-outline-success" onclick="window.location.href='<?php echo base_url("homepage/lists");?>'">Lists</button>
-                          <button class="btn btn-outline-primary" onclick="window.location.href='<?php echo base_url("group/editGroup");?>'">Edit</button>
+                          <button class="btn btn-outline-primary" onclick="window.location.href='<?php echo $id = $groups[$i]['idGroup'];
+                              base_url("group/renderEditGroup/$id");?>'"
+                          <?php if($ingroups[$i]['type']=='0') echo 'disabled'; ?>>Edit</button>
                           <button class="btn btn-outline-danger" data-toggle='modal' data-target='#exampleModalCenter' >Leave</button>
                       </div>
                   </td>

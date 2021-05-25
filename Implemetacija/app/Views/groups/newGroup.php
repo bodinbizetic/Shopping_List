@@ -1,5 +1,6 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+<script src="<?php echo base_url('assets/jquery/jquery.min.js')?>"></script>
 
 <main id="main">
     <section>
@@ -42,16 +43,9 @@
                                  name="invite_member" value="<?php echo set_value('invite_members');?>">
                           </div>
                           <div class="col-1 input-group">
-                              <button class="btn btn-success" type="button">Add</button>
+                              <button class="btn btn-success" type="button" onclick="window.location.href='<?php
+                              echo base_url("group/addNewMember");?>'">Add</button>
                           </div>
-                      </div>
-
-                      <div class="row">
-                          <table>
-                              <tbody>
-
-                              </tbody>
-                          </table>
                       </div>
 
                       <div class="row form-group">
