@@ -54,6 +54,26 @@ class Lists extends BaseController
         $this->render();
     }
 
+    public function renderList($listId, $errors = null)
+    {
+        $user = $this->session->get('user');
+
+        $listModel = new ShoppingListModel();
+        $list = $listModel->find($listId);
+        if($list == null)
+        {
+            die("Invalid api call");
+        }
+
+        echo view('common/header', []);
+        echo view('lists/create_list', ['group_name' => $group['name'],
+            'group_id' => $groupId,
+            'shops' => $shops,
+            'errors' => $errors]);
+
+        echo view('common/footer', []);
+    }
+
     public function renderCreate($groupId, $errors = null)
     {
         $user = $this->session->get('user');
@@ -141,7 +161,6 @@ class Lists extends BaseController
             $itemPrice = $itemPriceModel->where('idItem', $item['idItem'])->
                                         where('idShopChain', $shoppingList['idShop'])->
                                         first();
-            echo $itemPrice['price'];
             if ($itemPrice == null)
             {
                 $price = 'N/A';
@@ -150,6 +169,7 @@ class Lists extends BaseController
             {
                 $price = $itemPrice['price'];
             }
+            //echo $price;
 
             $itemDesc = [$item['name'], $item['quantity'].' '.$item['metrics'], $bought, $contained['idListContains'], $price];
             array_push($itemsList, $itemDesc);
