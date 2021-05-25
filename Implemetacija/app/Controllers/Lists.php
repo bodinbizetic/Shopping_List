@@ -8,6 +8,7 @@ use App\Models\GroupModel;
 use App\Models\InGroupModel;
 use App\Models\ItemModel;
 use App\Models\ItemPriceModel;
+use App\Models\LinkModel;
 use App\Models\ListContainsModel;
 use App\Models\ShopChainModel;
 use App\Models\ShoppingListModel;
@@ -52,6 +53,97 @@ class Lists extends BaseController
     public function index()
     {
         $this->render();
+    }
+
+    public function renderList($idShoppingList, $errors = null)
+    {
+        $shoppingListModel = new ShoppingListModel();
+        $listContainsModel = new ListContainsModel();
+        $itemPriceModel = new ItemPriceModel();
+        $itemModel = new ItemModel();
+        $shopChainModel = new ShopChainModel();
+
+        $shoppingList = $shoppingListModel->find($idShoppingList);
+        if ($shoppingList == null || $shoppingList['active'] == 0)
+        {
+            die("List not found");
+        }
+
+        $itemsListContain = $listContainsModel->findAllInList($idShoppingList);
+        $itemsList = [];
+
+        foreach ($itemsListContain as $contained)
+        {
+            $item = $itemModel->find($contained['idItem']);
+            $bought = $contained['bought'];
+
+            $itemPrice = $itemPriceModel->where('idItem', $item['idItem'])->
+            where('idShopChain', $shoppingList['idShop'])->
+            first();
+            if ($itemPrice == null)
+            {
+                $price = 'N/A';
+            }
+            else
+            {
+                $price = $itemPrice['price'];
+            }
+            //echo $price;
+
+            $itemDesc = [$item['name'], $item['quantity'].' '.$item['metrics'], $bought, $contained['idListContains'], $price, $contained['idListContains']];
+            array_push($itemsList, $itemDesc);
+        }
+
+        $shop = $shopChainModel->find($shoppingList['idShop']);
+
+        echo view("common/header");
+        echo view("lists/edit_list", ['listName' => $shoppingList['name'],
+            'items' => $itemsList,
+            'listId' => $shoppingList['idShoppingList'],
+            'shop' => $shop['name']
+        ]);
+        echo view("common/footer");
+    }
+
+    public function editItem($idListContained)
+    {
+        $listContainsModel = new ListContainsModel();
+        $itemModel = new ItemModel();
+
+        $listContains = $listContainsModel->find($idListContained);
+        $item = $itemModel->find($listContains['idItem']);
+
+        echo view("common/header");
+        echo view("lists/edit_item", ['idListContained' => $idListContained,
+            'id' => $item["idItem"],
+            'name' => $item['name'],
+            'quantity' => $item['quantity']
+        ]);
+        echo view("common/footer");
+    }
+
+    public function deleteItem($idListContains, $listId)
+    {
+        $listContainsModel = new ListContainsModel();
+        $itemsListContain = $listContainsModel->delete($idListContains);
+        return redirect()->to('/lists/renderList/'.$listId);
+    }
+
+    public function changeItem($itemId, $name, $quantity, $measure)
+    {
+        $itemModel = new ItemModel();
+        $item = $itemModel->find($itemId);
+        $item['name'] = $name;
+        $item['quantity'] = $quantity;
+        $item['metrics'] = $measure;
+        $data = [
+            'name' => $name,
+            'quantity' => $quantity,
+            'metrics' => $measure,
+            'idItem' => $itemId
+        ];
+        $itemModel->update($itemId, $data);
+        return redirect()->back();
     }
 
     public function renderCreate($groupId, $errors = null)
@@ -141,7 +233,6 @@ class Lists extends BaseController
             $itemPrice = $itemPriceModel->where('idItem', $item['idItem'])->
                                         where('idShopChain', $shoppingList['idShop'])->
                                         first();
-            echo $itemPrice['price'];
             if ($itemPrice == null)
             {
                 $price = 'N/A';
@@ -159,6 +250,7 @@ class Lists extends BaseController
         echo view("lists/shopping", ['listName' => $shoppingList['name'],
                                             'items' => $itemsList,
                                             'listId' => $shoppingList['idShoppingList'],
+                                            'writable' => 1,
                                             ]);
         echo view("common/footer");
     }
@@ -232,5 +324,39 @@ class Lists extends BaseController
         }
 
         return redirect()->to('/lists/index');
+    }
+
+    public function createLink($listId)
+    {
+        $linkModel = new LinkModel();
+        $shoppingListModel = new ShoppingListModel();
+
+        if (!$shoppingListModel->find($listId))
+        {
+            die("No shopping list found");
+        }
+
+        $link = $this->request->getPost('link');
+        $perm = $this->request->getPost('perm');
+
+        if ($link == null || $perm == null)
+        {
+            die("Wrong api call".$link.' '.$perm);
+        }
+
+        $link = str_replace(base_url().'/guest/guest/', '', $link);
+
+        $data = [
+            'link' => $link,
+            'writable' => $perm,
+            'idShoppingList' => $listId
+        ];
+
+        if (!$linkModel->insert($data))
+        {
+            die("Server error".$linkModel->errors());
+        }
+
+        echo "datatatatat";
     }
 }

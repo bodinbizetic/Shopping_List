@@ -35,9 +35,9 @@
            </thead>
            <tbody>
                 <?php foreach ($items as $item) { ?>
-                    <tr <?php if ($item[2]) echo 'class="strikeout item-row"'; else echo 'class="item-row"' ?> <?= 'contains="'.$item[3].'"'?>>
+                    <tr <?php if ($item[2]) echo 'class="strikeout item-row"'; else echo 'class="item-row"' ?> <?= 'contains="'.$item[3].'"'?> disabled="">
                         <td>
-                            <input type="checkbox" <?php if ($item[2]) echo 'checked'?>>
+                            <input type="checkbox" <?php if ($item[2]) echo 'checked'?> <?php if(!$writable) echo 'disabled'?>>
                             <?= $item[0] ?>
                         </td>
                         <td><?= $item[1] ?></td>
@@ -47,7 +47,7 @@
            </tbody>
        </table>
        <div class="w-100 text-center">
-           <a href="" type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#finishList">Finish</a>
+           <a href="" type="button" class="btn btn-outline-danger <?php if(!$writable) echo 'disabled'?>" data-toggle="modal" data-target="#finishList" >Finish</a>
        </div>
    </div>
 </section>
@@ -71,6 +71,8 @@
 </style>
 
 <script>
+    var writable = <?= $writable ?>;
+
     function strikeoutUpdate()
     {
         let idContains = $(this).attr('contains');
@@ -90,6 +92,7 @@
         }
 
         xhttp.send();
+
     }
 
     function onCheckboxClick()
@@ -115,7 +118,9 @@
 
     $(document).ready(function()
     {
-        $(".item-row").click(strikeoutUpdate)
-        $("input[type='checkbox']").click(strikeoutUpdate)
+        if (writable == 1) {
+            $(".item-row").click(strikeoutUpdate)
+            $("input[type='checkbox']").click(strikeoutUpdate)
+        }
     });
 </script>
