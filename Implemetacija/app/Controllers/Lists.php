@@ -54,24 +54,61 @@ class Lists extends BaseController
         $this->render();
     }
 
-    public function renderList($listId, $errors = null)
+    public function renderList($idShoppingList, $errors = null)
     {
-        $user = $this->session->get('user');
+        $shoppingListModel = new ShoppingListModel();
+        $listContainsModel = new ListContainsModel();
+        $itemPriceModel = new ItemPriceModel();
+        $itemModel = new ItemModel();
+        $shopChainModel = new ShopChainModel();
 
-        $listModel = new ShoppingListModel();
-        $list = $listModel->find($listId);
-        if($list == null)
+        $shoppingList = $shoppingListModel->find($idShoppingList);
+        if ($shoppingList == null || $shoppingList['active'] == 0)
         {
-            die("Invalid api call");
+            die("List not found");
         }
 
-        echo view('common/header', []);
-        echo view('lists/create_list', ['group_name' => $group['name'],
-            'group_id' => $groupId,
-            'shops' => $shops,
-            'errors' => $errors]);
+        $itemsListContain = $listContainsModel->findAllInList($idShoppingList);
+        $itemsList = [];
 
-        echo view('common/footer', []);
+        foreach ($itemsListContain as $contained)
+        {
+            $item = $itemModel->find($contained['idItem']);
+            $bought = $contained['bought'];
+
+            $itemPrice = $itemPriceModel->where('idItem', $item['idItem'])->
+            where('idShopChain', $shoppingList['idShop'])->
+            first();
+            if ($itemPrice == null)
+            {
+                $price = 'N/A';
+            }
+            else
+            {
+                $price = $itemPrice['price'];
+            }
+            //echo $price;
+
+            $itemDesc = [$item['name'], $item['quantity'].' '.$item['metrics'], $bought, $contained['idListContains'], $price, $contained['idListContains']];
+            array_push($itemsList, $itemDesc);
+        }
+
+        $shop = $shopChainModel->find($shoppingList['idShop']);
+
+        echo view("common/header");
+        echo view("lists/edit_list", ['listName' => $shoppingList['name'],
+            'items' => $itemsList,
+            'listId' => $shoppingList['idShoppingList'],
+            'shop' => $shop['name']
+        ]);
+        echo view("common/footer");
+    }
+
+    public function deleteItem($idListContains, $listId)
+    {
+        $listContainsModel = new ListContainsModel();
+        $itemsListContain = $listContainsModel->delete($idListContains);
+        return redirect()->to('/lists/renderList/'.$listId);
     }
 
     public function renderCreate($groupId, $errors = null)

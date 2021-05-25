@@ -39,7 +39,7 @@
                                                 <td><?= $listName ?></td>
                                                 <td>
                                                     <div class="btn-group" role="group">
-                                                        <a href="/lists/shopping/<?=$listId?>" class="btn btn-outline-primary" role="button" aria-pressed="true">Edit</a>
+                                                        <a href="/lists/renderList/<?=$listId?>" class="btn btn-outline-primary" role="button" aria-pressed="true">Edit</a>
                                                         <a href="/lists/createLink/<?=$listId?>" class="btn btn-outline-success" role="button" aria-pressed="true">Create Link</a>
                                                         <a href="/lists/deleteList/<?=$listId?>" class="btn btn-outline-danger" role="button" aria-pressed="true">Delete</a>
                                                     <!-- TODO: implementiraj -->
