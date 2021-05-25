@@ -8,6 +8,7 @@ use App\Models\GroupModel;
 use App\Models\InGroupModel;
 use App\Models\ItemModel;
 use App\Models\ItemPriceModel;
+use App\Models\LinkModel;
 use App\Models\ListContainsModel;
 use App\Models\ShopChainModel;
 use App\Models\ShoppingListModel;
@@ -240,7 +241,6 @@ class Lists extends BaseController
             {
                 $price = $itemPrice['price'];
             }
-            //echo $price;
 
             $itemDesc = [$item['name'], $item['quantity'].' '.$item['metrics'], $bought, $contained['idListContains'], $price];
             array_push($itemsList, $itemDesc);
@@ -250,6 +250,7 @@ class Lists extends BaseController
         echo view("lists/shopping", ['listName' => $shoppingList['name'],
                                             'items' => $itemsList,
                                             'listId' => $shoppingList['idShoppingList'],
+                                            'writable' => 1,
                                             ]);
         echo view("common/footer");
     }
@@ -323,5 +324,39 @@ class Lists extends BaseController
         }
 
         return redirect()->to('/lists/index');
+    }
+
+    public function createLink($listId)
+    {
+        $linkModel = new LinkModel();
+        $shoppingListModel = new ShoppingListModel();
+
+        if (!$shoppingListModel->find($listId))
+        {
+            die("No shopping list found");
+        }
+
+        $link = $this->request->getPost('link');
+        $perm = $this->request->getPost('perm');
+
+        if ($link == null || $perm == null)
+        {
+            die("Wrong api call".$link.' '.$perm);
+        }
+
+        $link = str_replace(base_url().'/guest/guest/', '', $link);
+
+        $data = [
+            'link' => $link,
+            'writable' => $perm,
+            'idShoppingList' => $listId
+        ];
+
+        if (!$linkModel->insert($data))
+        {
+            die("Server error".$linkModel->errors());
+        }
+
+        echo "datatatatat";
     }
 }
