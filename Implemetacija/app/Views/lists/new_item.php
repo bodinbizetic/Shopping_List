@@ -25,7 +25,7 @@
     <section id="new-group">
         <div class="container">
             <div class="section-title">
-                <h2>Edit Item</h2>
+                <h2>New Item</h2>
             </div>
             <table id="itemTable" class="table">
 
@@ -37,7 +37,7 @@
                         <div class="form-group" >
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-male"></i></div>
-                                <input id="namevar" type="text" id="itemInput" name="register_fullname" class="form-control" placeholder="Quick item search" value="<?=$name?>">
+                                <input id="namevar" type="text" id="itemInput" name="register_fullname" class="form-control" placeholder="Quick item search" value="">
                             </div>
                         </div>
                     </td>
@@ -45,7 +45,7 @@
                         <div class="searchQuant" class="form-group" >
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-male"></i></div>
-                                <input id="quantityvar" type="number" min = 0 name="register_fullname" class="form-control" placeholder="Quantity/Measurement" value="<?= $quantity?>">
+                                <input id="quantityvar" type="number" min = 0 name="register_fullname" class="form-control" placeholder="Quantity/Measurement" value="">
                                 <select id="quant" size='1'>
                                     <option selected>kom</option>
                                     <option>g</option>
@@ -57,7 +57,7 @@
                         </div>
                     </td>
                     <td>
-                        <input type ="button" class="btn btn-success btn-block" onclick="edit()" value="Edit Item" class="btn btn-success btn-block">
+                        <input type ="button" class="btn btn-success btn-block" onclick="edit()" value="New Item" class="btn btn-success btn-block">
 
                     </td>
                 </tr>
@@ -172,8 +172,8 @@
         var strQuantity = equantity.value;
         var e = document.getElementById("quant");
         var strMeasure = e.options[e.selectedIndex].text;
-        if(strMeasure == "kom")
+        if(e.value == 0)
             strMeasure = ""
-        window.location = "/lists/changeItem/<?=$id?>/"+strName+"/"+strQuantity+"/"+strMeasure+"/<?=$idList?>";
+        window.location = "/lists/addItem/"+strName+"/"+strQuantity+"/"+strMeasure+"/<?=$idList?>";
     }
 </script>
