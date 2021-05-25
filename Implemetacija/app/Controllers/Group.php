@@ -156,4 +156,39 @@ class Group extends BaseController
             $notificationModel->save($data);
         }
     }
+
+    public function leaveGroup($groupId){
+        $groupModel = new GroupModel();
+
+        $inGroupModel = new InGroupModel();
+        $thisGroup = $inGroupModel->findByGroupId($groupId);
+
+        $userId = $this->session->get('user')['idUser'];
+
+        $inGroup = $inGroupModel->where('idUser',$userId)->where('idGroup',$groupId)->findAll(1)[0];
+
+
+        if($inGroup['type']=='1'){
+            foreach ($thisGroup as $memInGroup){
+                if($memInGroup['idUser']!=$userId){
+                    $id = $inGroupModel->where('idUser',$memInGroup['idUser'])->where('idGroup',$groupId)->findAll(1)[0];
+                    $data = [
+                        'idGroup'=>$groupId,
+                        'idUser' => $memInGroup['idUser'],
+                        'type'=>'1'
+                    ];
+                    $inGroupModel->update($id['idInGroup'],$data);
+                    break;
+                }
+            }
+        }
+
+        $inGroupModel->delete($inGroup['idInGroup']);
+
+        if(count($thisGroup)==1){
+            $groupModel->delete($groupId);
+        }
+
+        return redirect()->to('/group/index');
+    }
 }
