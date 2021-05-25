@@ -104,11 +104,45 @@ class Lists extends BaseController
         echo view("common/footer");
     }
 
+    public function editItem($idListContained)
+    {
+        $listContainsModel = new ListContainsModel();
+        $itemModel = new ItemModel();
+
+        $listContains = $listContainsModel->find($idListContained);
+        $item = $itemModel->find($listContains['idItem']);
+
+        echo view("common/header");
+        echo view("lists/edit_item", ['idListContained' => $idListContained,
+            'id' => $item["idItem"],
+            'name' => $item['name'],
+            'quantity' => $item['quantity']
+        ]);
+        echo view("common/footer");
+    }
+
     public function deleteItem($idListContains, $listId)
     {
         $listContainsModel = new ListContainsModel();
         $itemsListContain = $listContainsModel->delete($idListContains);
         return redirect()->to('/lists/renderList/'.$listId);
+    }
+
+    public function changeItem($itemId, $name, $quantity, $measure)
+    {
+        $itemModel = new ItemModel();
+        $item = $itemModel->find($itemId);
+        $item['name'] = $name;
+        $item['quantity'] = $quantity;
+        $item['metrics'] = $measure;
+        $data = [
+            'name' => $name,
+            'quantity' => $quantity,
+            'metrics' => $measure,
+            'idItem' => $itemId
+        ];
+        $itemModel->update($itemId, $data);
+        return redirect()->back();
     }
 
     public function renderCreate($groupId, $errors = null)
