@@ -54,19 +54,20 @@
       <div class="row">
           <div class="col-4">
               <div class="form-group">
-                  <label for="image">
-                      <input type="file" name="image" id="image" style="display:none;"/ value="<?php echo set_value('image');?>">
-                      <img src="<?php if($image==null) echo 'http://ssl.gstatic.com/accounts/ui/avatar_2x.png';
-                      else echo $image;?>" style="border-radius: 50%;"/>
-                      <p style="text-align: center;">Browse image</p>
-                  </label>
+                  <div class="form-group">
+                      <label for="image">
+                          <input type="file" name="image" id="image" style="display:none;"/>
+                          <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%"/>
+                          <p>Browse image</p>
+                      </label>
+                  </div>
               </div>
           </div>
           <div class="col col-md-8">
               <div class="form-group ">
                   <div class="input-group">
                       <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                      <input type="text" name="group_name" class="form-control" placeholder="Group Name" value="<?php echo $name;?>">
+                      <input type="text" name="group_name" class="form-control" placeholder="Group Name" value="<?php echo $name;?>" required="required">
                   </div>
               </div>
               <div class="form-group ">
@@ -84,7 +85,27 @@
                   </tr>
                 </thead>
                 <tbody>
-                  
+                <?php $i=0; foreach($members as $member): ?>
+                    <tr>
+                      <td><?php echo $member['username'];
+                          if($myId==$member['idUser']) echo '(You)';?></td>
+                        <td>
+                            <input type="checkbox" name="admin" id="admin"
+                                   <?php if($inGroup[$i++]['type']=='1') echo 'checked'; ?>
+                                   onclick="window.location.href='<?php $id = $member['idUser'];
+                                   echo base_url("/group/changeAdmin/$groupId/$id"); ?>'">
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-danger"
+                                    onclick="window.location.href='<?php  $id = $member['idUser'];
+                                    echo base_url("group/removeFromGroup/$groupId/$id");?>'">
+                                <?php if($myId != $member['idUser']) echo 'Remove'; else echo 'Leave'; ?></button>
+                        </td>
+
+                    </tr>
+
+                  <?php endforeach; ?>
+
                 </tbody>
               </table>
               <div>
