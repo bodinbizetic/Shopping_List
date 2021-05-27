@@ -5,46 +5,107 @@ namespace App\Controllers;
 
 
 use DOMNode;
+use ErrorException;
 use Masterminds\HTML5;
 use mysql_xdevapi\Result;
+use PhpParser\Error;
 
 class Scrapper extends BaseController
 {
     public function index()
     {
-        $ch = curl_init();
+        $dom = $this->getDocument('');
+        $category_links = $this->extractLinksFromNav($dom);
 
-        curl_setopt($ch, CURLOPT_URL, "https://cenoteka.rs/proizvodi/namirnice/brasno");
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $articles_to_persist = [];
+        echo $category_links[1];
+        foreach ($category_links as $cat_link)
+        {
+            echo "TOTAL ".count($articles_to_persist);
+            $cat_dom = $this->getDocument($cat_link);
+            sleep(3);
+            $page_links = $this->extractLinksFromCategory($cat_dom);
+            echo $page_links[0] . "<br>";
+            foreach ($page_links as $link) {
+                $all_articles = $this->iterateOverCategoryPages($link);
+                foreach ($all_articles as $item){
+                    array_push($articles_to_persist, $item);
+                }
+            }
+        }
 
-        $result = curl_exec($ch);
 
-        curl_close($ch);
-
-        $document = new HTML5();
-        $dom = $document->loadHTML($result);
-        $table_candidates = $dom->getElementsByTagName("section");
-        $table = $table_candidates->item(1);
-        $nav = $dom->getElementById("category-menu");
-        echo $nav->textContent;
-        $this->extractLinksFromNav($nav);
-        $this->exportTable($table);
-
-        echo "Done"."\n"."Done";
+        echo "Done ".count($articles_to_persist);
     }
 
-
-
-    private function extractLinksFromNav(DOMNode $nav)
+    private function iterateOverCategoryPages(string $page)
     {
-//        $MACRO_CATEGORIES = ['namirnice', 'zdrava-hrana', 'mlecni-proizvodi', 'voce-i-povrce',
-//                                'meso-i-riba', 'smrznuto', 'pica', 'slatkisi-i-grickalice',
-//                                'licna-higijena'];
-        $categories_links = [];
+        $all_articles = [];
+        $pageNum = 1;
+        do {
+            $dom = $this->getDocument($page.'?page='.$pageNum);
 
-        $nav->
+            $section_tag = $this->getElementsByAttribute($dom, 'section', 'class', 'list-articles-content');
+            echo "sect ".count($section_tag).'<br>';
+            $new = 0;
+            foreach ($section_tag as $section)
+            {
+                $articles = $this->exportTable($section);
+                foreach ($articles as $item)
+                {
+                    echo $item['name'].'<br>';
+                    array_push($all_articles, $item);
+                }
+            }
+            echo "count ".$new."<br>";
+            if ($new == 0)
+            {
+                break;
+            }
 
+            sleep(3);
+            $pageNum++;
+        } while (true);
+
+        return $all_articles;
+    }
+
+    private function extractLinksFromNav(\DOMDocument $dom)
+    {
+        $link_nodes = $this->getElementsByAttribute($dom, 'a', 'class', 'nav-link dropdown-toggle');
+
+
+        $category_links = [];
+
+        foreach ($link_nodes as $link_node)
+        {
+
+            $category_link = $link_node->getAttribute('href');
+//            echo $category_link.'<br>';
+            if (strpos($category_link, '/kategorija/') === 0) {
+                array_push($category_links, $category_link);
+            }
+        }
+
+        return $category_links;
+    }
+
+    private function extractLinksFromCategory(\DOMDocument $dom)
+    {
+        $item_nodes = $this->getElementsByAttribute($dom, 'div', 'class', 'cat-list-item');
+        $item_links = [];
+
+        echo count($item_nodes);
+        foreach ($item_nodes as $node)
+        {
+            if ($node->childNodes->item(1)->nodeName == 'a')
+            {
+                $link = $node->childNodes->item(1)->getAttribute('href');
+                array_push($item_links, $link);
+            }
+        }
+
+        return $item_links;
     }
 
     private function exportTable(DOMNode $table)
@@ -68,6 +129,7 @@ class Scrapper extends BaseController
             }
         }
 
+        return $articles;
     }
 
     private function extractArticle(DOMNode $article_row): array
@@ -86,47 +148,72 @@ class Scrapper extends BaseController
 
         $article = [];
 
+        try {
 
-        $article['img_link'] = $article_row->childNodes->
-                                    item($IMAGE_DIV_OFFSET)->childNodes->
-                                    item(1)->attributes->getNamedItem("href")->textContent;
+            $article['img_link'] = $article_row->childNodes->
+            item($IMAGE_DIV_OFFSET)->childNodes->
+                    item(1)->getAttribute('href');//attributes->getNamedItem("href")->textContent;
 
-        $article['name'] = $article_row->childNodes->
-                                    item($NAME_DIV_OFFSET)->textContent;
+            $article['name'] = $article_row->childNodes->
+                    item($NAME_DIV_OFFSET)->textContent;
 
-        $article['quantity'] = $article_row->childNodes->
-                                    item($QUANTITY_DIV_OFFSET)->textContent;
+            echo $article['name'] . '<br>';
+            $article['quantity'] = $article_row->childNodes->
+                    item($QUANTITY_DIV_OFFSET)->textContent;
 
-        $article['prices'] = [];
+            $article['prices'] = [];
 
-        $article['prices']['idea'] = $article_row->childNodes->
-                                        item($IDEA_OFFSET)->textContent;
-        $article['prices']['maxi'] = $article_row->childNodes->
-                                        item($MAXI_OFFSET)->textContent;
-        $article['prices']['univerexport'] = $article_row->childNodes->
-                                        item($UNIVER_EXPORT_OFFSET)->textContent;
-        $article['prices']['tempo'] = $article_row->childNodes->
-                                        item($TEMPO_OFFSET)->textContent;
-        $article['prices']['dis'] = $article_row->childNodes->
-                                        item($DIS_OFFSET)->textContent;
-        $article['prices']['roda'] = $article_row->childNodes->
-                                        item($RODA_OFFSET)->textContent;
-        $article['prices']['lidl'] = $article_row->childNodes->
-                                        item($LIDL_OFFSET)->textContent;
+            $article['prices']['idea'] = $article_row->childNodes->
+                    item($IDEA_OFFSET)->textContent;
+            $article['prices']['maxi'] = $article_row->childNodes->
+                    item($MAXI_OFFSET)->textContent;
+            $article['prices']['univerexport'] = $article_row->childNodes->
+                    item($UNIVER_EXPORT_OFFSET)->textContent;
+            $article['prices']['tempo'] = $article_row->childNodes->
+                    item($TEMPO_OFFSET)->textContent;
+            $article['prices']['dis'] = $article_row->childNodes->
+                    item($DIS_OFFSET)->textContent;
+            $article['prices']['roda'] = $article_row->childNodes->
+                    item($RODA_OFFSET)->textContent;
+            $article['prices']['lidl'] = $article_row->childNodes->
+                    item($LIDL_OFFSET)->textContent;
+        } catch (ErrorException $e) {
+            echo "Failed <br>";
+        }
         return $article;
     }
 
-    public function getElementByAttribute(\DOMDocument $dom, string $tag, string $attribute, string $value)
+    public function getElementsByAttribute(\DOMDocument $dom, string $tag, string $attribute, string $value): array
     {
         $result = [];
         foreach ($dom->getElementsByTagName($tag) as $node)
         {
-            if ($node->getAttribute($attribute) == $value) {
+            $attr = $node->getAttribute($attribute);
+            if (strpos($attr, $value) !== false) {
                 array_push($result, $node);
             }
         }
 
         return $result;
+    }
+
+    private function getDocument(string $url_no_base)
+    {
+        $ch = curl_init();
+
+        echo "<br>CURL: "."https://cenoteka.rs".$url_no_base."<br>";
+        curl_setopt($ch, CURLOPT_URL, "https://cenoteka.rs".$url_no_base);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        $result = curl_exec($ch);
+
+        curl_close($ch);
+
+        $document = new HTML5();
+        $dom = $document->loadHTML($result);
+
+        return $dom;
     }
 
     public function run()
