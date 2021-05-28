@@ -1,192 +1,309 @@
-<!DOCTYPE html>
-<html lang="en">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+<link href="<?php echo base_url(); ?>/css/profile.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-<head>
+<!-- javascript -->
 
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Group: Porodica</title>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function(){
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+        drawSpending();
+        drawLists();
+        drawPopularYear();
+        drawPopularMonth();
 
-  <!-- Vendor CSS Files -->
-  <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../assets/icofont/icofont.min.css" rel="stylesheet">
-  <link href="../assets/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="../assets/animate.css/animate.min.css" rel="stylesheet">
-  <link href="../assets/venobox/venobox.css" rel="stylesheet">
+        function drawSpending() {
+            //get the bar chart canvas
+            var cData = JSON.parse(`<?php echo $chart_data_spending; ?>`);
+            console.log(cData);
+            var ctx = $("#spending-chart");
 
-  <link href="../common.css" rel="stylesheet">
-  <link href="singleGroup.css" rel="stylesheet">
+            //bar chart data
+            var data = {
+                labels: cData.label,
+                datasets: [
+                    {
+                        //label: cData.label,
+                        data: cData.data,
+                        backgroundColor: [
+                            "#F4A460",
+                            "#CDA776",
+                            "#DEB887",
+                            "#A9A9A9",
+                            "#DC143C",
+                            "#F4A460",
+                            "#2E8B57",
+                            "#CDA776",
+                            "#989898",
+                            "#CB252B",
+                            "#E39371",
+                            "#1D7A46"
+                        ],
+                        borderColor: [
+                            "#F4A460",
+                            "#CDA776",
+                            "#DEB887",
+                            "#A9A9A9",
+                            "#DC143C",
+                            "#F4A460",
+                            "#2E8B57",
+                            "#CDA776",
+                            "#989898",
+                            "#CB252B",
+                            "#E39371",
+                            "#1D7A46"
+                        ],
+                        borderWidth: [1, 1, 1, 1, 1,1,1,1, 1, 1, 1,1,1]
+                    }
+                ]
+            };
 
-</head>
+            //options
+            var options = {
+                responsive: true,
+                legend: {
+                    display: false
+                }
 
-<body>
-  <!-- ======= Top Bar ======= -->
-  <div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
-    <div class="container d-flex">
-      <div class="contact-info mr-auto">
-        <i class="icofont-envelope"></i> <a href="mailto:contact@example.com">contact@example.com</a>
-        <i class="icofont-phone"></i> +1 5589 55488 55
-      </div>
-      <div class="social-links">
-        <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
-        <a href="#" class="instagram"><i class="icofont-instagram"></i></a>
-        <a href="#" class="linkedin"><i class="icofont-linkedin"></i></i></a>
-      </div>
-    </div>
-  </div>
+            };
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top">
-    <div class="container d-flex align-items-center">
+            //create bar Chart class object
+            var chart1 = new Chart(ctx, {
+                type: "bar",
+                data: data,
+                options: options
+            });
+        }
 
-      <h1 class="logo mr-auto"><a href="#">Jel ti usput?</a></h1>
-      <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        function drawLists() {
+            //get the bar chart canvas
+            var cData = JSON.parse(`<?php echo $chart_data_lists; ?>`);
+            console.log(cData);
+            var ctx = $("#lists-chart");
 
-      <nav class="nav-menu d-none d-lg-block">
-        <ul>
-          <li><a href="../home/home.html">Home</a></li>
-          <li><a href="../lists/list.html">Shopping list</a></li>
-          <li class="active"><a href="groups.php">Groups</a></li>
-          <li><a href="../notifications/notification.html">Notifications</a></li>
-          <li><a href="../profile/profile.html">Profile</a></li>
-        </ul>
-      </nav><!-- .nav-menu -->
-      <a href="../login/login.html" class="get-started-btn scrollto">Logout</a>
-    </div>
-  </header>
-  <!-- End Header -->
+            //bar chart data
+            var data = {
+                labels: cData.label,
+                datasets: [
+                    {
+                        //label: cData.label,
+                        data: cData.data,
+                        backgroundColor: [
+                            "#DC143C",
+                            "#CB252B",
+                            "#F4A460",
+                            "#2E8B57",
+                            "#1D7A46",
+                            "#CDA776",
+                            "#CDA776",
+                            "#989898",
+                            "#E39371",
+                            "#DEB887",
+                            "#A9A9A9",
+                        ],
+                        borderColor: [
+                            "#DC143C",
+                            "#CB252B",
+                            "#F4A460",
+                            "#2E8B57",
+                            "#1D7A46",
+                            "#CDA776",
+                            "#CDA776",
+                            "#989898",
+                            "#E39371",
+                            "#DEB887",
+                            "#A9A9A9",
+                        ],
+                        borderWidth: [1, 1, 1, 1, 1,1,1,1, 1, 1, 1,1,1]
+                    }
+                ]
+            };
 
-  <section id="groups">
+            //options
+            var options = {
+                responsive: true,
+                legend: {
+                    display: false
+                }
+
+            };
+
+            //create bar Chart class object
+            var chart1 = new Chart(ctx, {
+                type: "bar",
+                data: data,
+                options: options
+            });
+        }
+
+        function drawPopularYear() {
+            google.charts.load('current', { 'packages' : ['corechart', 'bar', 'timeline']});
+
+            google.charts.setOnLoadCallback(function() {
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Topping');
+                data.addColumn('number', 'Slices');
+                var rows = JSON.parse(`<?php echo $data_for_pie_year; ?>`);
+                console.log(rows);
+                data.addRows(rows);
+
+
+                var options = {
+                    'width':500,
+                    'height':400
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementsByClassName('year-popular')[0]);
+                chart.draw(data, options);
+            });
+        }
+
+        function drawPopularMonth() {
+            google.charts.load('current', { 'packages' : ['corechart', 'bar', 'timeline']});
+
+            google.charts.setOnLoadCallback(function() {
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Topping');
+                data.addColumn('number', 'Slices');
+                var rows = JSON.parse(`<?php echo $data_for_pie_month; ?>`);
+                console.log(rows);
+                data.addRows(rows);
+
+                // Set chart options
+                var options = {
+                    'width':500,
+                    'height':400
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementsByClassName('month-popular')[0]);
+                chart.draw(data, options);
+            });
+        }
+
+    });
+</script>
+
+
+
+<section id="profile">
     <div class="container">
-      <div class="section-title">
-        <h2>Group Info</h2>
-      </div>
-    </div>
-  </section>
-  
-  <div class="content">
-    <div class="slide">
-
-      <div class="div-img">
-        <img src="imgs/friendsLarge.jpg" class="avatar img-circle">
-        <h3>Porodica</h3>
-        <h8>Spisak porodice Milovanovic</h8>
-      </div>
-      
-      <div class="members">
-        <div class="count">
-          
-          <p>3 members</p>
-          <hr>
+        <div class="section-title">
+            <h2>Info</h2>
         </div>
-        <div class="list">
-          <ul>
-            <li>
-              <img src="imgs/person1.jpg" class="avatar img-circle"> Nikola Milovanovic
-            </li>
-            <li>
-              <img src="imgs/person1.jpg" class="avatar img-circle"> Marko Milovanovic
-            </li>
-            <li>
-              <img src="imgs/person1.jpg" class="avatar img-circle"> Luka Milovanovic
-            </li>
-          </ul>
+    </div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="slide">
+                <div>
+                    <div>
+                            <label for="image">
+                                <input type="file" name="image" id="image" align="center" style="display:none;"/>
+                                <?php
+                                if(isset($group['image'])): ?>
+                                <!--    <img src="<?php echo base_url(). '/uploads/'. $user['image']; ?>"> -->
+                                <?php else: ?>
+                                <!--    <img src="<?php echo base_url(). '/images/profile/group.jpg'; ?>"> -->
+                                <?php endif; ?>
+                            </label>
+                            <h3>
+                                <?= $group['name'] ?>
+                            </h3>
+                            <h5>
+                                <?= $group['description'] ?>
+                            </h5>
+                        </div>
+                        <div>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th class="groupMembers">Members</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php $i=0; foreach($members as $member): ?>
+                                    <tr>
+                                        <td><?php echo $member['username'];
+                                            if($member['type'] == '1') echo '&nbsp(Admin)';?>
+                                        </td>
+                                    </tr>
+
+                                <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+                </div>
+            </div>
         </div>
-      </div>
-      
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <span class="title">Most frequently requested YEAR</span>
+                </div>
+                <div class="card-body">
+                    <div class="year-popular"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <span class="title">Most frequently requested MONTH</span>
+                </div>
+                <div class="card-body">
+                    <div class="month-popular"></div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="statistic">
-     
-      <table class="table">
-        <caption>Spending</caption>
-        <tr>
-          <th></th>
-          <th>Today</th>
-          <th>This month</th>
-          <th>This year</th>
-        </tr>
-        <tr>
-          <td>Money spent</td>
-          <td>1.200,0</td>
-          <td>7.349,75</td>
-          <td>256.907,67</td>
-        </tr>
-        <tr>
-          <td>No of lists</td>
-          <td>1</td>
-          <td>11</td>
-          <td>179</td>
-        </tr>
-      </table>
-      <table class="table">
-        <caption>Most frequently requested</caption>
-        <tr>
-          <th></th>
-          <th>Last 10 days</th>
-          <th>This month</th>
-          <th>This year</th>
-        </tr>
-        <tr>
-          <td>Hleb</td>
-          <td>2/4</td>
-          <td>7/11</td>
-          <td>89/179</td>
-        </tr>
-        <tr>
-          <td>Mleko</td>
-          <td>2/4</td>
-          <td>6/11</td>
-          <td>76/179</td>
-        </tr>
-        <tr>
-          <td>Cokolada</td>
-          <td>1/4</td>
-          <td>4/11</td>
-          <td>64/179</td>
-        </tr>
-      </table>
-
-      
-            
-
+    <div class="row">
+        <div class="col-sm-3">&nbsp;
+            <?php if(isset($errors)) { ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <?php
+                    echo $errors. "<br>";
+                    ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <?php } ?>
+        </div>
+        <div class="col-sm-4 offset-3">
+            <div class="card">
+                <div class="card-header">
+                    <span class="title">Monthly Spending</span>
+                </div>
+                <div class="card-body">
+                    <div class="spending">
+                        <canvas id="spending-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <span class="title">Monthly No Of Lists</span>
+                </div>
+                <div class="card-body">
+                    <div class="lists">
+                        <canvas id="lists-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 
-
-    
-    
-      
-  
-
-
-     
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="container">
-      <h3>Jel ti usput?</h3>
-      <div class="social-links">
-        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-      </div>
-    </div>
-  </footer><!-- End Footer -->
-
-  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="../assets/jquery/jquery.min.js"></script>
-  <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/venobox/venobox.min.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="../assets/js/main.js"></script>
-
-</body>
-
-</html>
+</section>

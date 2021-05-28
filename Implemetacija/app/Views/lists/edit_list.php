@@ -71,10 +71,10 @@
                     </div>
                 </div>
                 <div class="col col-md-2">
-                    <a href="./newItem.html" type="button" class="btn btn-primary shop-btn">Add New Item</a>
+                    <a href="/lists/addItemRender/<?=$listId?>" type="button" class="btn btn-primary shop-btn">Add New Item</a>
                 </div>
                 <div class="col col-md-2">
-                    <a href="./list.html" type="button" class="btn btn-success shop-btn" data-toggle='modal' data-target='#finishModal'>Finish</a>
+                    <a href="/lists/shopping/<?=$listId?>" type="button" class="btn btn-success shop-btn" data-toggle='modal' data-target='#finishModal'>Finish</a>
                 </div>
             </div>
 
@@ -97,9 +97,8 @@
                     </td>
                     <td>
                         <div class='btn-group btn-group' role='group'>
-                            <a href='/lists/editItem/<?=$item[5]?>' class='btn btn-outline-primary' role='button' aria-pressed='true'>Edit</a>
+                            <a href='/lists/editItem/<?=$item[5]?>/<?=$id?>' class='btn btn-outline-primary' role='button' aria-pressed='true'>Edit</a>
                             <a href='#' class='btn btn-outline-danger' onclick='toModal(this, "/lists/deleteItem/<?=$item[5]?>/<?=$listId?>")' role='button' aria-pressed='true' data-toggle='modal' data-target='#exampleModalCenter'>Delete</a>
-                            <!-- TODO: jquery za modal -->
                         </div>
                     </td>
                     <td>

@@ -98,6 +98,7 @@ class Lists extends BaseController
 
         echo view("common/header");
         echo view("lists/edit_list", ['listName' => $shoppingList['name'],
+            'id' => $item['idItem'],
             'items' => $itemsList,
             'listId' => $shoppingList['idShoppingList'],
             'shop' => $shop['name']
@@ -105,7 +106,7 @@ class Lists extends BaseController
         echo view("common/footer");
     }
 
-    public function editItem($idListContained)
+    public function editItem($idListContained, $idList)
     {
         $listContainsModel = new ListContainsModel();
         $itemModel = new ItemModel();
@@ -116,10 +117,42 @@ class Lists extends BaseController
         echo view("common/header");
         echo view("lists/edit_item", ['idListContained' => $idListContained,
             'id' => $item["idItem"],
+            'idList' => $idList,
             'name' => $item['name'],
             'quantity' => $item['quantity']
         ]);
         echo view("common/footer");
+    }
+
+    public function addItemRender($idList)
+    {
+        echo view("common/header");
+        echo view("lists/new_item", [
+            'idList' => $idList
+        ]);
+        echo view("common/footer");
+    }
+
+    public function addItem($name, $quantity, $measure, $listId)
+    {
+        $user = $this->session->get('user');
+        $itemModel = new ItemModel();
+        $data = [
+            'name' => $name,
+            'quantity' => $quantity,
+            'metrics' => $measure
+        ];
+        $newid = $itemModel->insert($data);
+
+        $listContainsModel = new ListContainsModel();
+        $data1 = ['idShoppingList' => $listId,
+            'idItem' => $newid,
+            'bought' => date("Y-m-d"),
+            'idUser' => $user["idUser"]
+        ];
+        $listContainsModel->insert($data1);
+
+        return redirect()->to('/lists/renderList/'.$listId);
     }
 
     public function deleteItem($idListContains, $listId)
@@ -129,7 +162,7 @@ class Lists extends BaseController
         return redirect()->to('/lists/renderList/'.$listId);
     }
 
-    public function changeItem($itemId, $name, $quantity, $measure)
+    public function changeItem($itemId, $name, $quantity, $measure, $listId)
     {
         $itemModel = new ItemModel();
         $item = $itemModel->find($itemId);
@@ -143,7 +176,7 @@ class Lists extends BaseController
             'idItem' => $itemId
         ];
         $itemModel->update($itemId, $data);
-        return redirect()->back();
+        return redirect()->to('/lists/renderList/'.$listId);
     }
 
     public function renderCreate($groupId, $errors = null)

@@ -20,5 +20,4 @@ class GroupModel extends Model
 
     protected $skipValidation     = false;
 
-
 }

@@ -1,69 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Edit Group</title>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../assets/icofont/icofont.min.css" rel="stylesheet">
-  <link href="../assets/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="../assets/animate.css/animate.min.css" rel="stylesheet">
-  <link href="../assets/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="../assets/venobox/venobox.css" rel="stylesheet">
 
   <link href="../common.css" rel="stylesheet">
   <link href="editGroup.css" rel="stylesheet">
-
-</head>
-
-<body onload="onLoad()">
-
-    <!-- ======= Top Bar ======= -->
-    <div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
-        <div class="container d-flex">
-          <div class="contact-info mr-auto">
-            <i class="icofont-envelope"></i> <a href="mailto:contact@example.com">contact@example.com</a>
-            <i class="icofont-phone"></i> +1 5589 55488 55
-          </div>
-          <div class="social-links">
-            <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
-            <a href="#" class="instagram"><i class="icofont-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="icofont-linkedin"></i></i></a>
-          </div>
-        </div>
-      </div>
-    
-      <!-- ======= Header ======= -->
-      <header id="header" class="fixed-top">
-        <div class="container d-flex align-items-center">
-    
-          <h1 class="logo mr-auto"><a href="#">Jel ti usput?</a></h1>
-          <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-    
-          <nav class="nav-menu d-none d-lg-block">
-            <ul>
-              <li><a href="../home/home.html">Home</a></li>
-              <li><a href="../lists/list.html">Shopping list</a></li>
-              <li class="active"><a href="groups.php">Groups</a></li>
-              <li><a href="../notifications/notification.html">Notifications</a></li>
-              <li><a href="../profile/profile.html">Profile</a></li>
-            </ul>
-          </nav><!-- .nav-menu -->
-          <a href="../login/login.html" class="get-started-btn scrollto">Logout</a>
-        </div>
-      </header><!-- End Header -->
-
-  <section>
-    <div>
-    </div>
-  </section><!-- End Hero -->
 
    <!-- Modal -->
  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -107,31 +44,36 @@
 </div>
 
   <main id="main">
-    <!-- ======= Edit Group Section ======= -->
-    <section>
-      <div class="container">
+      <section>
+          <div class="container">
+              <div class="section-title">
+                  <h2>Edit Group</h2>
+              </div>
 
-        <div class="row">
-          <div class="col col-md">
-                <div class="form-group">
-                    <label for="image">
-                        <input type="file" name="image" id="image" style="display:none;"/>
-                        <img src="imgs/friendsLarge.jpg" style="border-radius: 50%;"/>
-                        <p style="text-align: center;">Browse image</p>
-                    </label>
-                </div>
+  <form class="form-vertical" method="post" action="/group/editGroup/<?php echo $groupId;?>">
+      <div class="row">
+          <div class="col-4">
+              <div class="form-group">
+                  <div class="form-group">
+                      <label for="image">
+                          <input type="file" name="image" id="image" style="display:none;"/>
+                          <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%"/>
+                          <p>Browse image</p>
+                      </label>
+                  </div>
+              </div>
           </div>
-          <div class="col col-md-9">
+          <div class="col col-md-8">
               <div class="form-group ">
                   <div class="input-group">
                       <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                      <input type="text" name="register_username" class="form-control" placeholder="Group Name", value="Porodica">
+                      <input type="text" name="group_name" class="form-control" placeholder="Group Name" value="<?php echo $name;?>" required="required">
                   </div>
               </div>
               <div class="form-group ">
                   <div class="input-group">
                       <div class="input-group-addon"><i class="fa fa-male"></i></div>
-                      <input type="text" name="register_fullname" class="form-control" placeholder="Description", value="Spisak za kucu">
+                      <input type="text" name="description" class="form-control" placeholder="Description" value="<?php echo $description;?>">
                   </div>
               </div>
               <table class="table" id="my-table">
@@ -143,53 +85,43 @@
                   </tr>
                 </thead>
                 <tbody>
-                  
+                <?php $i=0; foreach($members as $member): ?>
+                    <tr>
+                      <td><?php echo $member['username'];
+                          if($myId==$member['idUser']) echo '(You)';?></td>
+                        <td>
+                            <input type="checkbox" name="admin" id="admin"
+                                   <?php if($inGroup[$i++]['type']=='1') echo 'checked'; ?>
+                                   onclick="window.location.href='<?php $id = $member['idUser'];
+                                   echo base_url("/group/changeAdmin/$groupId/$id"); ?>'">
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-danger"
+                                    onclick="window.location.href='<?php  $id = $member['idUser'];
+                                    echo base_url("group/removeFromGroup/$groupId/$id");?>'">
+                                <?php if($myId != $member['idUser']) echo 'Remove'; else echo 'Leave'; ?></button>
+                        </td>
+
+                    </tr>
+
+                  <?php endforeach; ?>
+
                 </tbody>
               </table>
               <div>
-                <p>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Invite members" aria-label="Invite user" aria-describedby="button-addon2">
                     <div class="input-group-append">
                       <button class="btn btn-outline-success" type="button" data-toggle='modal' data-target='#membersModal'>Invite</button>
                     </div>
                 </div>
-              </p>
               </div>
               <input type="submit" value="Save changes" class="btn btn-success btn-block"> 
           </div>
-</div>
-
       </div>
-    </section><!-- End Contact Section -->
+  </form>
+          </div>
+      </section>
+  </main>
 
-  </main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="container">
-      <h3>Jel ti usput?</h3>
-      <div class="social-links">
-        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-      </div>
-    </div>
-  </footer><!-- End Footer -->
-
-  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="../assets/jquery/jquery.min.js"></script>
-  <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/venobox/venobox.min.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="../assets/js/main.js"></script>
-
-    <!-- Script for table actions -->
-    <script src="./editGroup.js" type="text/javascript"></script>
-
-</body>
-
-</html>

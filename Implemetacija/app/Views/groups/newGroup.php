@@ -1,5 +1,6 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+<script src="<?php echo base_url('assets/jquery/jquery.min.js')?>"></script>
 
 <main id="main">
     <section>
@@ -12,12 +13,12 @@
             <form class="form-vertical" method="post" action="/group/newgroup">
                <div class="row">
                   <div class="col-4">
-                    <div class="form-group">
-                        <label for="image">
-                          <input type="file" name="image" id="image" style="display:none;"/ value="<?php echo set_value('image');?>">
-                          <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="border-radius: 50%;"/>
-                          <p style="text-align: center;">Browse image</p>
-                        </label>
+                      <div class="form-group">
+                          <label for="image">
+                              <input type="file" name="image" id="image" style="display:none;"/>
+                              <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle"/>
+                              <p>Browse image</p>
+                          </label>
                       </div>
                   </div>
 
@@ -25,7 +26,7 @@
                       <div class="row form-group">
                           <div class="col-12 input-group">
                               <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                              <input type="text" name="name" class="form-control" placeholder="Group Name" value="<?php echo set_value('name');?>">
+                              <input type="text" name="name" class="form-control" placeholder="Group Name" value="<?php echo set_value('name');?>" required="required">
                           </div>
                       </div>
 
@@ -42,16 +43,9 @@
                                  name="invite_member" value="<?php echo set_value('invite_members');?>">
                           </div>
                           <div class="col-1 input-group">
-                              <button class="btn btn-success" type="button">Add</button>
+                              <button class="btn btn-success" type="button" onclick="window.location.href='<?php
+                              echo base_url("group/addNewMember");?>'">Add</button>
                           </div>
-                      </div>
-
-                      <div class="row">
-                          <table>
-                              <tbody>
-
-                              </tbody>
-                          </table>
                       </div>
 
                       <div class="row form-group">

@@ -16,7 +16,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        onclick="window.location.href='<?php echo base_url("group/leaveGroup");?>'">Yes</button>
+                        onclick="confirm()">Yes</button>
             </div>
         </div>
     </div>
@@ -56,10 +56,13 @@
                   <td><?php echo $groups[$i]['name']; ?></td>
                   <td>
                       <div class="btn-group">
-                          <button class="btn btn-outline-info" onclick="window.location.href='<?php echo base_url("group/viewGroup");?>'">Info</button>
+                          <button class="btn btn-outline-info" onclick="window.location.href='<?php $id = $groups[$i]['idGroup']; echo base_url("group/viewGroup/$id");?>'">Info</button>
                           <button class="btn btn-outline-success" onclick="window.location.href='<?php echo base_url("homepage/lists");?>'">Lists</button>
-                          <button class="btn btn-outline-primary" onclick="window.location.href='<?php echo base_url("group/editGroup");?>'">Edit</button>
-                          <button class="btn btn-outline-danger" data-toggle='modal' data-target='#exampleModalCenter' >Leave</button>
+                          <button class="btn btn-outline-primary" onclick="window.location.href='<?php  $id = $groups[$i]['idGroup'];
+                          echo base_url("group/renderEditGroup/$id");?>'"
+                          <?php if($ingroups[$i]['type']=='0') echo 'disabled'; ?>>Edit</button>
+                          <button class="btn btn-outline-danger"
+                                  onclick="window.location.href='<?php  $id = $groups[$i]['idGroup']; echo base_url("group/leaveGroup/$id");?>'">Leave</button>
                       </div>
                   </td>
 
@@ -76,3 +79,14 @@
 </body>
 
 <script src="<?php echo base_url('assets/jquery/jquery.min.js')?>"></script>
+
+<script>
+    let flag = 'false';
+    function leaveGroup(id){
+            window.location.href='group/leaveGroup/'.id;
+
+    }
+    function confirm(){
+        flag = 'true';
+    }
+</script>

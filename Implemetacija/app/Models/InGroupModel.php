@@ -31,8 +31,10 @@ class InGroupModel extends Model
         return $this->where('idUser', $userId)->get()->getResultArray();
     }
 
-    public function findUsersGroups($user) {
-        return $this->where('idUser', $user)->get()->getResultArray();
+    public function findByGroupId($groupId)
+    {
+        return $this->where('idGroup', $groupId)->get()->getResultArray();
     }
+
 
 }
