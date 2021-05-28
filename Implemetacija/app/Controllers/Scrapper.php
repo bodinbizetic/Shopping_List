@@ -34,11 +34,22 @@ class Scrapper extends BaseController
             }
         }
 
+        $i = 0;
+        foreach ($articles_to_persist as $item)
+        {
+            echo $i.' '.$item['name'].'<br>';
+            $i++;
+        }
 
         echo "Done ".count($articles_to_persist);
     }
 
-    private function iterateOverCategoryPages(string $page)
+    public function test()
+    {
+        $all_articles = $this->iterateOverCategoryPages('/proizvodi/kucni-ljubimci/hrana-za-pse');
+    }
+
+    private function iterateOverCategoryPages(string $page): array
     {
         $all_articles = [];
         $pageNum = 1;
@@ -124,15 +135,18 @@ class Scrapper extends BaseController
             if ($article_row->childNodes->count() != 0)
             {
                 $article = $this->extractArticle($article_row);
-                $article['category'] = $category;
-                array_push($articles, $article);
+                if ($article != null)
+                {
+                    $article['category'] = $category;
+                    array_push($articles, $article);
+                }
             }
         }
 
         return $articles;
     }
 
-    private function extractArticle(DOMNode $article_row): array
+    private function extractArticle(DOMNode $article_row): ?array
     {
         $IMAGE_DIV_OFFSET = 1;
         $NAME_DIV_OFFSET = 3;
@@ -152,35 +166,50 @@ class Scrapper extends BaseController
 
             $article['img_link'] = $article_row->childNodes->
             item($IMAGE_DIV_OFFSET)->childNodes->
-                    item(1)->getAttribute('href');//attributes->getNamedItem("href")->textContent;
+            item(1)->getAttribute('href');//attributes->getNamedItem("href")->textContent;
 
             $article['name'] = $article_row->childNodes->
-                    item($NAME_DIV_OFFSET)->textContent;
+            item($NAME_DIV_OFFSET)->textContent;
 
             echo $article['name'] . '<br>';
             $article['quantity'] = $article_row->childNodes->
-                    item($QUANTITY_DIV_OFFSET)->textContent;
+            item($QUANTITY_DIV_OFFSET)->textContent;
 
             $article['prices'] = [];
 
-            $article['prices']['idea'] = $article_row->childNodes->
-                    item($IDEA_OFFSET)->textContent;
-            $article['prices']['maxi'] = $article_row->childNodes->
-                    item($MAXI_OFFSET)->textContent;
-            $article['prices']['univerexport'] = $article_row->childNodes->
-                    item($UNIVER_EXPORT_OFFSET)->textContent;
-            $article['prices']['tempo'] = $article_row->childNodes->
-                    item($TEMPO_OFFSET)->textContent;
-            $article['prices']['dis'] = $article_row->childNodes->
-                    item($DIS_OFFSET)->textContent;
-            $article['prices']['roda'] = $article_row->childNodes->
-                    item($RODA_OFFSET)->textContent;
-            $article['prices']['lidl'] = $article_row->childNodes->
-                    item($LIDL_OFFSET)->textContent;
+            try {
+                $article['prices']['idea'] = $article_row->childNodes->
+                item($IDEA_OFFSET)->textContent;
+            } catch (ErrorException $e) {}
+            try {
+                $article['prices']['maxi'] = $article_row->childNodes->
+                item($MAXI_OFFSET)->textContent;
+            } catch (ErrorException $e) {}
+            try {
+                $article['prices']['univerexport'] = $article_row->childNodes->
+                item($UNIVER_EXPORT_OFFSET)->textContent;
+            } catch (ErrorException $e) {}
+            try {
+                $article['prices']['tempo'] = $article_row->childNodes->
+                item($TEMPO_OFFSET)->textContent;
+            } catch (ErrorException $e) {}
+            try {
+                $article['prices']['dis'] = $article_row->childNodes->
+                item($DIS_OFFSET)->textContent;
+            } catch (ErrorException $e) {}
+            try {
+                $article['prices']['roda'] = $article_row->childNodes->
+                item($RODA_OFFSET)->textContent;
+            } catch (ErrorException $e) {}
+            try {
+                $article['prices']['lidl'] = $article_row->childNodes->
+                item($LIDL_OFFSET)->textContent;
+            } catch (ErrorException $e) {}
+            return $article;
         } catch (ErrorException $e) {
-            echo "Failed <br>";
+            echo "Failed ".$e." <br>";
         }
-        return $article;
+        return null;
     }
 
     public function getElementsByAttribute(\DOMDocument $dom, string $tag, string $attribute, string $value): array
