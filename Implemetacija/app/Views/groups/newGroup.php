@@ -1,6 +1,3 @@
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
-<script src="<?php echo base_url('assets/jquery/jquery.min.js')?>"></script>
 
 <main id="main">
     <section>
@@ -10,55 +7,86 @@
             </div>
 
 
-            <form class="form-vertical" method="post" action="/group/newgroup">
-               <div class="row">
-                  <div class="col-4">
-                      <div class="form-group">
-                          <label for="image">
-                              <input type="file" name="image" id="image" style="display:none;"/>
-                              <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle"/>
-                              <p>Browse image</p>
-                          </label>
-                      </div>
-                  </div>
+            <form class="form-vertical" method="post" action="/group/newGroup">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="image">
+                                    <input type="file" name="image" id="image" style="display:none;"/>
+                                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%"/>
+                                    <p>Browse image</p>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-8">
+                        <div class="row">
+                            <div class="col-12">
+                        <div class="form-group ">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                <input type="text" name="group_name" class="form-control" placeholder="Group Name" value="<?php echo set_value('group_name'); ?>" required="required">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-male"></i></div>
+                                <input type="text" name="description" class="form-control" placeholder="Description" value="<?php echo set_value('description'); ?>">
+                            </div>
+                        </div>
 
-                  <div class="col-8">
-                      <div class="row form-group">
-                          <div class="col-12 input-group">
-                              <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                              <input type="text" name="name" class="form-control" placeholder="Group Name" value="<?php echo set_value('name');?>" required="required">
-                          </div>
-                      </div>
+                        <div>
+                            <div class="input-group mb-3">
+                                <input type="text" id='member' class="form-control" placeholder="Invite members" aria-label="Invite user" aria-describedby="button-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-success" type="button" onclick="addMember()">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                            </div>
+                        </div>
 
-                      <div class="row form-group">
-                          <div class="col-12 input-group">
-                              <div class="input-group-addon"><i class="fa fa-male"></i></div>
-                              <input type="text" name="description" class="form-control" placeholder="Description" value="<?php echo set_value('description');?>">
-                          </div>
-                      </div>
-
-                      <div class="row form-group">
-                          <div class="col-11 input-group">
-                            <input type="text" class="form-control" placeholder="Invite members" aria-label="Recipient's username"
-                                 name="invite_member" value="<?php echo set_value('invite_members');?>">
-                          </div>
-                          <div class="col-1 input-group">
-                              <button class="btn btn-success" type="button" onclick="window.location.href='<?php
-                              echo base_url("group/addNewMember");?>'">Add</button>
-                          </div>
-                      </div>
-
-                      <div class="row form-group">
-                          <div class="col-12 input-group">
-                            <input type="submit" value="Create Group" class="btn btn-success btn-block">
-                          </div>
-                      </div>
-
-                  </div>
-               </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table" id="membersToCall" style="width:100%;"></table>
+                            </div>
+                        </div>
+                        <input type="submit" value="Create Group" class="btn btn-success btn-block">
+                    </div>
+                </div>
             </form>
         </div>
     </section>
 </main>
 
 
+
+<script>
+    function addMember(){
+        let username=document.getElementById('member').value;
+        let row = $("<tr></tr>");
+        let btn = $('<button class="btn btn-outline-danger dismissMember" name="dismissMember" value="Dismiss">Dismiss</button>');
+        let col = $("<td></td>").append(username);
+        let col2 = $("<td style='text-align: right'></td>").append(btn);
+        row.append($(col).attr('name',username));
+        row.append(col2);
+        $("#membersToCall").append(row);
+    }
+
+    $("#membersToCall").on('click', '.dismissMember', function () {
+        $(this).closest('tr').remove();
+    });
+
+</script>
+
+<style>
+    #membersToCall td {
+        padding: 10px;
+    }
+
+    tr:hover {
+        background-color: #defce9;
+        color: #000000;
+    }
+</style>

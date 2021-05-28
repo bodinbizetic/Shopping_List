@@ -233,7 +233,7 @@
                                 <?php $i=0; foreach($members as $member): ?>
                                     <tr>
                                         <td>@<?php echo $member['username'];
-                                            if($inGroup[$i]['type'] == '1') echo '(Admin)';?>
+                                            if($inGroup[$i++]['type'] == '1') {echo '(Admin)';}?>
                                         </td>
                                     </tr>
 

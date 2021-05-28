@@ -47,19 +47,27 @@ class Group extends BaseController
 
         $groupModel = new GroupModel();
 
+        $inGroupModel = new InGroupModel();
+        $adminsToBe=[];
+        $i=0;
+
+        if(!empty($_POST['admin'])){
+            foreach($_POST['admin'] as $selected){
+                $adminsToBe[$i]=$selected;
+                $i++;
+            }
+        }
+
+        foreach ($adminsToBe as $admin){
+            $this->changeAdmin($id, $admin);
+        }
+
         $data = [
             'name'=>$name,
             'description'=>$description
         ];
 
-   //     $this->changeAdmin($id);
-
- /*       if ($this->request->getFile('image')->getName() != "") {
-            $time_unique = strtotime("now");
-            $this->request->getFile('image')->move(ROOTPATH . 'public\uploads\\' . $time_unique, $this->request->getFile('image')->getName());
-            $data['image'] = $time_unique . "/" . $this->request->getFile('image')->getName();
-        } else
-  */          $data['image'] = null;
+          $data['image'] = null;
 
         $groupModel->update($id,$data);
 
@@ -100,7 +108,7 @@ class Group extends BaseController
         echo view('common/footer');
     }
 
-    public function changeAdmin($groupId, $memberId, $flag){
+    public function changeAdmin($groupId, $memberId){
 
         $inGroupModel = new InGroupModel();
         $ingroup = $inGroupModel->where('idGroup',$groupId)->where('idUser',$memberId)->findAll();
@@ -109,24 +117,15 @@ class Group extends BaseController
 
             $id = $ingroup[0]['idInGroup'];
 
-            if ($flag=='true') {
-                $data = [
-                    'idUser' => $memberId,
-                    'idGroup' => $groupId,
-                    'type' => '1'
-                ];
-            } else {
-                $data = [
-                    'idUser' => $memberId,
-                    'idGroup' => $groupId,
-                    'type' => '0'
-                ];
-            }
+            $data = [
+                'idUser' => $memberId,
+                'idGroup' => $groupId,
+                'type' => '1'
+            ];
 
             $inGroupModel->update($id, $data);
 
         }
-        return redirect()->to('/group/renderEditGroup/'.$groupId);
     }
 
     public function viewGroup($idGroup)
@@ -144,10 +143,9 @@ class Group extends BaseController
 
         foreach ($inGroupUsers as $inGroupUser){
             $user = $userModel->find($inGroupUser['idUser']);
-            $members[$i++]=$user;
+            $members[$i]=$user;
+            $i++;
         }
-
-        $data = [];
 
         $monthSpending = $this->getSpendingByMonth($idGroup);
         $noListsByMonth = $this->getNoListsByMonth($idGroup);
@@ -186,7 +184,6 @@ class Group extends BaseController
 
     }
 
-
     private function getNoListsByMonth($idGroup)
     {
         $shoppingListModel = new ShoppingListModel();
@@ -198,7 +195,6 @@ class Group extends BaseController
             return $elem['month'] != null;
         });
     }
-
 
     private function getPopularItemsYear($limit, $idGroup)
     {
@@ -266,6 +262,21 @@ class Group extends BaseController
     }
 
     public function newGroup() {
+
+        $htmlContent = file_get_contents(base_url("/Views/groups/newGroup.php"));
+
+        $DOM = new DOMDocument();
+        $DOM->loadHTML($htmlContent);
+
+        $Detail = $DOM->getElementsByTagName('td');
+
+        $i = 0;
+        foreach($Detail as $sNodeDetail)
+        {
+            $membersToCall[$i] = trim($sNodeDetail->textContent);
+            $i = $i + 1;
+        }
+
         $name = $this->request->getPost('name');
         $desc = $this->request->getPost('description');
         $img = $this->request->getPost('image');
@@ -290,19 +301,19 @@ class Group extends BaseController
         $userId = $this->session->get('user')['idUser'];
         $this->joinGroup($userId,$groupId,1);
 
-        $memberToCall = $this->request->getPost('invite_members');
+
 
         $userModel = new UserModel();
-
-        $membersUserName = explode(";",$memberToCall);
 
         $j=0;
 
         $members=[];
 
-         foreach($membersUserName as $member){
-            $user = $userModel->findByUsername($membersUserName);
-            $members[$j++]=$user;
+         foreach($membersToCall as $member){
+            $user = $userModel->findByUsername($member);
+            if($user!=null) {
+                $members[$j++] = $user;
+            }
         }
 
          $group = $groupModel->find($groupId);
@@ -338,21 +349,37 @@ class Group extends BaseController
     }
 
     public function removeFromGroup($groupId, $userId){
+
+        $groupModel = new GroupModel();
+        $group = $groupModel->find($groupId);
         $myId = $this->session->get('user')['idUser'];
         if($myId==$userId) $this->leaveGroup($groupId);
         else{
             $inGroupModel = new InGroupModel();
-            $inGroup = $inGroupModel->where('idUser',$userId)->where('idGroup',$groupId)->findAll();
+            $inGroup = $inGroupModel->where('idUser',$userId)->where('idGroup',$group['idGroup'])->findAll();
 
             $id = $inGroup[0]['idInGroup'];
 
             $inGroupModel->delete($id);
+
+            $notificationModel = new NotificationModel();
+            $data = [
+                'idGroup' => $group['idGroup'],
+                'idUser'=>$userId,
+                'type'    => REMOVED_FROM_GROUP['type'],
+                'isRead'  => 0,
+                'text'    => REMOVED_FROM_GROUP['msg']. " ". $group['name'],
+            ];
+
+            $notificationModel->save($data);
+
+            $path = 'group/renderEditGroup/'.$groupId;
+
+            return redirect()->to($path);
         }
-        return redirect()->to('group/renderEditGroup/'.$groupId);
     }
 
     public function leaveGroup($groupId){
-        $groupModel = new GroupModel();
 
         $inGroupModel = new InGroupModel();
         $thisGroup = $inGroupModel->findByGroupId($groupId);
