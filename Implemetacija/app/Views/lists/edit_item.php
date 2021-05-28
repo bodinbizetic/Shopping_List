@@ -172,8 +172,6 @@
         var strQuantity = equantity.value;
         var e = document.getElementById("quant");
         var strMeasure = e.options[e.selectedIndex].text;
-        if(strMeasure == "kom")
-            strMeasure = ""
-        window.location = "/lists/changeItem/<?=$id?>/"+strName+"/"+strQuantity+"/"+strMeasure+"/<?=$idList?>";
+        window.location = "/lists/changeItem/<?=$idListContained?>/<?=$id?>/"+strName+"/"+strQuantity+"/"+strMeasure+"/<?=$idList?>";
     }
 </script>
