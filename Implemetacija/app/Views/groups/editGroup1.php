@@ -50,14 +50,18 @@
                   <h2>Edit Group</h2>
               </div>
 
-  <form class="form-vertical" method="post" action="/group/editGroup/<?=$groupId;?>">
+  <form class="form-vertical" method="post" action="/group/editGroup/<?=$groupId;?>" enctype="multipart/form-data">
       <div class="row">
-          <div class="col-4">
+          <div class="col col-md-4">
               <div class="form-group">
-                  <div class="form-group">
+                  <div class="form-group" style="text-align: center">
                       <label for="image">
                           <input type="file" name="image" id="image" style="display:none;"/>
-                          <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%"/>
+                          <?php if(isset($image)): ?>
+                              <img src="<?php echo base_url(). '/groupUploads/'. $image; ?>" class="avatar img-circle" style="border-radius: 50%">
+                          <?php else: ?>
+                              <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%">
+                          <?php endif; ?>
                           <p>Browse image</p>
                       </label>
                   </div>

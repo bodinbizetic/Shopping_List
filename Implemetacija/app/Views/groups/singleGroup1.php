@@ -1,13 +1,8 @@
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
-<link href="<?php echo base_url(); ?>/css/profile.css" rel="stylesheet">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-<!-- javascript -->
+<link href="<?php echo base_url(); ?>/css/profile.css" rel="stylesheet">
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
     $(document).ready(function(){
 
@@ -204,17 +199,17 @@
     <div class="row">
         <div class="col-sm-3">
             <div class="slide">
-                <div>
-                    <div>
-                            <label for="image">
-                                <input type="file" name="image" id="image" align="center" style="display:none;"/>
-                                <?php
-                                if(isset($group['image'])): ?>
-                                <!--    <img src="<?php echo base_url(). '/uploads/'. $user['image']; ?>"> -->
-                                <?php else: ?>
-                                <!--    <img src="<?php echo base_url(). '/images/profile/group.jpg'; ?>"> -->
-                                <?php endif; ?>
-                            </label>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="image">
+                            <input type="file" name="image" id="image" style="display:none;"/>
+                            <?php
+                            if(isset($group['image'])): ?>
+                                <img src="<?php echo base_url(). '/groupUploads/'. $group['image']; ?>" class="avatar img-circle" style="border-radius: 50%">
+                            <?php else: ?>
+                                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%">
+                            <?php endif; ?>
+                        </label>
                             <h3>
                                 <?= $group['name'] ?>
                             </h3>
@@ -222,8 +217,8 @@
                                 <?= $group['description'] ?>
                             </h5>
                         </div>
-                        <div>
-                            <table>
+                        <div align="center">
+                            <table style="text-align: center">
                                 <thead>
                                 <tr>
                                     <th class="groupMembers">Members</th>

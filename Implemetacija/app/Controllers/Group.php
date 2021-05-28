@@ -47,7 +47,6 @@ class Group extends BaseController
 
         $groupModel = new GroupModel();
 
-        $inGroupModel = new InGroupModel();
         $adminsToBe=[];
         $i=0;
 
@@ -67,7 +66,17 @@ class Group extends BaseController
             'description'=>$description
         ];
 
-          $data['image'] = null;
+ /*       $this->validation->reset();
+        $this->validation->setRuleGroup('registration');
+        if(!$this->validation->run($data))
+            return $this->renderRegistration($this->validation->getErrors());
+
+        if($this->request->getFile('image')->getName() != "") {
+            $time_unique = strtotime("now");
+            $this->request->getFile('image')->move(ROOTPATH . 'public\groupUploads\\' . $time_unique, $this->request->getFile('image')->getName());
+            $data['image'] = $time_unique. "/". $this->request->getFile('image')->getName();
+        } else
+*/            $data['image'] = $groupModel->find($id)['image'];
 
         $groupModel->update($id,$data);
 
@@ -263,7 +272,7 @@ class Group extends BaseController
 
     public function newGroup() {
 
-        $htmlContent = file_get_contents(base_url("/Views/groups/newGroup.php"));
+/*       $htmlContent = file_get_contents(base_url("/Views/groups/newGroup.php"));
 
         $DOM = new DOMDocument();
         $DOM->loadHTML($htmlContent);
@@ -276,24 +285,26 @@ class Group extends BaseController
             $membersToCall[$i] = trim($sNodeDetail->textContent);
             $i = $i + 1;
         }
-
-        $name = $this->request->getPost('name');
+*/
+        $name = $this->request->getPost('group_name');
         $desc = $this->request->getPost('description');
-        $img = $this->request->getPost('image');
-
-        if($name==null) $name="Unnamed group";
 
         $data = [
             'name'=>$name,
             'description'=>$desc,
         ];
 
- /*       if ($this->request->getFile('image')->getName() != "") {
+ /*       $this->validation->reset();
+        $this->validation->setRuleGroup('registration');
+        if(!$this->validation->run($data))
+            return $this->renderRegistration($this->validation->getErrors());
+
+        if($this->request->getFile('image')->getName() != "") {
             $time_unique = strtotime("now");
-            $this->request->getFile('image')->move(ROOTPATH . 'public\uploads\\' . $time_unique, $this->request->getFile('image')->getName());
-            $data['image'] = $time_unique . "/" . $this->request->getFile('image')->getName();
+            $this->request->getFile('image')->move(ROOTPATH . 'public\groupUploads\\' . $time_unique, $this->request->getFile('image')->getName());
+            $data['image'] = $time_unique. "/". $this->request->getFile('image')->getName();
         } else
-*/          $data['image'] = null;
+ */     $data['image'] = null;
 
         $groupModel = new GroupModel();
         $groupId = $groupModel->insert($data);
@@ -301,11 +312,9 @@ class Group extends BaseController
         $userId = $this->session->get('user')['idUser'];
         $this->joinGroup($userId,$groupId,1);
 
-
-
         $userModel = new UserModel();
 
-        $j=0;
+/*        $j=0;
 
         $members=[];
 
@@ -315,10 +324,10 @@ class Group extends BaseController
                 $members[$j++] = $user;
             }
         }
-
+*/
          $group = $groupModel->find($groupId);
 
-         $this->sendCall($members,$group);
+//         $this->sendCall($members,$group);
 
         return redirect()->to('/group/index');
     }

@@ -54,10 +54,9 @@
 
               <tr>
                   <td>
-                      <?php
-                      if(isset($groups[$i]['image']))
-                          echo'<img height="50" width="50" src="data:image;base64,'.base64_encode( $groups[$i]['image'] ).'">';
-                      ?>
+                      <?php if(isset($groups[$i]['image'])): ?>
+                         <img src="<?php echo base_url(). '/groupUploads/'. $groups[$i]['image']; ?>" style="height: 60px">
+                      <?php endif; ?>
                   </td>
                   <td><?php echo $groups[$i]['name']; ?></td>
                   <td>

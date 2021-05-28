@@ -7,17 +7,15 @@
             </div>
 
 
-            <form class="form-vertical" method="post" action="/group/newGroup">
+            <form class="form-vertical" method="post" action="/group/newGroup" enctype="multipart/form-data">
                 <div class="row">
-                    <div class="col-4">
-                        <div class="form-group">
-                            <div class="form-group">
-                                <label for="image">
-                                    <input type="file" name="image" id="image" style="display:none;"/>
-                                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%"/>
-                                    <p>Browse image</p>
-                                </label>
-                            </div>
+                    <div class="col col-md-4">
+                        <div class="form-group" style="text-align: center">
+                            <label for="image">
+                                <input type="file" name="image" id="image" style="display:none;"/>
+                                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%" >
+                                <p>Browse image</p>
+                            </label>
                         </div>
                     </div>
                     <div class="col col-md-8">
