@@ -32,8 +32,14 @@
           <h2>Groups</h2>
         </div>
 
-          <a href="<?php echo base_url('group/renderNewGroup')?>" class="btn btn-success">Create new</a>
+         <div class="row">
+             <div class="col-12" align="left" style="margin-bottom: 20px">
+                <a href="<?php echo base_url('group/renderNewGroup')?>" class="btn btn-success">Create new</a>
+             </div>
+         </div>
 
+          <div class="row">
+              <div class="col-12">
         <table class="table" id="my-table">
           <thead>
             <tr>
@@ -57,7 +63,7 @@
                   <td>
                       <div class="btn-group">
                           <button class="btn btn-outline-info" onclick="window.location.href='<?php $id = $groups[$i]['idGroup']; echo base_url("group/viewGroup/$id");?>'">Info</button>
-                          <button class="btn btn-outline-success" onclick="window.location.href='<?php echo base_url("homepage/lists");?>'">Lists</button>
+                          <button class="btn btn-outline-success" onclick="window.location.href='<?php echo base_url("lists/index");?>'">Lists</button>
                           <button class="btn btn-outline-primary" onclick="window.location.href='<?php  $id = $groups[$i]['idGroup'];
                           echo base_url("group/renderEditGroup/$id");?>'"
                           <?php if($ingroups[$i]['type']=='0') echo 'disabled'; ?>>Edit</button>
@@ -71,7 +77,8 @@
 
           </tbody>
         </table>
-
+              </div>
+          </div>
       </div>
     </section> <!-- End Group section-->
   </main><!-- End #main -->

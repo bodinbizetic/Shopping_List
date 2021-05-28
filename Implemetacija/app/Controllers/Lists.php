@@ -95,15 +95,31 @@ class Lists extends BaseController
         }
 
         $shop = $shopChainModel->find($shoppingList['idShop']);
+        $shops = $shopChainModel->findAll();
 
         echo view("common/header");
         echo view("lists/edit_list", ['listName' => $shoppingList['name'],
             'id' => $idShoppingList,
             'items' => $itemsList,
             'listId' => $shoppingList['idShoppingList'],
-            'shop' => $shop['name']
+            'shop' => $shop['name'],
+            'shops' => $shops
         ]);
         echo view("common/footer");
+    }
+
+    public function changeShop($listId, $shopId){
+        $listModel = new ShoppingListModel();
+        $list = $listModel->find($listId);
+        $data = [
+            'idGroup' => $list['idGroup'],
+            'name' => $list['name'],
+            'idShop' => $shopId,
+            'active' => $list['active'],
+            'createdAt' => $list['createdAt']
+        ];
+        $listModel->update($listId, $data);
+        return redirect()->back();
     }
 
     public function editItem($idListContained, $idList)

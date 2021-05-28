@@ -1,6 +1,6 @@
 
-  <link href="../common.css" rel="stylesheet">
-  <link href="editGroup.css" rel="stylesheet">
+  <link href="/public/css/common.css" rel="stylesheet">
+  <link href="/public/css/editGroup.css" rel="stylesheet">
 
    <!-- Modal -->
  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -50,7 +50,7 @@
                   <h2>Edit Group</h2>
               </div>
 
-  <form class="form-vertical" method="post" action="/group/editGroup/<?php echo $groupId;?>">
+  <form class="form-vertical" method="post" action="/group/editGroup/<?=$groupId;?>">
       <div class="row">
           <div class="col-4">
               <div class="form-group">
@@ -90,10 +90,9 @@
                       <td><?php echo $member['username'];
                           if($myId==$member['idUser']) echo '(You)';?></td>
                         <td>
-                            <input type="checkbox" name="admin" id="admin"
-                                   <?php if($inGroup[$i++]['type']=='1') echo 'checked'; ?>
-                                   onclick="window.location.href='<?php $id = $member['idUser'];
-                                   echo base_url("/group/changeAdmin/$groupId/$id"); ?>'">
+                            <input type="checkbox" name="admin[]" value="<?php echo $member['idUser'];?>"
+                                    <?php if($inGroup[$i]['type']=='1') {echo 'disabled';}?>
+                                   <?php if($inGroup[$i]['type']=='1') {echo 'checked';} $i++?>>
                         </td>
                         <td>
                             <button class="btn btn-outline-danger"
@@ -110,18 +109,19 @@
               </table>
               <div>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Invite members" aria-label="Invite user" aria-describedby="button-addon2">
+                    <input type="text" id='member' class="form-control" placeholder="Invite members" aria-label="Invite user" aria-describedby="button-addon2">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-success" type="button" data-toggle='modal' data-target='#membersModal'>Invite</button>
+                      <button class="btn btn-outline-success" type="button" onclick="addMember()">Invite</button>
                     </div>
                 </div>
               </div>
-              <input type="submit" value="Save changes" class="btn btn-success btn-block"> 
+              <input type="submit" value="Save changes" class="btn btn-success btn-block">
           </div>
       </div>
   </form>
           </div>
       </section>
   </main>
+
 
 
