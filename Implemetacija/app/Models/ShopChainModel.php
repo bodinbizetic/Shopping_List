@@ -12,11 +12,10 @@ class ShopChainModel extends Model
     protected $primaryKey = 'idShopChain';
     protected $useAutoIncrement = true;
     protected $returnType     = 'array';
-    protected $allowedFields = ['name'];
+    protected $allowedFields = ['name', 'idShopChain'];
 
 
     protected $validationRules    = [
-        'idShopChain'     => 'required',
         'name'     => 'required|max_length[45]'
     ];
 

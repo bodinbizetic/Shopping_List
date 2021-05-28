@@ -4,6 +4,12 @@
 namespace App\Controllers;
 
 
+use App\Models\CategoryModel;
+use App\Models\ItemCategoryModel;
+use App\Models\ItemModel;
+use App\Models\ItemPriceModel;
+use App\Models\ShopChainModel;
+use App\Models\ShoppingListModel;
 use DOMNode;
 use ErrorException;
 use Masterminds\HTML5;
@@ -18,20 +24,41 @@ class Scrapper extends BaseController
         $category_links = $this->extractLinksFromNav($dom);
 
         $articles_to_persist = [];
-        echo $category_links[1];
         foreach ($category_links as $cat_link)
         {
+            echo $cat_link['href'].' '.$cat_link['name'];
             echo "TOTAL ".count($articles_to_persist);
-            $cat_dom = $this->getDocument($cat_link);
+            $cat_dom = $this->getDocument($cat_link['href']);
             sleep(3);
             $page_links = $this->extractLinksFromCategory($cat_dom);
-            echo $page_links[0] . "<br>";
             foreach ($page_links as $link) {
-                $all_articles = $this->iterateOverCategoryPages($link);
+                $all_articles = $this->iterateOverCategoryPages($link, $cat_link['name']);
                 foreach ($all_articles as $item){
                     array_push($articles_to_persist, $item);
                 }
             }
+        }
+
+        $this->persistArticles($articles_to_persist);
+        echo "Done ".count($articles_to_persist);
+    }
+
+    private function test()
+    {
+        $dom = $this->getDocument('');
+        $category_links = $this->extractLinksFromNav($dom);
+
+        $articles_to_persist = [];
+        $cat_link = $category_links[1];
+        echo $cat_link['href'].' '.$cat_link['name'];
+        echo "TOTAL ".count($articles_to_persist);
+        $cat_dom = $this->getDocument($cat_link['href']);
+        sleep(3);
+        $page_links = $this->extractLinksFromCategory($cat_dom);
+        $link = $page_links[0];
+        $all_articles = $this->iterateOverCategoryPages($link, $cat_link['name']);
+        foreach ($all_articles as $item){
+            array_push($articles_to_persist, $item);
         }
 
         $i = 0;
@@ -41,15 +68,112 @@ class Scrapper extends BaseController
             $i++;
         }
 
+        $this->persistArticles($articles_to_persist);
+
         echo "Done ".count($articles_to_persist);
     }
 
-    public function test()
+    private function persistArticles(array $articles_to_persist)
     {
-        $all_articles = $this->iterateOverCategoryPages('/proizvodi/kucni-ljubimci/hrana-za-pse');
+        $failed = 0;
+        foreach ($articles_to_persist as $item)
+        {
+            try {
+                $idItem = $this->persistItem($item);
+                $this->persistShoppPrices($idItem, $item);
+                $this->persistItemCategory($idItem, $item['category']);
+            } catch (ErrorException $e) {
+                echo "[ERROR] ".$e->getMessage().'<br>';
+                $failed++;
+            }
+        }
     }
 
-    private function iterateOverCategoryPages(string $page): array
+    private function persistItem(array $item)
+    {
+        $itemModel = new ItemModel();
+        $itemExists = $itemModel->where('name', $item['name'])
+                                    ->where('isCenoteka', 1)->first();
+
+        if ($itemExists != null)
+        {
+            return $itemExists['idItem'];
+        }
+
+        $quantity_metrics = explode(' ', $item['quantity']);
+        $data = [
+            'name' => $item['name'],
+            'isCenoteka' => 1,
+            'quantity' => $quantity_metrics[0],
+            'metrics' => $quantity_metrics[1],
+            'image' => $item['img_link'],
+        ];
+
+        if (!($idItem = $itemModel->insert($data)))
+        {
+            echo implode('; ', $data);
+            throw new ErrorException('Item not persisted '.$item['name'].' '.implode(' ', $itemModel->errors()));
+        }
+        return $idItem;
+
+    }
+
+    private function persistItemCategory(int $idItem, string $categoryName)
+    {
+        $categoryName = trim($categoryName);
+        $categoryModel = new CategoryModel();
+        $category = $categoryModel->where('name', $categoryName)->first();
+        if ($category == null) {
+            $idCategory = $categoryModel->insert(['name' => $categoryName]);
+            if ($idCategory == null) {
+                echo "[ERROR]: ".$categoryName.' failed '.implode(" ", $categoryModel->errors()).' <br>';
+                return;
+            }
+            $category = $categoryModel->find($idCategory);
+        }
+
+        $itemCategoryModel = new ItemCategoryModel();
+        $itemCategory = $itemCategoryModel->where('idItem', $idItem)
+                                            ->where('idCategory', $category['idCategory'])->first();
+        if ($itemCategory == null) {
+            if (!$itemCategoryModel->insert(['idItem' => $idItem, 'idCategory' => $category['idCategory']])) {
+                echo '[ERROR] '.implode(' ', $itemCategoryModel->errors());
+            }
+        }
+    }
+
+    private function persistShoppPrices(int $idItem, array $data)
+    {
+        foreach ($data['prices'] as $shopName => $price) {
+            if ($price == '-')
+                continue;
+
+            str_replace(',', '.', $price);
+            $shopChainModel = new ShopChainModel();
+            $shop = $shopChainModel->where('name', $shopName)->first();
+            $idShop = null;
+            if ($shop == null) {
+                $idShop = $shopChainModel->insert(['name' => $shopName]);
+            }
+            else {
+                $idShop = $shop['idShopChain'];
+            }
+
+            $itemPriceModel = new ItemPriceModel();
+            $itemPrice = $itemPriceModel->where('idItem', $idItem)
+                                        ->where('idShopChain', $idShop)->first();
+
+            if ($itemPrice == null) {
+                $itemPriceModel->insert(['idItem' => $idItem, 'price' => $price, 'idShopChain' => $idShop] );
+            }
+            else {
+                $itemPrice['price'] = $price;
+                $itemPriceModel->update($itemPrice['idItemPrice'], $itemPrice);
+            }
+        }
+    }
+
+    private function iterateOverCategoryPages(string $page, string $category): array
     {
         $all_articles = [];
         $pageNum = 1;
@@ -65,6 +189,8 @@ class Scrapper extends BaseController
                 foreach ($articles as $item)
                 {
                     echo $item['name'].'<br>';
+                    $new++;
+                    $item['category'] = $category;
                     array_push($all_articles, $item);
                 }
             }
@@ -85,15 +211,14 @@ class Scrapper extends BaseController
     {
         $link_nodes = $this->getElementsByAttribute($dom, 'a', 'class', 'nav-link dropdown-toggle');
 
-
         $category_links = [];
 
         foreach ($link_nodes as $link_node)
         {
-
-            $category_link = $link_node->getAttribute('href');
-//            echo $category_link.'<br>';
-            if (strpos($category_link, '/kategorija/') === 0) {
+            $category_link = [];
+            $category_link['href'] = $link_node->getAttribute('href');
+            $category_link['name'] = $link_node->textContent;
+            if (strpos($category_link['href'], '/kategorija/') === 0) {
                 array_push($category_links, $category_link);
             }
         }
@@ -137,7 +262,7 @@ class Scrapper extends BaseController
                 $article = $this->extractArticle($article_row);
                 if ($article != null)
                 {
-                    $article['category'] = $category;
+//                    $article['category'] = $category;
                     array_push($articles, $article);
                 }
             }
@@ -178,31 +303,31 @@ class Scrapper extends BaseController
             $article['prices'] = [];
 
             try {
-                $article['prices']['idea'] = $article_row->childNodes->
+                $article['prices']['Idea'] = $article_row->childNodes->
                 item($IDEA_OFFSET)->textContent;
             } catch (ErrorException $e) {}
             try {
-                $article['prices']['maxi'] = $article_row->childNodes->
+                $article['prices']['Maxi'] = $article_row->childNodes->
                 item($MAXI_OFFSET)->textContent;
             } catch (ErrorException $e) {}
             try {
-                $article['prices']['univerexport'] = $article_row->childNodes->
+                $article['prices']['Univerexport'] = $article_row->childNodes->
                 item($UNIVER_EXPORT_OFFSET)->textContent;
             } catch (ErrorException $e) {}
             try {
-                $article['prices']['tempo'] = $article_row->childNodes->
+                $article['prices']['Tempo'] = $article_row->childNodes->
                 item($TEMPO_OFFSET)->textContent;
             } catch (ErrorException $e) {}
             try {
-                $article['prices']['dis'] = $article_row->childNodes->
+                $article['prices']['Dis'] = $article_row->childNodes->
                 item($DIS_OFFSET)->textContent;
             } catch (ErrorException $e) {}
             try {
-                $article['prices']['roda'] = $article_row->childNodes->
+                $article['prices']['Roda'] = $article_row->childNodes->
                 item($RODA_OFFSET)->textContent;
             } catch (ErrorException $e) {}
             try {
-                $article['prices']['lidl'] = $article_row->childNodes->
+                $article['prices']['Lidl'] = $article_row->childNodes->
                 item($LIDL_OFFSET)->textContent;
             } catch (ErrorException $e) {}
             return $article;
