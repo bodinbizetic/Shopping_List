@@ -98,7 +98,7 @@ class Lists extends BaseController
 
         echo view("common/header");
         echo view("lists/edit_list", ['listName' => $shoppingList['name'],
-            'id' => $item['idItem'],
+            'id' => $idShoppingList,
             'items' => $itemsList,
             'listId' => $shoppingList['idShoppingList'],
             'shop' => $shop['name']
