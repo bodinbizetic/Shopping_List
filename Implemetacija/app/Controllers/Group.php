@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\GroupModel;
 use App\Models\InGroupModel;
+use App\Models\ItemModel;
 use App\Models\ListContainsModel;
 use App\Models\NotificationModel;
 use App\Models\ShoppingListModel;
@@ -51,6 +52,8 @@ class Group extends BaseController
             'description'=>$description
         ];
 
+   //     $this->changeAdmin($id);
+
  /*       if ($this->request->getFile('image')->getName() != "") {
             $time_unique = strtotime("now");
             $this->request->getFile('image')->move(ROOTPATH . 'public\uploads\\' . $time_unique, $this->request->getFile('image')->getName());
@@ -97,17 +100,16 @@ class Group extends BaseController
         echo view('common/footer');
     }
 
-    public function changeAdmin($groupId, $memberId){
+    public function changeAdmin($groupId, $memberId, $flag){
 
         $inGroupModel = new InGroupModel();
-        $ingroup = $inGroupModel->where('idUser',$memberId)->where('idGroup',$groupId)->findAll();
+        $ingroup = $inGroupModel->where('idGroup',$groupId)->where('idUser',$memberId)->findAll();
 
-        if(count($ingroup)>0) {
+        if(count($ingroup)) {
 
             $id = $ingroup[0]['idInGroup'];
 
-            $flag = $this->request->getPost('admin');
-            if ($flag == 'admin') {
+            if ($flag=='true') {
                 $data = [
                     'idUser' => $memberId,
                     'idGroup' => $groupId,
@@ -125,7 +127,6 @@ class Group extends BaseController
 
         }
         return redirect()->to('/group/renderEditGroup/'.$groupId);
-
     }
 
     public function viewGroup($idGroup)
@@ -154,13 +155,15 @@ class Group extends BaseController
         $popularItemsYear = $this->getPopularItemsYear(5, $idGroup);
         $popularItemsMonth= $this->getPopularItemsMonth(5, $idGroup);
 
-        $data['chart_data_spending'] = $this->displayAsChartSpending($monthSpending);
-        $data['chart_data_lists'] = $this->displayAsChartNoLists($noListsByMonth);
-        $data['data_for_pie_year'] =  $this->displayAsPie($popularItemsYear);
-        $data['data_for_pie_month'] = $this->displayAsPie($popularItemsMonth);
-        $data['group'] = $group;
-        $data['members'] = $members;
-        //$data['errors'] = $errors;
+        $data=[
+            'chart_data_spending' => $this->displayAsChartSpending($monthSpending),
+            'chart_data_lists' => $this->displayAsChartNoLists($noListsByMonth),
+            'data_for_pie_year' =>  $this->displayAsPie($popularItemsYear),
+            'data_for_pie_month' => $this->displayAsPie($popularItemsMonth),
+            'group' => $group,
+            'members' => $members,
+            'inGroup' => $inGroupUsers
+        ];
 
         echo view('common/header');
         echo view('groups/singleGroup1',$data);
@@ -180,24 +183,13 @@ class Group extends BaseController
             ->select('MONTH(bought) AS month, SUM(itemprice.price * item.quantity) AS spending')
             ->groupBy('month')
             ->findAll();
-/*        return $listContainsModel
-            ->where('YEAR(bought)', date('Y'))
-            ->join('shoppinglist', 'shoppinglist.idShoppingList='.$idGroup.
-                'AND shoppinglist.idShoppingList = listcontains.idShoppingList')
-            ->whereNotIn('idShop', ['NULL'])
-            ->join('itemprice', 'itemprice.idItem = listcontains.idItem AND itemprice.idShopChain = shoppinglist.idShop')
-            ->join('item', 'item.idItem = listcontains.idItem')
-            ->select('MONTH(bought) AS month, SUM(itemprice.price * item.quantity) AS spending')
-            ->groupBy('month')
-            ->findAll();
-*/
+
     }
 
 
     private function getNoListsByMonth($idGroup)
     {
         $shoppingListModel = new ShoppingListModel();
-        $inGroupModel = new InGroupModel();
         $toReturn =  $shoppingListModel->where('idGroup', $idGroup)
             ->select('MONTH(createdAt) as month, COUNT(*) as count')
             ->groupBy('month')
@@ -210,7 +202,6 @@ class Group extends BaseController
 
     private function getPopularItemsYear($limit, $idGroup)
     {
-        $listContainsModel = new ListContainsModel();
         $shoppingList = new ShoppingListModel();
         return $shoppingList->where('idGroup',$idGroup)
             ->join('listcontains','shoppinglist.idShoppingList = listcontains.idShoppingList')
@@ -220,16 +211,6 @@ class Group extends BaseController
             ->groupBy('listcontains.idItem')
             ->orderBy('count', "DESC")
             ->findAll($limit);
- /*       return $listContainsModel
-            ->where('YEAR(bought)', date('Y'))
-            ->join('shoppinglist', 'shoppinglist.idShoppingList='.$idGroup.
-                'AND shoppinglist.idShoppingList = listcontains.idShoppingList')
-            ->join('item', 'item.idItem = listcontains.idItem')
-            ->select('listcontains.idItem AS idItem, item.name AS name, COUNT(listcontains.idItem) AS count')
-            ->groupBy('listcontains.idItem')
-            ->orderBy('count', "DESC")
-            ->findAll($limit);
- */
     }
 
     private function getPopularItemsMonth($limit, $idGroup)
@@ -244,16 +225,6 @@ class Group extends BaseController
             ->groupBy('listcontains.idItem')
             ->orderBy('count', "DESC")
             ->findAll($limit);
-/*        return $listContainsModel
-            ->where('MONTH(bought)', date('m'))
-            ->join('shoppinglist', 'shoppinglist.idShoppingList='.$idGroup.
-                'AND shoppinglist.idShoppingList = listcontains.idShoppingList')
-            ->join('item', 'item.idItem = listcontains.idItem')
-            ->select('listcontains.idItem AS idItem, item.name AS name, COUNT(listcontains.idItem) AS count')
-            ->groupBy('listcontains.idItem')
-            ->orderBy('count', "DESC")
-            ->findAll($limit);
-*/
     }
 
     private function displayAsChartSpending($monthSpendings)
@@ -409,10 +380,34 @@ class Group extends BaseController
 
         $inGroupModel->delete($inGroup['idInGroup']);
 
-        if(count($thisGroup)==1){
-            $groupModel->delete($groupId);
+
+        if(count($thisGroup)==1) {
+            $this->deleteGroup($groupId);
         }
 
         return redirect()->to('/group/index');
     }
+
+    protected function deleteGroup($idGroup){
+
+        $groupModel = new GroupModel();
+        $listContainsModel = new ListContainsModel();
+        $itemModel = new ItemModel();
+
+        $inGroupModel = new InGroupModel();
+        $thisGroup = $inGroupModel->findByGroupId($idGroup);
+
+        $shoppingListModel = new ShoppingListModel();
+        $allList = $shoppingListModel->where('idGroup',$idGroup)->findAll();
+        foreach ($allList as $list){
+            $listContains = $listContainsModel->where('idShoppingList',$list['idShoppingList'])->findAll();
+            foreach ($listContains as $contains){
+                $listContainsModel->delete($contains['idListContains']);
+            }
+            $shoppingListModel->delete($list['idShoppingList']);
+        }
+        $groupModel->delete($idGroup);
+
+    }
+
 }

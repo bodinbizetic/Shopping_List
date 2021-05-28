@@ -90,10 +90,12 @@
                       <td><?php echo $member['username'];
                           if($myId==$member['idUser']) echo '(You)';?></td>
                         <td>
-                            <input type="checkbox" name="admin" id="admin"
+                            <input type="checkbox" name="<?php $id = $member['idUser']; echo 'admin_'.$id ?>"
+                                   id="<?php $id = $member['idUser']; echo 'admin_'.$id ?>"
                                    <?php if($inGroup[$i++]['type']=='1') echo 'checked'; ?>
-                                   onclick="window.location.href='<?php $id = $member['idUser'];
-                                   echo base_url("/group/changeAdmin/$groupId/$id"); ?>'">
+                                   onchange="window.location.href='<?php $id = $member['idUser'];
+                                   if(isset($_POST['admin_'.$id])) $flag='false'; else $flag='true';
+                                   echo base_url("/group/changeAdmin/$groupId/$id/$flag"); ?>'">
                         </td>
                         <td>
                             <button class="btn btn-outline-danger"
