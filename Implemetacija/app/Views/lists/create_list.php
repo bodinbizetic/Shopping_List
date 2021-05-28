@@ -24,6 +24,7 @@
                             </div>
                             <div class="col-4">
                                 <select id="shopid" name="shopid" class="custom-select custom-select-lg m-2">
+                                    <option value="" selected disabled>Select shop</option>
                                     <?php
                                     foreach ($shops as $shop_id => $shop_name) {
                                         echo '<option value="'.$shop_id.'">'.$shop_name.'</option>';

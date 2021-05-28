@@ -241,8 +241,12 @@ class Lists extends BaseController
     public function createNew()
     {
         $listName = $this->request->getPost('list_name');
-        $shopId = $this->request->getPost('shop_id');
+        $shopId = $this->request->getPost('shopid');
         $groupId = $this->request->getPost('group');
+
+        if($shopId == null){
+            die("Parameter failure");
+        }
 
         $listModel = new ShoppingListModel();
         $groupModel = new GroupModel();
