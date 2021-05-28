@@ -136,6 +136,7 @@ class Lists extends BaseController
     public function addItem($name, $quantity, $measure, $listId)
     {
         $user = $this->session->get('user');
+
         $itemModel = new ItemModel();
         $data = [
             'name' => $name,
@@ -148,7 +149,7 @@ class Lists extends BaseController
         $data1 = ['idShoppingList' => $listId,
             'idItem' => $newid,
             'bought' => date("Y-m-d"),
-            'idUser' => $user["idUser"]
+            'idUser' => $user['idUser']
         ];
         $listContainsModel->insert($data1);
 
@@ -298,7 +299,6 @@ class Lists extends BaseController
         }
         if ($state == 'null')
         {
-            echo 'done';
             $listContains['bought'] = null;
         }
         else

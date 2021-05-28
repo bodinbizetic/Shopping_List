@@ -12,13 +12,13 @@ class ListContainsModel extends Model
     protected $primaryKey = 'idListContains';
     protected $useAutoIncrement = true;
     protected $returnType     = 'array';
-    protected $allowedFields = ['bought', 'idShoppingList', 'idItem', 'bought'];
+    protected $allowedFields = ['bought', 'idShoppingList', 'idItem', 'bought', 'idUser'];
 
 
     protected $validationRules    = [
         'idShoppingList'     => 'required|in_db[shoppinglist,idShoppingList]',
         'idItem'     => 'required|in_db[item,idItem]',
-        'idUser'     => 'required|in_db[user,idUser]',
+        'idUser'     => 'required|in_db[user,idUser,NotExist]',
     ];
 
 

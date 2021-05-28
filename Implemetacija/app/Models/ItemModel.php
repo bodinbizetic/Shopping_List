@@ -12,12 +12,14 @@ class ItemModel extends Model
     protected $primaryKey = 'idItem';
     protected $useAutoIncrement = true;
     protected $returnType     = 'array';
-    protected $allowedFields = ['name', 'quantity', 'metrics'];
+    protected $allowedFields = ['name', 'quantity', 'metrics', 'image', 'isCenoteka'];
 
 
     protected $validationRules    = [
-        'name'     => 'required|max_length[45]',
-        'quantity'     => 'required|max_length[45]'
+        'name'     => 'required|max_length[255]',
+        'quantity'     => 'required|max_length[45]',
+        'metrics' => 'required',
+        'image' => 'max_length[255]'
     ];
 
 
