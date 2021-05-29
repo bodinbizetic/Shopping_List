@@ -55,7 +55,7 @@
               <tr>
                   <td>
                       <?php if(isset($groups[$i]['image'])): ?>
-                         <img src="<?php echo base_url(). '/groupUploads/'. $groups[$i]['image']; ?>" style="height: 60px">
+                         <img src="<?php echo base_url(). '/groupUploads/'. $groups[$i]['image']; ?>" style="height: 60px; border-radius: 50%">
                       <?php endif; ?>
                   </td>
                   <td><?php echo $groups[$i]['name']; ?></td>

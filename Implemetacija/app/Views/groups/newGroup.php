@@ -65,7 +65,7 @@
         let username=document.getElementById('member').value;
         let row = $("<tr></tr>");
         let btn = $('<button class="btn btn-outline-danger dismissMember" name="dismissMember" value="Dismiss">Dismiss</button>');
-        let col = $("<td></td>").append(username);
+        let col = $("<td></td>").append($("<input type='text' name='members[]'  value="+username+">"));
         let col2 = $("<td style='text-align: right'></td>").append(btn);
         row.append($(col).attr('name',username));
         row.append(col2);

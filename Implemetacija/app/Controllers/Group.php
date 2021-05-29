@@ -66,24 +66,19 @@ class Group extends BaseController
             'description'=>$description
         ];
 
- /*       $this->validation->reset();
-        $this->validation->setRuleGroup('registration');
-        if(!$this->validation->run($data))
-            return $this->renderRegistration($this->validation->getErrors());
-
         if($this->request->getFile('image')->getName() != "") {
             $time_unique = strtotime("now");
             $this->request->getFile('image')->move(ROOTPATH . 'public\groupUploads\\' . $time_unique, $this->request->getFile('image')->getName());
             $data['image'] = $time_unique. "/". $this->request->getFile('image')->getName();
         } else
-*/            $data['image'] = $groupModel->find($id)['image'];
+           $data['image'] = $groupModel->find($id)['image'];
 
         $groupModel->update($id,$data);
 
         return redirect()->to('/group/index');
     }
 
-    public function renderEditGroup($id)
+    public function renderEditGroup($id, $errors=null)
     {
         $userModel = new UserModel();
         $inGroupModel = new InGroupModel();
@@ -109,7 +104,8 @@ class Group extends BaseController
             'ingroup'=>$inGroupUsers,
             'groupId'=>$group['idGroup'],
             'myId'=>$this->session->get('user')['idUser'],
-            'inGroup'=>$inGroupUsers
+            'inGroup'=>$inGroupUsers,
+            //'errors' => $errors
         ];
 
         echo view('common/header');
@@ -265,27 +261,26 @@ class Group extends BaseController
         return json_encode($arrOfArr);
     }
 
-    public function addNewMember() {
-        $username = $this->request->getPost('invite_member');
+    public function addNewMember($idGroup, $username) {
+        $userModel = new UserModel();
+ //       $username = $this->request->getPost('invite_member');
+        $user = $userModel->findByUsername($username);
+        $groupModel = new GroupModel();
+        $group = $groupModel->find($idGroup);
 
+        if($username == null){
+            $this->renderEditGroup($idGroup, ['There is no user with set username']);
+        }
+        else{
+            $this->sendCall($user,$group);
+            $this->renderEditGroup($idGroup, ['Invite sent']);
+        }
     }
 
     public function newGroup() {
 
-/*       $htmlContent = file_get_contents(base_url("/Views/groups/newGroup.php"));
+ //       include(ROOTPATH . 'public\assets\\simplehtmldom_parser\\simple_html_dom.php');
 
-        $DOM = new DOMDocument();
-        $DOM->loadHTML($htmlContent);
-
-        $Detail = $DOM->getElementsByTagName('td');
-
-        $i = 0;
-        foreach($Detail as $sNodeDetail)
-        {
-            $membersToCall[$i] = trim($sNodeDetail->textContent);
-            $i = $i + 1;
-        }
-*/
         $name = $this->request->getPost('group_name');
         $desc = $this->request->getPost('description');
 
@@ -294,42 +289,42 @@ class Group extends BaseController
             'description'=>$desc,
         ];
 
- /*       $this->validation->reset();
-        $this->validation->setRuleGroup('registration');
-        if(!$this->validation->run($data))
-            return $this->renderRegistration($this->validation->getErrors());
-
         if($this->request->getFile('image')->getName() != "") {
             $time_unique = strtotime("now");
             $this->request->getFile('image')->move(ROOTPATH . 'public\groupUploads\\' . $time_unique, $this->request->getFile('image')->getName());
             $data['image'] = $time_unique. "/". $this->request->getFile('image')->getName();
         } else
- */     $data['image'] = null;
+            $data['image'] = null;
 
         $groupModel = new GroupModel();
         $groupId = $groupModel->insert($data);
 
-        $userId = $this->session->get('user')['idUser'];
-        $this->joinGroup($userId,$groupId,1);
+        $group = $groupModel->find($groupId);
 
         $userModel = new UserModel();
 
-/*        $j=0;
+        $membersToCall=[];
+        $i=0;
 
-        $members=[];
+        if(!empty($_POST['members'])) {
+            foreach ($_POST['members'] as $member) {
+                $user = $userModel->findByUsername($member);
 
-         foreach($membersToCall as $member){
-            $user = $userModel->findByUsername($member);
-            if($user!=null) {
-                $members[$j++] = $user;
+                if ($user != null) {
+                    $membersToCall[$i++] = $user;
+                }
             }
+
+            foreach ($membersToCall as $mem) {
+                $this->sendCall($mem, $group);
+            }
+
         }
-*/
-         $group = $groupModel->find($groupId);
 
-//         $this->sendCall($members,$group);
+        $userId = $this->session->get('user')['idUser'];
+        $this->joinGroup($userId,$groupId,1);
 
-        return redirect()->to('/group/index');
+        return redirect()->to(base_url('/group/index'));
     }
 
     public function joinGroup($userId, $groupId,$type){
@@ -343,18 +338,17 @@ class Group extends BaseController
         $ingroupModel->save($ingroupData);
     }
 
-    public function sendCall($members,$group){
+    public function sendCall($member,$group){
+
         $notificationModel = new NotificationModel();
-        foreach($members as $member) {
-            $data = [
+        $data = [
                 'idGroup' => $group['idGroup'],
                 'idUser'=>$member['idUser'],
                 'type'    => JOIN_GROUP_REQ['type'],
                 'isRead'  => 0,
                 'text'    => JOIN_GROUP_REQ['msg']. " ". $group['name'],
-            ];
-            $notificationModel->save($data);
-        }
+        ];
+        $notificationModel->save($data);
     }
 
     public function removeFromGroup($groupId, $userId){
@@ -371,7 +365,7 @@ class Group extends BaseController
 
             $inGroupModel->delete($id);
 
-            $notificationModel = new NotificationModel();
+ /*           $notificationModel = new NotificationModel();
             $data = [
                 'idGroup' => $group['idGroup'],
                 'idUser'=>$userId,
@@ -381,7 +375,7 @@ class Group extends BaseController
             ];
 
             $notificationModel->save($data);
-
+*/
             $path = 'group/renderEditGroup/'.$groupId;
 
             return redirect()->to($path);
@@ -442,6 +436,13 @@ class Group extends BaseController
             }
             $shoppingListModel->delete($list['idShoppingList']);
         }
+
+        $notificationModel = new NotificationModel();
+        $notifications = $notificationModel->where('idGroup',$idGroup)->where('type','0')->findAll();
+        foreach ($notifications as $notification){
+            $notificationModel->delete($notification['idNotification']);
+        }
+
         $groupModel->delete($idGroup);
 
     }

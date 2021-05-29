@@ -113,13 +113,15 @@
               </table>
               <div>
                 <div class="input-group mb-3">
-                    <input type="text" id='member' class="form-control" placeholder="Invite members" aria-label="Invite user" aria-describedby="button-addon2">
+                    <input type="text" id='invite_member' name = "invite_member" class="form-control" placeholder="Invite members" aria-label="Invite user" aria-describedby="button-addon2">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-success" type="button" onclick="addMember()">Invite</button>
+                      <button class="btn btn-outline-success" type="button" onclick="callNewMember()">Invite</button>
                     </div>
                 </div>
               </div>
+              <br>
               <input type="submit" value="Save changes" class="btn btn-success btn-block">
+
           </div>
       </div>
   </form>
@@ -127,5 +129,9 @@
       </section>
   </main>
 
-
-
+<script>
+    function callNewMember(){
+        let username = document.getElementById('invite_member').value;
+        window.location.href = "/group/addNewMember/"+<?= $groupId ?>+"/"+username;
+    }
+</script>

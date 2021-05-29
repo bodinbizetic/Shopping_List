@@ -8,7 +8,6 @@ use CodeIgniter\Model;
 define("JOIN_GROUP_REQ", ["msg" => "Join group", "type" => 0]);
 define("NEW_GROUP_MEMBER", ["msg" => "New member group", "type" => 1]);
 define("LIST_STATUS", ["msg" => "List status", "type" => 2]);
-define("REMOVED_FROM_GROUP",["msg"=>"You've been removed from group","type"=>3]);
 
 
 class NotificationModel extends Model

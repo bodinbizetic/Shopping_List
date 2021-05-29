@@ -68,7 +68,7 @@ class Notification extends BaseController
         }
 
         $new_inGroup = [
-            'type' => USER,
+            'type' => '0',
             'idGroup' => $group['idGroup'],
             'idUser' => $this->session->get('user')['idUser']
         ];
