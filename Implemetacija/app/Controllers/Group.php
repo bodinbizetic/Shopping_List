@@ -15,6 +15,11 @@ class Group extends BaseController
 {
     public function index()
     {
+        // auth guard
+        if(!$this->session->has('user'))
+            return redirect()->to('/login/index');
+        $user = $this->session->get('user');
+
         $inGroupModel = new InGroupModel();
         $groupModel = new GroupModel();
 
@@ -35,6 +40,11 @@ class Group extends BaseController
 
     public function renderNewGroup()
     {
+        // auth guard
+        if(!$this->session->has('user'))
+            return redirect()->to('/login/index');
+        $user = $this->session->get('user');
+
         echo view('common/header');
         echo view('groups/newGroup');
         echo view('common/footer');
@@ -42,6 +52,11 @@ class Group extends BaseController
 
     public function editGroup($id)
     {
+        // auth guard
+        if(!$this->session->has('user'))
+            return redirect()->to('/login/index');
+        $user = $this->session->get('user');
+
         $name = $this->request->getPost('group_name');
         $description = $this->request->getPost('description');
 
@@ -80,6 +95,11 @@ class Group extends BaseController
 
     public function renderEditGroup($id, $errors=null)
     {
+        // auth guard
+        if(!$this->session->has('user'))
+            return redirect()->to('/login/index');
+        $user = $this->session->get('user');
+
         $userModel = new UserModel();
         $inGroupModel = new InGroupModel();
         $inGroupUsers = $inGroupModel->where('idGroup',$id)->findAll();
@@ -113,7 +133,12 @@ class Group extends BaseController
         echo view('common/footer');
     }
 
-    public function changeAdmin($groupId, $memberId){
+    public function changeAdmin($groupId, $memberId)
+    {
+        // auth guard
+        if(!$this->session->has('user'))
+            return redirect()->to('/login/index');
+        $user = $this->session->get('user');
 
         $inGroupModel = new InGroupModel();
         $ingroup = $inGroupModel->where('idGroup',$groupId)->where('idUser',$memberId)->findAll();
@@ -135,6 +160,11 @@ class Group extends BaseController
 
     public function viewGroup($idGroup)
     {
+        // auth guard
+        if(!$this->session->has('user'))
+            return redirect()->to('/login/index');
+        $user = $this->session->get('user');
+
         $groupModel = new GroupModel();
         $group = $groupModel->find($idGroup);
 
@@ -262,6 +292,7 @@ class Group extends BaseController
     }
 
     public function addNewMember($idGroup, $username) {
+
         $userModel = new UserModel();
  //       $username = $this->request->getPost('invite_member');
         $user = $userModel->findByUsername($username);
@@ -278,6 +309,10 @@ class Group extends BaseController
     }
 
     public function newGroup() {
+        // auth guard
+        if(!$this->session->has('user'))
+            return redirect()->to('/login/index');
+        $user = $this->session->get('user');
 
  //       include(ROOTPATH . 'public\assets\\simplehtmldom_parser\\simple_html_dom.php');
 

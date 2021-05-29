@@ -11,8 +11,8 @@ use App\Models\GroupModel;
 class Notification extends BaseController
 {
 
-    private $types_text = ['Join Group', 'New members', 'Removed from Group', 'List status'];
-    private $types_class = ['label label-success', 'label label-primary', 'label label-danger', 'label label-info'];
+    private $types_text = ['Join Group', 'New members', 'List status'];
+    private $types_class = ['label label-success', 'label label-primary', 'label label-danger'];
 
 
 
