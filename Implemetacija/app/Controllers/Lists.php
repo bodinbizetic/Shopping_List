@@ -95,15 +95,31 @@ class Lists extends BaseController
         }
 
         $shop = $shopChainModel->find($shoppingList['idShop']);
+        $shops = $shopChainModel->findAll();
 
         echo view("common/header");
         echo view("lists/edit_list", ['listName' => $shoppingList['name'],
             'id' => $idShoppingList,
             'items' => $itemsList,
             'listId' => $shoppingList['idShoppingList'],
-            'shop' => $shop['name']
+            'shop' => $shop['name'],
+            'shops' => $shops
         ]);
         echo view("common/footer");
+    }
+
+    public function changeShop($listId, $shopId){
+        $listModel = new ShoppingListModel();
+        $list = $listModel->find($listId);
+        $data = [
+            'idGroup' => $list['idGroup'],
+            'name' => $list['name'],
+            'idShop' => $shopId,
+            'active' => $list['active'],
+            'createdAt' => $list['createdAt']
+        ];
+        $listModel->update($listId, $data);
+        return redirect()->back();
     }
 
     public function editItem($idListContained, $idList)
@@ -159,23 +175,33 @@ class Lists extends BaseController
     public function deleteItem($idListContains, $listId)
     {
         $listContainsModel = new ListContainsModel();
+        $listContains = $listContainsModel->find($idListContains);
+        $itemModel = new ItemModel();
+        $itemId = $listContains['idItem'];
+        $item = $itemModel->find($listContains['idItem']);
         $itemsListContain = $listContainsModel->delete($idListContains);
+        if($item['isCenoteka']!=1)
+            $itemModel->delete($itemId);
         return redirect()->to('/lists/renderList/'.$listId);
     }
 
-    public function changeItem($itemId, $name, $quantity, $measure, $listId)
+    public function changeItem($idListContains, $itemId, $name, $quantity, $measure, $listId)
     {
         $itemModel = new ItemModel();
         $item = $itemModel->find($itemId);
-        $item['name'] = $name;
-        $item['quantity'] = $quantity;
-        $item['metrics'] = $measure;
+        $listContainsModel = new ListContainsModel();
+        $listContains = $listContainsModel->find($idListContains);
         $data = [
             'name' => $name,
             'quantity' => $quantity,
             'metrics' => $measure,
-            'idItem' => $itemId
+            'idItem' => $itemId,
+            'isCenoteka' => null
         ];
+        if($item['isCenoteka']==1) {
+            $listContainsModel->delete($idListContains);
+            return $this->addItem($name, $quantity, $measure, $listId);
+        }
         $itemModel->update($itemId, $data);
         return redirect()->to('/lists/renderList/'.$listId);
     }
@@ -215,8 +241,12 @@ class Lists extends BaseController
     public function createNew()
     {
         $listName = $this->request->getPost('list_name');
-        $shopId = $this->request->getPost('shop_id');
+        $shopId = $this->request->getPost('shopid');
         $groupId = $this->request->getPost('group');
+
+        if($shopId == null){
+            die("Parameter failure");
+        }
 
         $listModel = new ShoppingListModel();
         $groupModel = new GroupModel();
@@ -357,6 +387,20 @@ class Lists extends BaseController
         }
 
         return redirect()->to('/lists/index');
+    }
+
+    public function deleteList($listId)
+    {
+        $listModel = new ShoppingListModel();
+        $listContainsModel = new ListContainsModel();
+        $listConatinsList = $listContainsModel->findAll();
+        foreach($listConatinsList as $listContains)
+        {
+            if($listContains['idShoppingList'] == $listId)
+                $listContainsModel->delete($listContains['idListContains']);
+        }
+        $listModel->delete($listId);
+        return redirect()->back();
     }
 
     public function createLink($listId)

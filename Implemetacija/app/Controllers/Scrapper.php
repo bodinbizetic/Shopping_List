@@ -43,7 +43,7 @@ class Scrapper extends BaseController
         echo "Done ".count($articles_to_persist);
     }
 
-    private function test()
+    public function test()
     {
         $dom = $this->getDocument('');
         $category_links = $this->extractLinksFromNav($dom);
@@ -109,6 +109,10 @@ class Scrapper extends BaseController
             'image' => $item['img_link'],
         ];
 
+        echo "IMG_LINK ".$item['img_link'];
+        if ($item['img_link'] != null) {
+            $this->persistImage($item['img_link']);
+        }
         if (!($idItem = $itemModel->insert($data)))
         {
             echo implode('; ', $data);
@@ -116,6 +120,23 @@ class Scrapper extends BaseController
         }
         return $idItem;
 
+    }
+
+    private function persistImage(string $cenoteka_link)
+    {
+        $full_path = ROOTPATH.'public\\uploads\\items'.$cenoteka_link;
+        $full_path = str_replace("\\", "/", $full_path);
+        if (!file_exists(dirname($full_path))) {
+            mkdir(dirname($full_path), 0777, true);
+        }
+        $ch = curl_init('https://cenoteka.rs'.$cenoteka_link);
+        $fp = fopen($full_path, 'wb');
+        echo "SAVED ".base_url().'uploads/items'.$cenoteka_link.'<br>';
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_exec($ch);
+        curl_close($ch);
+        fclose($fp);
     }
 
     private function persistItemCategory(int $idItem, string $categoryName)
@@ -148,7 +169,7 @@ class Scrapper extends BaseController
             if ($price == '-')
                 continue;
 
-            str_replace(',', '.', $price);
+            $price = str_replace(',', '.', $price);
             $shopChainModel = new ShopChainModel();
             $shop = $shopChainModel->where('name', $shopName)->first();
             $idShop = null;
@@ -289,10 +310,15 @@ class Scrapper extends BaseController
 
         try {
 
-            $article['img_link'] = $article_row->childNodes->
-            item($IMAGE_DIV_OFFSET)->childNodes->
-            item(1)->getAttribute('href');//attributes->getNamedItem("href")->textContent;
-
+            $article_image = $article['img_link'] = $article_row->childNodes->
+                item($IMAGE_DIV_OFFSET)->childNodes-> item(1);
+            if ($article_image->childNodes->count() != 0) {
+                $article['img_link'] = $article_image->childNodes->item(1)->getAttribute('src');
+            }
+            else {
+                $article['img_link'] = null;
+            }
+            echo "IMAGE_LINK ".$article['img_link'].'<br>';
             $article['name'] = $article_row->childNodes->
             item($NAME_DIV_OFFSET)->textContent;
 

@@ -62,10 +62,10 @@
                             <span class="input-group-prepend"><i class="input-group-text">Select a shop</i></span>
                             <select type="text" name="Shops" id="shops" width="10" class="form-control" placeholder="Shop">
                                 <!-- TODO: programski ubaci iz baze prodavnice -->
-                                <option class="form-control" value="maxi">Maxi</option>
-                                <option class="form-control" value="idea">Idea</option>
-                                <option class="form-control" value="roda">Roda</option>
-                                <option class="form-control" value="merkator">Merkator</option>
+                                <option class="form-control" value="" selected disabled>New shop</option>
+                                <?php foreach($shops as $shopSelect){?>
+                                <option class="form-control" value="<?= $shopSelect['idShopChain']?>"><?php echo($shopSelect['name'])?></option>
+                                <?php }?>
                             </select>
                         </div>
                     </div>
@@ -137,6 +137,10 @@
     function delItem()
     {
         window.location = link;
+    }
+
+    document.getElementById("shops").onchange = function(){
+        window.location = "/lists/changeShop/<?=$id?>/" + this.value;
     }
 </script>
 <script src="<?php echo base_url('assets/jquery/jquery.min.js')?>"></script>
