@@ -400,7 +400,7 @@ class Group extends BaseController
 
             $inGroupModel->delete($id);
 
- /*           $notificationModel = new NotificationModel();
+            $notificationModel = new NotificationModel();
             $data = [
                 'idGroup' => $group['idGroup'],
                 'idUser'=>$userId,
@@ -410,7 +410,7 @@ class Group extends BaseController
             ];
 
             $notificationModel->save($data);
-*/
+
             $path = 'group/renderEditGroup/'.$groupId;
 
             return redirect()->to($path);
