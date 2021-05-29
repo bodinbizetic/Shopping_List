@@ -36,7 +36,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" >Yes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location = '/lists/shopping/<?=$listId?>'" >Yes</button>
             </div>
         </div>
     </div>
@@ -61,7 +61,6 @@
                         <div class="input-group">
                             <span class="input-group-prepend"><i class="input-group-text">Select a shop</i></span>
                             <select type="text" name="Shops" id="shops" width="10" class="form-control" placeholder="Shop">
-                                <!-- TODO: programski ubaci iz baze prodavnice -->
                                 <option class="form-control" value="" selected disabled>New shop</option>
                                 <?php foreach($shops as $shopSelect){?>
                                 <option class="form-control" value="<?= $shopSelect['idShopChain']?>"><?php echo($shopSelect['name'])?></option>
@@ -74,7 +73,7 @@
                     <a href="/lists/addItemRender/<?=$listId?>" type="button" class="btn btn-primary shop-btn">Add New Item</a>
                 </div>
                 <div class="col col-md-2">
-                    <a href="/lists/shopping/<?=$listId?>" type="button" class="btn btn-success shop-btn" data-toggle='modal' data-target='#finishModal'>Finish</a>
+                    <input type="button" class="btn btn-success shop-btn" data-toggle='modal' data-target='#finishModal' value="Finish"></input>
                 </div>
             </div>
 
@@ -85,7 +84,7 @@
                     <th class="tdName">Quantity/Measure</th>
                     <th class="tdActions">Actions</th>
                     <th class="tdName">Price</th>
-                    <th class="tdImage">Check</th>
+                    <!--<th class="tdImage">Check</th>-->
                 </tr>
                 <?php foreach ($items as $item){?>
                 <tr>
@@ -104,9 +103,9 @@
                     <td>
                         <?= $item[4] ?>
                     </td>
-                    <td>
+                    <!--<td>
                         <div><input type=checkbox></input></div>
-                    </td>
+                    </td>-->
                 </tr>
                 <?php }?>
                 </thead>

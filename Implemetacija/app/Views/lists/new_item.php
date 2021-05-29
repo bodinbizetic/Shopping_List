@@ -1,5 +1,7 @@
 <link href="<?php echo base_url(); ?>/css/list/list.css" rel="stylesheet">
 <link href="<?php echo base_url(); ?>/css/common.css" rel="stylesheet">
+<link href="<?php echo base_url(); ?>/css/list/editItem.css" rel="stylesheet">
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -37,7 +39,7 @@
                         <div class="form-group" >
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-male"></i></div>
-                                <input id="namevar" type="text" id="itemInput" name="register_fullname" class="form-control" placeholder="Quick item search" value="">
+                                <input id="namevar" type="text" id="itemInput" name="register_fullname" class="form-control" placeholder="Custom item" value="">
                             </div>
                         </div>
                     </td>
@@ -74,7 +76,19 @@
                 </div>
 
                 <div class="items">
-                    <div class="item">
+                    <?php foreach($categories as $category){?>
+                        <div class="item" style="text-align: center">
+                            <a class="item-link" href="/lists/renderCategory/<?= $idList ?>/<?= $category['idCategory'] ?>">
+                                <div class="item-img">
+                                    <img src="<?php echo $category['image'] ?>">
+                                </div>
+                                <div class="item-title">
+                                    <?php echo $category['name'] ?>
+                                </div>
+                            </a>
+                        </div>
+                    <?php } ?>
+                    <!--<div class="item">
                         <a class="item-link" href="../online/pice.html">
                             <div class="item-img">
                                 <img src="imgs/pice.jpg">
@@ -149,7 +163,7 @@
                                 Licna higijena i kozmetika
                             </div>
                         </a>
-                    </div>
+                    </div>-->
 
                 </div>
 

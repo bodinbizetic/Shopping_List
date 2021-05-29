@@ -23,18 +23,18 @@ class Guest extends BaseController
         $link = $linkModal->where('link', $pageLink)->first();
         if ($link == null)
         {
-            die("Wrong link supplied");
+            Error::show("Wrong link supplied");
         }
 
         $shoppingList = $shoppingListModel->find($link['idShoppingList']);
         if ($shoppingList == null)
         {
-            die("Server error");
+            Error::show("Server error");
         }
 
         if ($shoppingList['active'] == 0)
         {
-            die("Shopping list is not active anymore");
+            Error::show("Shopping list is not active anymore");
         }
 
         $idShoppingList = $link['idShoppingList'];

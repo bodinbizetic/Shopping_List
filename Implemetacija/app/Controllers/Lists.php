@@ -4,8 +4,10 @@
 namespace App\Controllers;
 
 
+use App\Models\CategoryModel;
 use App\Models\GroupModel;
 use App\Models\InGroupModel;
+use App\Models\ItemCategoryModel;
 use App\Models\ItemModel;
 use App\Models\ItemPriceModel;
 use App\Models\LinkModel;
@@ -66,7 +68,7 @@ class Lists extends BaseController
         $shoppingList = $shoppingListModel->find($idShoppingList);
         if ($shoppingList == null || $shoppingList['active'] == 0)
         {
-            die("List not found");
+            Error::show("List not found");
         }
 
         $itemsListContain = $listContainsModel->findAllInList($idShoppingList);
@@ -122,6 +124,37 @@ class Lists extends BaseController
         return redirect()->back();
     }
 
+    public function renderCategory($listId, $idCategory, $idListContains = null)
+    {
+        $name = (new CategoryModel())->find($idCategory)['name'];
+        $itemModel = new ItemModel();
+        $itemPriceModel = new ItemPriceModel();
+        $itemCategoryModel = new ItemCategoryModel();
+        $listModel = new ShoppingListModel();
+        $list = $listModel->find($listId);
+        $cenotekaItems = $itemCategoryModel->where('idCategory', $idCategory)->find();
+
+        $items = [];
+        foreach ($cenotekaItems as $cenotekaItem){
+            $el = [$cenotekaItem];
+            $scnd = $itemModel->find($cenotekaItem['idItem']);
+            $price = $itemPriceModel->where('idItem', $cenotekaItem['idItem'])
+                ->where('idShopChain', $list['idShop'])->find()[0]['price'];
+            array_push($el, $scnd);
+            array_push($el, $price);
+            array_push($items, $el);
+        }
+
+        echo view("common/header");
+        echo view("lists/select", ['idListContains' => $idListContains,
+            'idCategory' => $idCategory,
+            'cenotekaItems' => $items,
+            'categoryName' => $name,
+            'listId' => $listId
+        ]);
+        echo view("common/footer");
+    }
+
     public function editItem($idListContained, $idList)
     {
         $listContainsModel = new ListContainsModel();
@@ -130,21 +163,29 @@ class Lists extends BaseController
         $listContains = $listContainsModel->find($idListContained);
         $item = $itemModel->find($listContains['idItem']);
 
+        $categoryModel = new CategoryModel();
+        $categories = $categoryModel->findAll();
+
         echo view("common/header");
         echo view("lists/edit_item", ['idListContained' => $idListContained,
             'id' => $item["idItem"],
             'idList' => $idList,
             'name' => $item['name'],
-            'quantity' => $item['quantity']
+            'quantity' => $item['quantity'],
+            'categories' => $categories
         ]);
         echo view("common/footer");
     }
 
     public function addItemRender($idList)
     {
+        $categoriesModel = new CategoryModel();
+        $categories = $categoriesModel->findAll();
+
         echo view("common/header");
         echo view("lists/new_item", [
-            'idList' => $idList
+            'idList' => $idList,
+            'categories' => $categories
         ]);
         echo view("common/footer");
     }
@@ -170,6 +211,31 @@ class Lists extends BaseController
         $listContainsModel->insert($data1);
 
         return redirect()->to('/lists/renderList/'.$listId);
+    }
+
+    public function addCenotekaItem($listId, $itemId)
+    {
+        $user = $this->session->get('user');
+        $listContainsModel = new ListContainsModel();
+        $data=[
+            'idShoppingList' => $listId,
+            'idItem' => $itemId,
+            'idUser' => $user['idUser']
+        ];
+        $listContainsModel->insert($data);
+        return redirect()->to('/lists/renderList/'.$listId);
+    }
+
+    public function changeCenotekaItem($listId, $itemId, $listContains)
+    {
+        $listContainsModel = new ListContainsModel();
+        $toDel = $listContainsModel->find($listContains)['idItem'];
+        $itemModel = new ItemModel();
+        $item = $itemModel->find($toDel);
+        $listContainsModel->delete($listContains);
+        if($item['isCenoteka'] != 1)
+            $itemModel->delete($toDel);
+        return $this->addCenotekaItem($listId, $itemId);
     }
 
     public function deleteItem($idListContains, $listId)
@@ -213,12 +279,12 @@ class Lists extends BaseController
         $groupModel = new GroupModel();
         $group = $groupModel->find($groupId);
         if ($group == null) {
-            die("Invalid api call");
+            Error::show("Invalid api call");
         }
 
         $ingroup = $groupModel->db()->table('ingroup')->where('idGroup', $groupId)->where('idUser', $user['idUser'])->get();
         if ($ingroup->getNumRows() == 0) {
-            die("User not in group");
+            Error::show("User not in group");
         }
 
         $shoppingChainModel = new ShopChainModel();
@@ -245,18 +311,18 @@ class Lists extends BaseController
         $groupId = $this->request->getPost('group');
 
         if($shopId == null){
-            die("Parameter failure");
+            Error::show("Parameter failure");
         }
 
         $listModel = new ShoppingListModel();
         $groupModel = new GroupModel();
         if ($groupModel->find($groupId) == null) {
-            die("Parameter failure");
+            Error::show("Parameter failure");
         }
 
         $shoppChainModel = new ShopChainModel();
         if ($shoppChainModel->find($shopId) == null) {
-            die("Parameter failure");
+            Error::show("Parameter failure");
         }
 
         $data = [
@@ -283,7 +349,7 @@ class Lists extends BaseController
         $shoppingList = $shoppingListModel->find($idShoppingList);
         if ($shoppingList == null || $shoppingList['active'] == 0)
         {
-            die("List not found");
+            Error::show("List not found");
         }
 
         $itemsListContain = $listContainsModel->findAllInList($idShoppingList);
@@ -325,7 +391,7 @@ class Lists extends BaseController
         $listContains = $listContainsModel->find($idListContains);
         if ($listContains == null)
         {
-            die ("Item not found");
+            Error::show("Item not found");
         }
         if ($state == 'null')
         {
@@ -349,7 +415,7 @@ class Lists extends BaseController
         $shoppingList = $shoppingListModel->find($idShoppingList);
         if ($shoppingList == null)
         {
-            die("Invalid api call");
+            Error::show("Invalid api call");
         }
 
         if ($createNewList == 'yes')
@@ -364,7 +430,7 @@ class Lists extends BaseController
             $newListId = $shoppingListModel->insert($data);
             if ($newListId == null)
             {
-                die('List not saved');
+                Error::show('List not saved');
             }
 
             $listContainsModel = new ListContainsModel();
@@ -375,7 +441,7 @@ class Lists extends BaseController
                 $listContains['idShoppingList'] = $newListId;
                 if (!$listContainsModel->update($listContains['idListContains'], $listContains))
                 {
-                    die('Server error');
+                    Error::show('Server error');
                 }
             }
         }
@@ -383,7 +449,7 @@ class Lists extends BaseController
         $shoppingList['active'] = 0;
         if (!$shoppingListModel->update($idShoppingList, $shoppingList))
         {
-            die("Server error");
+            Error::show("Server error");
         }
 
         return redirect()->to('/lists/index');
@@ -392,15 +458,20 @@ class Lists extends BaseController
     public function deleteList($listId)
     {
         $listModel = new ShoppingListModel();
+        $itemModel = new ItemModel();
         $listContainsModel = new ListContainsModel();
         $listConatinsList = $listContainsModel->findAll();
         foreach($listConatinsList as $listContains)
         {
-            if($listContains['idShoppingList'] == $listId)
+            if($listContains['idShoppingList'] == $listId) {
+                $itemId = $listContains['idItem'];
                 $listContainsModel->delete($listContains['idListContains']);
+                if($itemModel->find($itemId)['isCenoteka']!=1)
+                    $itemModel->delete($itemId);
+            }
         }
         $listModel->delete($listId);
-        return redirect()->back();
+        return redirect()->to('/lists/index');
     }
 
     public function createLink($listId)
@@ -410,7 +481,7 @@ class Lists extends BaseController
 
         if (!$shoppingListModel->find($listId))
         {
-            die("No shopping list found");
+            Error::show("No shopping list found");
         }
 
         $link = $this->request->getPost('link');
@@ -418,7 +489,7 @@ class Lists extends BaseController
 
         if ($link == null || $perm == null)
         {
-            die("Wrong api call".$link.' '.$perm);
+            Error::show("Wrong api call".$link.' '.$perm);
         }
 
         $link = str_replace(base_url().'/guest/guest/', '', $link);
@@ -431,7 +502,7 @@ class Lists extends BaseController
 
         if (!$linkModel->insert($data))
         {
-            die("Server error".$linkModel->errors());
+            Error::show("Server error".$linkModel->errors());
         }
 
         echo "datatatatat";
