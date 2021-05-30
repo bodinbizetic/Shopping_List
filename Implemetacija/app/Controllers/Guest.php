@@ -8,6 +8,7 @@ use App\Models\ItemModel;
 use App\Models\ItemPriceModel;
 use App\Models\LinkModel;
 use App\Models\ListContainsModel;
+use App\Models\ShopChainModel;
 use App\Models\ShoppingListModel;
 
 class Guest extends BaseController
@@ -62,12 +63,33 @@ class Guest extends BaseController
             array_push($itemsList, $itemDesc);
         }
 
+        $shoppChainModel = new ShopChainModel();
+        $all_shop_chains = $shoppChainModel->findAll();
+        $listShop = $shoppChainModel->find($shoppingList['idShop']);
+        $shopName = '';
+        if ($listShop == null || $shoppingList['idShop'] == null) {
+            $shopName = '';
+        }
+        else {
+            $shopName = $listShop['name'];
+        }
         echo view('lists/guest_header');
-        echo view("lists/shopping", ['listName' => $shoppingList['name'],
-                                            'items' => $itemsList,
-                                            'listId' => $shoppingList['idShoppingList'],
-                                            'writable' => $link['writable'],
-                                            ]);
+        if ($link['writable'] == 0) {
+            echo view("lists/guest", ['listName' => $shoppingList['name'],
+                'items' => $itemsList,
+                'listId' => $shoppingList['idShoppingList'],
+                'writable' => $link['writable'],
+            ]);
+        } else {
+            echo view("lists/shopping", ['listName' => $shoppingList['name'],
+                'items' => $itemsList,
+                'listId' => $shoppingList['idShoppingList'],
+                'writable' => 1,
+                'shops' => $all_shop_chains,
+                'shop' => $shopName,
+                'id' => $idShoppingList,
+            ]);
+        }
         echo view('common/footer');
     }
 

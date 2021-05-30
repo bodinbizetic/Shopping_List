@@ -59,56 +59,57 @@ class Lists extends BaseController
 
     public function renderList($idShoppingList, $errors = null)
     {
-        $shoppingListModel = new ShoppingListModel();
-        $listContainsModel = new ListContainsModel();
-        $itemPriceModel = new ItemPriceModel();
-        $itemModel = new ItemModel();
-        $shopChainModel = new ShopChainModel();
-
-        $shoppingList = $shoppingListModel->find($idShoppingList);
-        if ($shoppingList == null || $shoppingList['active'] == 0)
-        {
-            Error::show("List not found");
-        }
-        $this->checkLegal($shoppingList);
-
-        $itemsListContain = $listContainsModel->findAllInList($idShoppingList);
-        $itemsList = [];
-
-        foreach ($itemsListContain as $contained)
-        {
-            $item = $itemModel->find($contained['idItem']);
-            $bought = $contained['bought'];
-
-            $itemPrice = $itemPriceModel->where('idItem', $item['idItem'])->
-            where('idShopChain', $shoppingList['idShop'])->
-            first();
-            if ($itemPrice == null)
-            {
-                $price = 'N/A';
-            }
-            else
-            {
-                $price = $itemPrice['price'];
-            }
-            //echo $price;
-
-            $itemDesc = [$item['name'], $item['quantity'].' '.$item['metrics'], $bought, $contained['idListContains'], $price, $contained['idListContains']];
-            array_push($itemsList, $itemDesc);
-        }
-
-        $shop = $shopChainModel->find($shoppingList['idShop']);
-        $shops = $shopChainModel->findAll();
-
-        echo view("common/header");
-        echo view("lists/edit_list", ['listName' => $shoppingList['name'],
-            'id' => $idShoppingList,
-            'items' => $itemsList,
-            'listId' => $shoppingList['idShoppingList'],
-            'shop' => $shop['name'],
-            'shops' => $shops
-        ]);
-        echo view("common/footer");
+        echo "DEPRECATED - REPORT BUG IMEDIATELY";
+//        $shoppingListModel = new ShoppingListModel();
+//        $listContainsModel = new ListContainsModel();
+//        $itemPriceModel = new ItemPriceModel();
+//        $itemModel = new ItemModel();
+//        $shopChainModel = new ShopChainModel();
+//
+//        $shoppingList = $shoppingListModel->find($idShoppingList);
+//        if ($shoppingList == null || $shoppingList['active'] == 0)
+//        {
+//            Error::show("List not found");
+//        }
+//        $this->checkLegal($shoppingList);
+//
+//        $itemsListContain = $listContainsModel->findAllInList($idShoppingList);
+//        $itemsList = [];
+//
+//        foreach ($itemsListContain as $contained)
+//        {
+//            $item = $itemModel->find($contained['idItem']);
+//            $bought = $contained['bought'];
+//
+//            $itemPrice = $itemPriceModel->where('idItem', $item['idItem'])->
+//            where('idShopChain', $shoppingList['idShop'])->
+//            first();
+//            if ($itemPrice == null)
+//            {
+//                $price = 'N/A';
+//            }
+//            else
+//            {
+//                $price = $itemPrice['price'];
+//            }
+//            //echo $price;
+//
+//            $itemDesc = [$item['name'], $item['quantity'].' '.$item['metrics'], $bought, $contained['idListContains'], $price, $contained['idListContains']];
+//            array_push($itemsList, $itemDesc);
+//        }
+//
+//        $shop = $shopChainModel->find($shoppingList['idShop']);
+//        $shops = $shopChainModel->findAll();
+//
+//        echo view("common/header");
+//        echo view("lists/edit_list", ['listName' => $shoppingList['name'],
+//            'id' => $idShoppingList,
+//            'items' => $itemsList,
+//            'listId' => $shoppingList['idShoppingList'],
+//            'shop' => $shop['name'],
+//            'shops' => $shops
+//        ]);
+//        echo view("common/footer");
     }
 
     public function changeShop($listId, $shopId){
@@ -260,7 +261,7 @@ class Lists extends BaseController
         ];
         $listContainsModel->insert($data1);
 
-        return redirect()->to('/lists/renderList/'.$listId);
+        return redirect()->to('/lists/shopping/'.$listId);
     }
 
     public function addCenotekaItem($listId, $itemId)
@@ -287,7 +288,7 @@ class Lists extends BaseController
             'idUser' => $user['idUser']
         ];
         $listContainsModel->insert($data);
-        return redirect()->to('/lists/renderList/'.$listId);
+        return redirect()->to('/lists/shopping/'.$listId);
     }
 
     public function changeCenotekaItem($listId, $itemId, $listContains)
@@ -341,7 +342,7 @@ class Lists extends BaseController
         $itemsListContain = $listContainsModel->delete($idListContains);
         if($item['isCenoteka']!=1)
             $itemModel->delete($itemId);
-        return redirect()->to('/lists/renderList/'.$listId);
+        return redirect()->to('/lists/shopping/'.$listId);
     }
 
     public function changeItem($idListContains, $itemId, $name, $quantity, $measure, $listId)
@@ -377,7 +378,7 @@ class Lists extends BaseController
             return $this->addItem($name, $quantity, $measure, $listId);
         }
         $itemModel->update($itemId, $data);
-        return redirect()->to('/lists/renderList/'.$listId);
+        return redirect()->to('/lists/shopping/'.$listId);
     }
 
     public function renderCreate($groupId, $errors = null)
@@ -453,6 +454,9 @@ class Lists extends BaseController
         $listContainsModel = new ListContainsModel();
         $itemPriceModel = new ItemPriceModel();
         $itemModel = new ItemModel();
+        $shoppChainModel = new ShopChainModel();
+
+        $all_shop_chains = $shoppChainModel->findAll();
 
         $shoppingList = $shoppingListModel->find($idShoppingList);
         if ($shoppingList == null || $shoppingList['active'] == 0)
@@ -486,11 +490,23 @@ class Lists extends BaseController
             array_push($itemsList, $itemDesc);
         }
 
+        $listShop = $shoppChainModel->find($shoppingList['idShop']);
+        $shopName = '';
+        if ($listShop == null || $shoppingList['idShop'] == null) {
+            $shopName = '';
+        }
+        else {
+            $shopName = $listShop['name'];
+        }
+
         echo view("common/header");
         echo view("lists/shopping", ['listName' => $shoppingList['name'],
                                             'items' => $itemsList,
                                             'listId' => $shoppingList['idShoppingList'],
                                             'writable' => 1,
+                                            'shops' => $all_shop_chains,
+                                            'shop' => $shopName,
+                                            'id' => $idShoppingList,
                                             ]);
         echo view("common/footer");
     }

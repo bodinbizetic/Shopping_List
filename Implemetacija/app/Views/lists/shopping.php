@@ -19,29 +19,76 @@
     </div>
 </div>
 
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Are you sure you want to remove item?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                If you click Yes item would be removed permanently
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="delItem()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <section>
    <div class="container">
        <div class="section-title">
            <h2><?=$listName?></h2>
+           <h3><?= $shop?></h3>
        </div>
-
+       <?php if ($writable) { ?>
+       <div class="row">
+           <div class="col col-md-8">
+               <div class="form-group">
+                   <div class="input-group">
+                       <span class="input-group-prepend"><i class="input-group-text">Select a shop</i></span>
+                       <select type="text" name="Shops" id="shops" width="10" class="form-control" placeholder="Shop">
+                           <option class="form-control" value="" selected disabled>New shop</option>
+                           <?php foreach($shops as $shopSelect){?>
+                               <option class="form-control" value="<?= $shopSelect['idShopChain']?>"><?php echo($shopSelect['name'])?></option>
+                           <?php }?>
+                       </select>
+                   </div>
+               </div>
+           </div>
+           <div class="col col-md-2">
+               <a href="/lists/addItemRender/<?=$id?>" type="button" class="btn btn-primary shop-btn">Add New Item</a>
+           </div>
+       </div>
+       <?php } ?>
        <table class="table">
            <thead>
                 <tr>
                     <th>Name</th>
                     <th>Quantity/Measure</th>
                     <th>Estimated price</th>
+                    <th>Actions</th>
                 </tr>
            </thead>
            <tbody>
                 <?php foreach ($items as $item) { ?>
                     <tr <?php if ($item[2]) echo 'class="strikeout item-row"'; else echo 'class="item-row"' ?> <?= 'contains="'.$item[3].'"'?> disabled="">
-                        <td>
+                        <td class="padding-td-center">
                             <input type="checkbox" <?php if ($item[2]) echo 'checked'?> <?php if(!$writable) echo 'disabled'?>>
                             <?= $item[0] ?>
                         </td>
-                        <td><?= $item[1] ?></td>
-                        <td><?= $item[4]?></td>
+                        <td class="padding-td-center"><?= $item[1] ?></td>
+                        <td class="padding-td-center"><?= $item[4]?></td>
+                        <td class="actions">
+                            <div class='btn-group btn-group' role='group' id="button-group">
+                                <a href='/lists/editItem/<?=$item[3]?>/<?=$id?>' class='btn btn-outline-primary' role='button' aria-pressed='true'>Edit</a>
+                                <a href='#' class='btn btn-outline-danger' onclick='toModal(this, )' content="/lists/deleteItem/<?=$item[3]?>/<?=$listId?>" role='button' aria-pressed='true' data-toggle='modal' data-target='#exampleModalCenter'>Delete</a>
+                            </div>
+                        </td>
                     </tr>
                 <?php } ?>
            </tbody>
@@ -68,6 +115,10 @@
     }
 
     td { position: relative; }
+
+    .padding-td-center {
+        padding-top: 18px !important;
+    }
 </style>
 
 <script>
@@ -116,11 +167,26 @@
         xhttp.send();
     }
 
+    function toModal(val, id)
+    {
+        //setRowIndex(val);
+        link = id;
+    }
+
+    function delItem()
+    {
+        window.location = link;
+    }
+
     $(document).ready(function()
     {
         if (writable == 1) {
-            $(".item-row").click(strikeoutUpdate)
-            $("input[type='checkbox']").click(strikeoutUpdate)
+            $(".item-row").click(strikeoutUpdate);
+            $(".actions").click(function (event) {event.stopPropagation();});
+            $("input[type='checkbox']").click(strikeoutUpdate);
+            document.getElementById("shops").onchange = function() {
+                window.location = "/lists/changeShop/<?=$id?>/" + this.value;
+            }
         }
     });
 </script>
