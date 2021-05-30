@@ -185,7 +185,8 @@
             $(".actions").click(function (event) {event.stopPropagation();});
             $("input[type='checkbox']").click(strikeoutUpdate);
             document.getElementById("shops").onchange = function() {
-                window.location = "/lists/changeShop/<?=$id?>/" + this.value;
+                console.log("changed");
+                window.location = "/lists/changeShop/<?= $id ?>/" + this.value;
             }
         }
     });
