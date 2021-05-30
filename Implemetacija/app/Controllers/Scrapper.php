@@ -24,23 +24,34 @@ class Scrapper extends BaseController
         $category_links = $this->extractLinksFromNav($dom);
 
         $articles_to_persist = [];
+        $i = false;
         foreach ($category_links as $cat_link)
         {
-            echo $cat_link['href'].' '.$cat_link['name'];
-            echo "TOTAL ".count($articles_to_persist);
+            if (!$i) {
+                $i = true;
+                continue;
+            }
+//            echo $cat_link['href'].' '.$cat_link['name'];
+//            echo "TOTAL ".count($articles_to_persist);
+//            if ($i == 1)
+//                return;
+//            $i++;
+
             $cat_dom = $this->getDocument($cat_link['href']);
-            sleep(3);
+            sleep(1);
             $page_links = $this->extractLinksFromCategory($cat_dom);
             foreach ($page_links as $link) {
-                $all_articles = $this->iterateOverCategoryPages($link, $cat_link['name']);
-                foreach ($all_articles as $item){
-                    array_push($articles_to_persist, $item);
+                try {
+                    $all_articles = $this->iterateOverCategoryPages($link, $cat_link['name']);
+                    $this->persistArticles($all_articles);
+                } catch (ErrorException $e) {
+                    echo "ERROR ".$e->getMessage().'<br>';
                 }
             }
         }
 
-        $this->persistArticles($articles_to_persist);
-        echo "Done ".count($articles_to_persist);
+//        $this->persistArticles($articles_to_persist);
+//        echo "Done ".count($articles_to_persist);
     }
 
     public function test()
@@ -53,13 +64,16 @@ class Scrapper extends BaseController
         echo $cat_link['href'].' '.$cat_link['name'];
         echo "TOTAL ".count($articles_to_persist);
         $cat_dom = $this->getDocument($cat_link['href']);
-        sleep(3);
+        sleep(2);
         $page_links = $this->extractLinksFromCategory($cat_dom);
         $link = $page_links[0];
         $all_articles = $this->iterateOverCategoryPages($link, $cat_link['name']);
-        foreach ($all_articles as $item){
-            array_push($articles_to_persist, $item);
-        }
+        $this->persistArticles($all_articles);
+        return;
+
+//        foreach ($all_articles as $item){
+//            array_push($articles_to_persist, $item);
+//        }
 
         $i = 0;
         foreach ($articles_to_persist as $item)
@@ -68,7 +82,7 @@ class Scrapper extends BaseController
             $i++;
         }
 
-        $this->persistArticles($articles_to_persist);
+//        $this->persistArticles($articles_to_persist);
 
         echo "Done ".count($articles_to_persist);
     }
@@ -109,7 +123,7 @@ class Scrapper extends BaseController
             'image' => $item['img_link'],
         ];
 
-        echo "IMG_LINK ".$item['img_link'];
+//        echo "IMG_LINK ".$item['img_link'];
         if ($item['img_link'] != null) {
             $this->persistImage($item['img_link']);
         }
@@ -131,10 +145,11 @@ class Scrapper extends BaseController
         }
         $ch = curl_init('https://cenoteka.rs'.$cenoteka_link);
         $fp = fopen($full_path, 'wb');
-        echo "SAVED ".base_url().'uploads/items'.$cenoteka_link.'<br>';
+//        echo "SAVED ".base_url().'uploads/items'.$cenoteka_link.'<br>';
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_exec($ch);
+        sleep(1);
         curl_close($ch);
         fclose($fp);
     }
@@ -166,7 +181,11 @@ class Scrapper extends BaseController
     private function persistShoppPrices(int $idItem, array $data)
     {
         foreach ($data['prices'] as $shopName => $price) {
-            if ($price == '-')
+            if (strpos($price, '-')  !== false)
+                continue;
+
+            $floatPrice = floatval($price);
+            if ($floatPrice == 0)
                 continue;
 
             $price = str_replace(',', '.', $price);
@@ -221,7 +240,7 @@ class Scrapper extends BaseController
                 break;
             }
 
-            sleep(3);
+            sleep(1);
             $pageNum++;
         } while (true);
 
@@ -318,7 +337,6 @@ class Scrapper extends BaseController
             else {
                 $article['img_link'] = null;
             }
-            echo "IMAGE_LINK ".$article['img_link'].'<br>';
             $article['name'] = $article_row->childNodes->
             item($NAME_DIV_OFFSET)->textContent;
 

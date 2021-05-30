@@ -608,7 +608,5 @@ class Lists extends BaseController
         {
             Error::show("Server error".$linkModel->errors());
         }
-
-        echo "datatatatat";
     }
 }
