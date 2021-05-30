@@ -164,7 +164,10 @@ class Lists extends BaseController
             $el = [$cenotekaItem];
             $scnd = $itemModel->find($cenotekaItem['idItem']);
             $price = $itemPriceModel->where('idItem', $cenotekaItem['idItem'])
-                ->where('idShopChain', $list['idShop'])->first()['price'];
+                ->where('idShopChain', $list['idShop'])->first();
+            if($price != null)
+                $price = $price['price'];
+            
             array_push($el, $scnd);
             array_push($el, $price);
             array_push($items, $el);
