@@ -167,7 +167,7 @@ class Lists extends BaseController
                 ->where('idShopChain', $list['idShop'])->first();
             if($price != null)
                 $price = $price['price'];
-            
+
             array_push($el, $scnd);
             array_push($el, $price);
             array_push($items, $el);

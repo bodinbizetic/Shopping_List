@@ -8,12 +8,13 @@ div.content {
 
 
 div.content .statistic {
-    width: 75%;
+    margin-top: 5%;
+    width: 65%;
 }
 
 div.content .slide {
-    width: 20%;
-    margin-left: 5%;
+    width: 25%;
+    margin-left: 4%;
 }
 
 div.content .slide .div-img {
@@ -26,6 +27,7 @@ div.content .slide .div-img {
 div.content .slide .div-img img {
     border-radius: 50%;
     width: 30%;
+    padding: 5px;
 }
 
 div.content .slide .members {
@@ -54,6 +56,11 @@ div.content .slide .members .list ul {
     padding-left: 10px;
 }
 
+div.content .slide .members .list li {
+    padding-bottom: 4px;
+    border-bottom: 1px solid white;
+}
+
 div.content .slide .members .list li img {
     border-radius: 50%;
     width: 20%;
@@ -71,9 +78,8 @@ caption {
 }
 
 div.content .statistic table {
-    width: 70%;
-    margin: 10%;
-    margin-top: 0;
+    width: 100%;
+    margin-top: 10px;
     text-align: center;
 }
 
