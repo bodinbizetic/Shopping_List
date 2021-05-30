@@ -9,15 +9,11 @@
 		"codeigniter4/framework": "^4",
 		"php-console/php-console": "^3.1",
 		"bdk/debug": "^2.3",
-<<<<<<< HEAD
-    },
-=======
 	    "ext-json": "*",
 		"ext-curl": "*",
 		"ext-dom": "*",
 		"masterminds/html5": "2.*"
 	},
->>>>>>> e02495d11caed8ec7fbd9dd711c740f6c8446ed3
 	"require-dev": {
 		"fakerphp/faker": "^1.9",
 		"mikey179/vfsstream": "^1.6",
