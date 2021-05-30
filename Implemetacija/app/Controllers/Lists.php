@@ -70,6 +70,7 @@ class Lists extends BaseController
         {
             Error::show("List not found");
         }
+        $this->checkLegal($shoppingList);
 
         $itemsListContain = $listContainsModel->findAllInList($idShoppingList);
         $itemsList = [];
@@ -117,6 +118,7 @@ class Lists extends BaseController
         {
             Error::show("List not found");
         }
+        $this->checkLegal($list);
         $shopModel = new ShopChainModel();
         $shop = $shopModel->find($shopId);
         if($shop == null)
@@ -152,6 +154,7 @@ class Lists extends BaseController
         {
             Error::show("List not found");
         }
+        $this->checkLegal($list);
 
         $cenotekaItems = $itemCategoryModel->where('idCategory', $idCategory)->find();
 
@@ -186,6 +189,7 @@ class Lists extends BaseController
         {
             Error::show("List not found");
         }
+        $this->checkLegal($list);
 
         $listContains = $listContainsModel->find($idListContained);
         if ($listContains == null)
@@ -216,6 +220,7 @@ class Lists extends BaseController
         {
             Error::show("List not found");
         }
+        $this->checkLegal($list);
 
         $categoriesModel = new CategoryModel();
         $categories = $categoriesModel->findAll();
@@ -238,6 +243,7 @@ class Lists extends BaseController
         {
             Error::show("List not found");
         }
+        $this->checkLegal($list);
 
         $itemModel = new ItemModel();
         $data = [
@@ -267,6 +273,7 @@ class Lists extends BaseController
         {
             Error::show("List not found");
         }
+        $this->checkLegal($list);
         $itemModel = new ItemModel();
         $item = $itemModel->find($itemId);
         if ($item == null)
@@ -292,6 +299,8 @@ class Lists extends BaseController
         {
             Error::show("List not found");
         }
+
+        $this->checkLegal($list);
         $itemModel = new ItemModel();
         $item = $listModel->find($itemId);
         if ($item == null)
@@ -320,6 +329,7 @@ class Lists extends BaseController
         {
             Error::show("List not found");
         }
+        $this->checkLegal($list);
         $listContainsModel = new ListContainsModel();
         $listContains = $listContainsModel->find($idListContains);
         if ($listContains == null)
@@ -343,6 +353,7 @@ class Lists extends BaseController
         {
             Error::show("List not found");
         }
+        $this->checkLegal($list);
         $itemModel = new ItemModel();
         $item = $itemModel->find($itemId);
         if ($item == null)
@@ -450,6 +461,8 @@ class Lists extends BaseController
             Error::show("List not found");
         }
 
+        $this->checkLegal($shoppingList);
+
         $itemsListContain = $listContainsModel->findAllInList($idShoppingList);
         $itemsList = [];
 
@@ -516,6 +529,8 @@ class Lists extends BaseController
             Error::show("Invalid api call");
         }
 
+        $this->checkLegal($shoppingList);
+
         if ($createNewList == 'yes')
         {
             $data = [
@@ -561,6 +576,7 @@ class Lists extends BaseController
         {
             Error::show("List not found");
         }
+        $this->checkLegal($list);
         $listModel = new ShoppingListModel();
         $itemModel = new ItemModel();
         $listContainsModel = new ListContainsModel();
@@ -587,6 +603,7 @@ class Lists extends BaseController
         {
             Error::show("No shopping list found");
         }
+        $this->checkLegal($shoppingListModel->find($listId));
 
         $link = $this->request->getPost('link');
         $perm = $this->request->getPost('perm');
@@ -609,6 +626,16 @@ class Lists extends BaseController
             Error::show("Server error".$linkModel->errors());
         }
 
-        echo "datatatatat";
+        //echo "datatatatat";
+    }
+
+    public function checkLegal($list)
+    {
+        $ingroupModel = new InGroupModel();
+        $thisuser = $ingroupModel->where('idGroup', $list['idGroup'])->where('idUser', $this->session->get('user')['idUser'])->find();
+        if($thisuser == null)
+        {
+            Error::show('Illegal request');
+        }
     }
 }
