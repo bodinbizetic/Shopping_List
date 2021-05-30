@@ -113,6 +113,16 @@ class Lists extends BaseController
     public function changeShop($listId, $shopId){
         $listModel = new ShoppingListModel();
         $list = $listModel->find($listId);
+        if ($list == null || $list['active'] == 0)
+        {
+            Error::show("List not found");
+        }
+        $shopModel = new ShopChainModel();
+        $shop = $shopModel->find($shopId);
+        if($shop == null)
+        {
+            Error::show("Shop not found");
+        }
         $data = [
             'idGroup' => $list['idGroup'],
             'name' => $list['name'],
@@ -126,12 +136,23 @@ class Lists extends BaseController
 
     public function renderCategory($listId, $idCategory, $idListContains = null)
     {
+        $category = (new CategoryModel())->find($idCategory);
+        if ($category == null)
+        {
+            Error::show("Category not found");
+        }
         $name = (new CategoryModel())->find($idCategory)['name'];
         $itemModel = new ItemModel();
         $itemPriceModel = new ItemPriceModel();
         $itemCategoryModel = new ItemCategoryModel();
         $listModel = new ShoppingListModel();
+
         $list = $listModel->find($listId);
+        if ($list == null || $list['active'] == 0)
+        {
+            Error::show("List not found");
+        }
+
         $cenotekaItems = $itemCategoryModel->where('idCategory', $idCategory)->find();
 
         $items = [];
@@ -159,8 +180,18 @@ class Lists extends BaseController
     {
         $listContainsModel = new ListContainsModel();
         $itemModel = new ItemModel();
+        $listModel = new ShoppingListModel();
+        $list = $listModel->find($idList);
+        if ($list == null || $list['active'] == 0)
+        {
+            Error::show("List not found");
+        }
 
         $listContains = $listContainsModel->find($idListContained);
+        if ($listContains == null)
+        {
+            Error::show("Item not found");
+        }
         $item = $itemModel->find($listContains['idItem']);
 
         $categoryModel = new CategoryModel();
@@ -179,6 +210,13 @@ class Lists extends BaseController
 
     public function addItemRender($idList)
     {
+        $listModel = new ShoppingListModel();
+        $list = $listModel->find($idList);
+        if ($list == null || $list['active'] == 0)
+        {
+            Error::show("List not found");
+        }
+
         $categoriesModel = new CategoryModel();
         $categories = $categoriesModel->findAll();
 
@@ -193,6 +231,13 @@ class Lists extends BaseController
     public function addItem($name, $quantity, $measure, $listId)
     {
         $user = $this->session->get('user');
+
+        $listModel = new ShoppingListModel();
+        $list = $listModel->find($listId);
+        if ($list == null || $list['active'] == 0)
+        {
+            Error::show("List not found");
+        }
 
         $itemModel = new ItemModel();
         $data = [
@@ -216,6 +261,19 @@ class Lists extends BaseController
     public function addCenotekaItem($listId, $itemId)
     {
         $user = $this->session->get('user');
+        $listModel = new ShoppingListModel();
+        $list = $listModel->find($listId);
+        if ($list == null || $list['active'] == 0)
+        {
+            Error::show("List not found");
+        }
+        $itemModel = new ItemModel();
+        $item = $itemModel->find($itemId);
+        if ($item == null)
+        {
+            Error::show("Item not found");
+        }
+
         $listContainsModel = new ListContainsModel();
         $data=[
             'idShoppingList' => $listId,
@@ -228,9 +286,25 @@ class Lists extends BaseController
 
     public function changeCenotekaItem($listId, $itemId, $listContains)
     {
-        $listContainsModel = new ListContainsModel();
-        $toDel = $listContainsModel->find($listContains)['idItem'];
+        $listModel = new ShoppingListModel();
+        $list = $listModel->find($listId);
+        if ($list == null || $list['active'] == 0)
+        {
+            Error::show("List not found");
+        }
         $itemModel = new ItemModel();
+        $item = $listModel->find($itemId);
+        if ($item == null)
+        {
+            Error::show("Item not found");
+        }
+        $listContainsModel = new ListContainsModel();
+        $itemtd = $listContainsModel->find($listContains);
+        if($itemtd == null)
+        {
+            Error::show("Item not found");
+        }
+        $toDel = $itemtd['idItem'];
         $item = $itemModel->find($toDel);
         $listContainsModel->delete($listContains);
         if($item['isCenoteka'] != 1)
@@ -240,8 +314,18 @@ class Lists extends BaseController
 
     public function deleteItem($idListContains, $listId)
     {
+        $listModel = new ShoppingListModel();
+        $list = $listModel->find($listId);
+        if ($list == null || $list['active'] == 0)
+        {
+            Error::show("List not found");
+        }
         $listContainsModel = new ListContainsModel();
         $listContains = $listContainsModel->find($idListContains);
+        if ($listContains == null)
+        {
+            Error::show("List not found");
+        }
         $itemModel = new ItemModel();
         $itemId = $listContains['idItem'];
         $item = $itemModel->find($listContains['idItem']);
@@ -253,10 +337,24 @@ class Lists extends BaseController
 
     public function changeItem($idListContains, $itemId, $name, $quantity, $measure, $listId)
     {
+        $listModel = new ShoppingListModel();
+        $list = $listModel->find($listId);
+        if ($list == null || $list['active'] == 0)
+        {
+            Error::show("List not found");
+        }
         $itemModel = new ItemModel();
         $item = $itemModel->find($itemId);
+        if ($item == null)
+        {
+            Error::show("List not found");
+        }
         $listContainsModel = new ListContainsModel();
         $listContains = $listContainsModel->find($idListContains);
+        if ($listContains == null)
+        {
+            Error::show("List not found");
+        }
         $data = [
             'name' => $name,
             'quantity' => $quantity,
@@ -457,6 +555,12 @@ class Lists extends BaseController
 
     public function deleteList($listId)
     {
+        $listModel = new ShoppingListModel();
+        $list = $listModel->find($listId);
+        if ($list == null || $list['active'] == 0)
+        {
+            Error::show("List not found");
+        }
         $listModel = new ShoppingListModel();
         $itemModel = new ItemModel();
         $listContainsModel = new ListContainsModel();
