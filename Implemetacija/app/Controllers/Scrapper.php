@@ -20,6 +20,10 @@ class Scrapper extends BaseController
 {
     public function index()
     {
+        $user = $this->session->get('user');
+
+        if ($user == null || $user['type'] != 0)
+            Error::show("You don't have permission");
         $dom = $this->getDocument('');
         $category_links = $this->extractLinksFromNav($dom);
 
@@ -56,6 +60,10 @@ class Scrapper extends BaseController
 
     public function test()
     {
+        $user = $this->session->get('user');
+
+        if ($user == null || $user['type'] != 0)
+            Error::show("You don't have permission");
         $dom = $this->getDocument('');
         $category_links = $this->extractLinksFromNav($dom);
 

@@ -53,6 +53,9 @@
                         <td>
                             <input type ="submit" class="btn btn-success btn-block" id="newShop" value="Submit filters" class="btn btn-success btn-block">
                         </td>
+                        <td>
+                            <a class="btn btn-danger btn-block" style="height: 50px; padding-top: 12px;" href="/scrapper">Update database</a>
+                        </td>
                     </tr>
 
                     </form>
