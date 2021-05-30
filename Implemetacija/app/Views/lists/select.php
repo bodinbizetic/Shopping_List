@@ -17,7 +17,7 @@
                         <div class="product-layout">
                             <div class="product-img">
                                 <div>
-                                    <img src="<?= base_url().'/item'[1]['image'] ?>">
+                                    <img src="<?= base_url().'/uploads/items/'.$cenotekaItem[1]['image'] ?>">
                                 </div>
                             </div>
                             <div class="content-layout">

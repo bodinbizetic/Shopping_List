@@ -164,7 +164,7 @@ class Lists extends BaseController
             $el = [$cenotekaItem];
             $scnd = $itemModel->find($cenotekaItem['idItem']);
             $price = $itemPriceModel->where('idItem', $cenotekaItem['idItem'])
-                ->where('idShopChain', $list['idShop'])->find()[0]['price'];
+                ->where('idShopChain', $list['idShop'])->first()['price'];
             array_push($el, $scnd);
             array_push($el, $price);
             array_push($items, $el);
@@ -256,7 +256,7 @@ class Lists extends BaseController
         $listContainsModel = new ListContainsModel();
         $data1 = ['idShoppingList' => $listId,
             'idItem' => $newid,
-            'bought' => date("Y-m-d"),
+            'bought' => null,
             'idUser' => $user['idUser']
         ];
         $listContainsModel->insert($data1);
