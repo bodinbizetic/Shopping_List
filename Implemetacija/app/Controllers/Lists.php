@@ -134,7 +134,7 @@ class Lists extends BaseController
             'createdAt' => $list['createdAt']
         ];
         $listModel->update($listId, $data);
-        return redirect()->back();
+        return redirect()->to("/lists/shopping/".$listId);
     }
 
     public function renderCategory($listId, $idCategory, $idListContains = null)
