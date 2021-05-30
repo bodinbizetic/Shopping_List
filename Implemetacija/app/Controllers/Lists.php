@@ -632,7 +632,7 @@ class Lists extends BaseController
     public function checkLegal($list)
     {
         $ingroupModel = new InGroupModel();
-        $thisuser = $ingroupModel->where('idGroup', $list['idGroup'])->where('idUser', $this->session->get('user')['idUser'])->find();
+        $thisuser = $ingroupModel->where('idGroup', $list['idGroup'])->where('idUser', $this->session->get('user')['idUser'])->first();
         if($thisuser == null)
         {
             Error::show('Illegal request');
