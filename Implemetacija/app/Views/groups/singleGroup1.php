@@ -233,9 +233,11 @@
             </div>
         </div>
         <div class="statistic">
-            <table class="table">
-                <caption>Monthly Spending / Monthly No Of Lists</caption>
-            </table>
+            <div class="row">
+                <table class="table">
+                    <caption>Monthly Spending / Monthly No Of Lists</caption>
+                </table>
+            </div>
             <div class="row">
                 <div class="col col-sm-5">
                     <div class="spending">
@@ -248,17 +250,19 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <table class="table">
-            <caption>Most frequently requested YEAR / MONTH</caption>
-        </table>
-        <div class="col col-sm-4 offset-1">
-            <div class="year-popular"></div>
-        </div>
-        <div class="col col-sm-4 offset-1">
-            <div class="month-popular"></div>
+            <div class="row">
+                <table class="table">
+                    <caption>Most frequently requested YEAR / MONTH</caption>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col col-sm-5">
+                    <div class="year-popular"></div>
+                </div>
+                <div class="col col-sm-5 offset-1">
+                    <div class="month-popular"></div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
