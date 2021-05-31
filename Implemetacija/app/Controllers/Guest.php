@@ -92,6 +92,7 @@ class Guest extends BaseController
                 'shops' => $all_shop_chains,
                 'shop' => $shopName,
                 'id' => $idShoppingList,
+                'lists' => '',
             ]);
         }
         echo view('common/footer');

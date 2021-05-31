@@ -9,7 +9,7 @@ class HomePage extends BaseController {
 
     public function render()
     {
-        echo view('common/header', []);
+        echo view('common/header', ['home' => '']);
         echo view('home', []);
         echo view('common/footer', []);
     }

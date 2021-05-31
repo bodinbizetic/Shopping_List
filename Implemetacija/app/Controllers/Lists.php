@@ -46,7 +46,7 @@ class Lists extends BaseController
         }
 
 
-        echo view('common/header', []);
+        echo view('common/header', ['lists' => '']);
         echo view('lists/all_lists', ['userGroups' => $userGroups,
                                             'groupNames' => $groupNames]);
         echo view('common/footer', []);
@@ -181,7 +181,7 @@ class Lists extends BaseController
 
         $pager = $itemCategoryModel->pager;
 
-        echo view("common/header");
+        echo view("common/header", [ 'lists' => '']);
         echo view("lists/select", [
             'idListContains' => $idListContains,
             'idCategory' => $idCategory,
@@ -249,7 +249,7 @@ class Lists extends BaseController
         $categoryModel = new CategoryModel();
         $categories = $categoryModel->findAll();
 
-        echo view("common/header");
+        echo view("common/header", ['lists' => '']);
         echo view("lists/edit_item", ['idListContained' => $idListContained,
             'id' => $item["idItem"],
             'idList' => $idList,
@@ -272,7 +272,7 @@ class Lists extends BaseController
         $categoriesModel = new CategoryModel();
         $categories = $categoriesModel->findAll();
 
-        echo view("common/header");
+        echo view("common/header", [ 'lists' => '']);
         echo view("lists/new_item", [
             'idList' => $idList,
             'categories' => $categories
@@ -451,7 +451,7 @@ class Lists extends BaseController
 
         ksort($shops);
 
-        echo view('common/header', []);
+        echo view('common/header', [ 'lists' => '']);
         echo view('lists/create_list', ['group_name' => $group['name'],
                                                 'group_id' => $groupId,
                                                 'shops' => $shops,
@@ -546,7 +546,7 @@ class Lists extends BaseController
             $shopName = $listShop['name'];
         }
 
-        echo view("common/header");
+        echo view("common/header", [ 'lists' => '']);
         echo view("lists/shopping", ['listName' => $shoppingList['name'],
                                             'items' => $itemsList,
                                             'listId' => $shoppingList['idShoppingList'],

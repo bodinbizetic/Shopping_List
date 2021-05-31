@@ -35,11 +35,6 @@ class Scrapper extends BaseController
                 $i = true;
                 continue;
             }
-//            echo $cat_link['href'].' '.$cat_link['name'];
-//            echo "TOTAL ".count($articles_to_persist);
-//            if ($i == 1)
-//                return;
-//            $i++;
 
             $cat_dom = $this->getDocument($cat_link['href']);
             sleep(1);
@@ -53,9 +48,6 @@ class Scrapper extends BaseController
                 }
             }
         }
-
-//        $this->persistArticles($articles_to_persist);
-//        echo "Done ".count($articles_to_persist);
     }
 
     public function test()
@@ -114,6 +106,7 @@ class Scrapper extends BaseController
     private function persistItem(array $item)
     {
         $itemModel = new ItemModel();
+        $item['name'] = trim($item['name']);
         $itemExists = $itemModel->where('name', $item['name'])
                                     ->where('isCenoteka', 1)->first();
 
@@ -196,6 +189,7 @@ class Scrapper extends BaseController
             if ($floatPrice == 0)
                 continue;
 
+            $price = str_replace('.', '', $price);
             $price = str_replace(',', '.', $price);
             $shopChainModel = new ShopChainModel();
             $shop = $shopChainModel->where('name', $shopName)->first();

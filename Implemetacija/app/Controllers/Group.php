@@ -33,7 +33,7 @@ class Group extends BaseController
             $userGroups[$i++] = $group;
         }
 
-        echo view('common/header');
+        echo view('common/header', ['groups' => '']);
         echo view('Views/groups/groups',['groups'=>$userGroups, 'ingroups'=>$ingroups]);
         echo view('common/footer');
     }
@@ -45,7 +45,7 @@ class Group extends BaseController
             return redirect()->to('/login/index');
         $user = $this->session->get('user');
 
-        echo view('common/header');
+        echo view('common/header', ['groups' => '']);
         echo view('groups/newGroup');
         echo view('common/footer');
     }
@@ -128,7 +128,7 @@ class Group extends BaseController
             //'errors' => $errors
         ];
 
-        echo view('common/header');
+        echo view('common/header', ['groups' => '']);
         echo view('groups/editGroup1',$data);
         echo view('common/footer');
     }
@@ -198,7 +198,7 @@ class Group extends BaseController
             'inGroup' => $inGroupUsers
         ];
 
-        echo view('common/header');
+        echo view('common/header', ['groups' => '']);
         echo view('groups/singleGroup1',$data);
         echo view('common/footer');
     }
