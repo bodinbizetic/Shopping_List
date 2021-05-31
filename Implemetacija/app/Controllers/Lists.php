@@ -137,6 +137,7 @@ class Lists extends BaseController
         return redirect()->to("/lists/shopping/".$listId);
     }
 
+
     public function renderCategory($listId, $idCategory, $idListContains = null)
     {
         $category = (new CategoryModel())->find($idCategory);
@@ -157,9 +158,40 @@ class Lists extends BaseController
         }
         $this->checkLegal($list);
 
-        $cenotekaItems = $itemCategoryModel->where('idCategory', $idCategory)->find();
+        $search = $this->request->getUri()->getQuery(['only' => ['search']]);
+        if($search)
+            $search = explode('=', $this->request->getUri()->getQuery(['only' => ['search']]))[1];
+/*
+        $cenotekaItems = $itemCategoryModel->where('idCategory', $idCategory)->find();*/
 
-        $items = [];
+        if($search)
+            $items = $itemCategoryModel->where('idCategory', $idCategory)
+                ->join('item', 'item.idItem = itemcategory.idItem')
+                ->like('item.name', '%'.$search.'%')
+                ->join('itemprice', 'item.idItem = itemprice.idItem')
+                ->where('itemprice.idShopChain', $list['idShop'])
+                ->paginate(20,'items');
+        else
+            $items = $itemCategoryModel->where('idCategory', $idCategory)
+                ->join('item', 'item.idItem = itemcategory.idItem')
+                ->join('itemprice', 'item.idItem = itemprice.idItem')
+                ->where('itemprice.idShopChain', $list['idShop'])
+                ->paginate(20,'items');
+
+        $pager = $itemCategoryModel->pager;
+
+        echo view("common/header");
+        echo view("lists/select", [
+            'idListContains' => $idListContains,
+            'idCategory' => $idCategory,
+            'cenotekaItems' => $items,
+            'categoryName' => $name,
+            'listId' => $listId,
+            'pager' => $pager
+        ]);
+        echo view("common/footer");
+
+        /*$items = [];
         foreach ($cenotekaItems as $cenotekaItem){
             $el = [$cenotekaItem];
             $scnd = $itemModel->find($cenotekaItem['idItem']);
@@ -168,19 +200,30 @@ class Lists extends BaseController
             if($price != null)
                 $price = $price['price'];
 
+            if($search != null) {
+                if(strpos($scnd['name'], $search)) {
+                    array_push($el, $scnd);
+                    array_push($el, $price);
+                    array_push($items, $el);
+                }
+                continue;
+            }
+
             array_push($el, $scnd);
             array_push($el, $price);
             array_push($items, $el);
-        }
+        }*/
 
-        echo view("common/header");
+
+        /*echo view("common/header");
         echo view("lists/select", ['idListContains' => $idListContains,
             'idCategory' => $idCategory,
             'cenotekaItems' => $items,
             'categoryName' => $name,
-            'listId' => $listId
+            'listId' => $listId,
+            'post' => $this->request->getPost('search')
         ]);
-        echo view("common/footer");
+        echo view("common/footer");*/
     }
 
     public function editItem($idListContained, $idList)
@@ -653,5 +696,10 @@ class Lists extends BaseController
         {
             Error::show('Illegal request');
         }
+    }
+
+    public function table() {
+
+        return view("lists/table");
     }
 }

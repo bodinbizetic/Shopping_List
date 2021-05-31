@@ -1,15 +1,36 @@
 <link href="<?php echo base_url(); ?>/css/list/list.css" rel="stylesheet">
 <link href="<?php echo base_url(); ?>/css/common.css" rel="stylesheet">
 <link href="<?php echo base_url(); ?>/css/list/select.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+<script>
+    function search() {
+        val = $("input[type='text']").val();
+        href = window.location.href.split("?")[0];
+        window.location.href = href + "?search=" + val;
+    }
+</script>
+
 <main id="main">
     <!-- ======= New Item Section ======= -->
     <section id="new-group">
 
         <div class="container">
             <div class="section-title">
-                <h2><?php echo $categoryName; ?></h2>
+                <h2><?php echo $categoryName ?></h2>
             </div>
-
+            <div class="row">
+                <div class="col col-sm-6 offset-3">
+                    <div class="form-group ">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                            <input type="text" name="search" class="form-control" placeholder="Search..." onchange="search()">
+                            <div class="input-group-addon"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
             <ul class="product-list">
                 <?php foreach ($cenotekaItems as $cenotekaItem){ ?>
                 <li class="item">
@@ -17,14 +38,14 @@
                         <div class="product-layout">
                             <div class="product-img">
                                 <div>
-                                    <img src="<?= base_url().'/uploads/items/'.$cenotekaItem[1]['image'] ?>">
+                                    <img src="<?= base_url().'/uploads/items/'.$cenotekaItem['image'] ?>">
                                 </div>
                             </div>
                             <div class="content-layout">
                                 <div class="title">
                                     <header class="header">
                                         <div class="description2">
-                                            <p class="p2"><?= $cenotekaItem[1]['name'] ?></p>
+                                            <p class="p2"><?= $cenotekaItem['name'] ?></p>
                                         </div>
                                     </header>
                                 </div>
@@ -35,14 +56,14 @@
                                                 <input type="number" min = 0 name="register_fullname" class="form-control" placeholder="Quantity" >
                                             </div>-->
                                             <div class="property" style="text-align: center">
-                                                <span class="super-bold"><?php echo $cenotekaItem[2]; ?> RSD</span>
+                                                <span class="super-bold"><?php echo $cenotekaItem['price']; ?> RSD</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="add">
                                         <div class="my-btn">
-                                            <a class="btn btn-primary btn-block" href="<?php if($idListContains == null) echo '/lists/addCenotekaItem/'.$listId.'/'.$cenotekaItem[1]['idItem'];
-                                                else echo '/lists/changeCenotekaItem/'.$listId.'/'.$cenotekaItem[1]['idItem'].'/'.$idListContains; ?>
+                                            <a class="btn btn-success btn-block" href="<?php if($idListContains == null) echo '/lists/addCenotekaItem/'.$listId.'/'.$cenotekaItem['idItem'];
+                                                else echo '/lists/changeCenotekaItem/'.$listId.'/'.$cenotekaItem['idItem'].'/'.$idListContains; ?>
                                                 ">
                                                 <?php
                                                 if($idListContains == null)
@@ -58,134 +79,12 @@
                         </div>
                     </div>
                 </li>
-
                 <?php } ?>
-
-                <!--<li class="item">
-                    <div class="component">
-                        <div class="product-layout">
-                            <div class="product-img">
-                                <div>
-                                    <img src="imgs/coca-cola0.5l.jpg">
-                                </div>
-                            </div>
-                            <div class="content-layout">
-                                <div class="title">
-                                    <header class="header">
-                                        <div class="description1">
-                                            <p class="p1">Coca cola</p>
-                                        </div>
-                                        <div class="description2">
-                                            <p class="p2">Coca cola 1l PET</p>
-                                        </div>
-                                    </header>
-                                </div>
-                                <div class="add-price">
-                                    <div class="price">
-                                        <div class="quant">
-                                            <div class="property">
-                                                <input type="number" min = 0 name="register_fullname" class="form-control" placeholder="Quantity" >
-                                            </div>
-                                            <div class="property">
-                                                <span class="super-bold">75,00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="add">
-                                        <div class="my-btn">
-                                            <button class="btn btn-primary btn-block">Add Item</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="item">
-                    <div class="component">
-                        <div class="product-layout">
-                            <div class="product-img">
-                                <div>
-                                    <img src="imgs/fruvita1l.jpg">
-                                </div>
-                            </div>
-                            <div class="content-layout">
-                                <div class="title">
-                                    <header class="header">
-                                        <div class="description1">
-                                            <p class="p1">Fruvita</p>
-                                        </div>
-                                        <div class="description2">
-                                            <p class="p2">Sok narandza Premium Fruvita 0.75l</p>
-                                        </div>
-                                    </header>
-                                </div>
-                                <div class="add-price">
-                                    <div class="price">
-                                        <div class="quant">
-                                            <div class="property">
-                                                <input type="number" min = 0 name="register_fullname" class="form-control" placeholder="Quantity" >
-                                            </div>
-                                            <div class="property">
-                                                <span class="super-bold">144,99</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="add">
-                                        <div class="my-btn">
-                                            <button class="btn btn-primary btn-block">Add Item</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-
-                <li class="item">
-                    <div class="component">
-                        <div class="product-layout">
-                            <div class="product-img">
-                                <div>
-                                    <img src="imgs/nectarlifejabuka.jpg">
-                                </div>
-                            </div>
-                            <div class="content-layout">
-                                <div class="title">
-                                    <header class="header">
-                                        <div class="description1">
-                                            <p class="p1">Nectar Life</p>
-                                        </div>
-                                        <div class="description2">
-                                            <p class="p2">Sok jabuka 100% Nectar Life 1l</p>
-                                        </div>
-                                    </header>
-                                </div>
-                                <div class="add-price">
-                                    <div class="price">
-                                        <div class="quant">
-                                            <div class="property">
-                                                <input type="number" min = 0 name="register_fullname" class="form-control" placeholder="Quantity" >
-                                            </div>
-                                            <div class="property">
-                                                <span class="super-bold">99,99</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="add">
-                                        <div class="my-btn">
-                                            <button class="btn btn-primary btn-block">Add Item</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                -->
             </ul>
+
+            <?php if(isset($pager)): ?>
+                <?= $pager->links('items', 'my_pager') ?>
+            <?php endif; ?>
         </div>
     </section>
 </main>
