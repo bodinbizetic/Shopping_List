@@ -250,7 +250,7 @@ class Group extends BaseController
         $shoppingList = new ShoppingListModel();
         return $shoppingList->where('idGroup',$idGroup)
             ->join('listcontains','shoppinglist.idShoppingList = listcontains.idShoppingList')
-            ->where('YEAR(bought)', date('m'))
+            ->where('MONTH(bought)', date('m'))
             ->join('item', 'item.idItem = listcontains.idItem')
             ->select('listcontains.idItem AS idItem, item.name AS name, COUNT(listcontains.idItem) AS count')
             ->groupBy('listcontains.idItem')

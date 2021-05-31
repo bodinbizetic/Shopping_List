@@ -150,7 +150,9 @@
                 var data = new google.visualization.DataTable();
                 data.addColumn('string', 'Topping');
                 data.addColumn('number', 'Slices');
-                var rows = JSON.parse(`<?php echo $data_for_pie_year; ?>`);
+                var items = <?php echo $data_for_pie_year; ?>;
+                items = JSON.stringify(items);
+                var rows = JSON.parse(items);
                 console.log(rows);
                 data.addRows(rows);
 
@@ -174,7 +176,9 @@
                 var data = new google.visualization.DataTable();
                 data.addColumn('string', 'Topping');
                 data.addColumn('number', 'Slices');
-                var rows = JSON.parse(`<?php echo $data_for_pie_month; ?>`);
+                var items = <?php echo $data_for_pie_month; ?>;
+                items = JSON.stringify(items);
+                var rows = JSON.parse(items);
                 console.log(rows);
                 data.addRows(rows);
 
