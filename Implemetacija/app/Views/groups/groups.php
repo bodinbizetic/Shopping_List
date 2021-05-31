@@ -11,12 +11,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                If you click Yes you will be removed and someone from the group will have to call you back in.
+                If you click Yes you will leave group and other members will have to call you back in.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        onclick="confirm()">Yes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="leaveGroup()">Yes</button>
             </div>
         </div>
     </div>
@@ -66,11 +65,9 @@
                           <button class="btn btn-outline-primary" onclick="window.location.href='<?php  $id = $groups[$i]['idGroup'];
                           echo base_url("group/renderEditGroup/$id");?>'"
                           <?php if($ingroups[$i]['type']=='0') echo 'disabled'; ?>>Edit</button>
-                          <button class="btn btn-outline-danger"
-                                  onclick="window.location.href='<?php  $id = $groups[$i]['idGroup']; echo base_url("group/leaveGroup/$id");?>'">Leave</button>
+                          <a href="#exampleModalCenter" class='btn btn-outline-danger' onclick=toModal(this,<?=$groups[$i]['idGroup']?>) role='button' aria-pressed='true' data-toggle='modal' data-target='#exampleModalCenter'>Leave</a>
                       </div>
                   </td>
-
               </tr>
           <?php endfor; ?>
 
@@ -87,12 +84,15 @@
 <script src="<?php echo base_url('assets/jquery/jquery.min.js')?>"></script>
 
 <script>
-    let flag = 'false';
-    function leaveGroup(id){
-            window.location.href='group/leaveGroup/'.id;
+    let link;
+    function toModal(val, id)
+    {
+        link = id;
+    }
+
+    function leaveGroup(){
+        window.location.href='/group/leaveGroup/'+"/"+link;
 
     }
-    function confirm(){
-        flag = 'true';
-    }
+
 </script>
