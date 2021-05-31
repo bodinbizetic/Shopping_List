@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\ItemModel;
 use App\Models\ItemPriceModel;
 use App\Models\ShopChainModel;
 use App\Models\UserModel;
@@ -84,6 +85,66 @@ class Moderator extends BaseController
 
         echo view("common/moderator_header");
         echo view('moderator', $this->data);
+    }
+
+    public function addShop($shopName)
+    {
+        if(!$this->session->has('user'))
+            return redirect()->to('/login/index');
+        $user = $this->session->get('user');
+        if($user['type'] != ADMIN)
+            return redirect()->to('/homePage/index');
+
+        $shopChainModel = new ShopChainModel();
+        $data = [
+            'name' => $shopName
+        ];
+        $shopChainModel->insert($data);
+        return redirect()->back();
+    }
+
+    public function renderAddItem()
+    {
+        if(!$this->session->has('user'))
+            return redirect()->to('/login/index');
+        $user = $this->session->get('user');
+        if($user['type'] != ADMIN)
+            return redirect()->to('/homePage/index');
+
+        $shopId = $this->request->getVar('Shops');
+        $name = $this->request->getVar('item-name');
+
+        $this->getShopNames();
+        $this->getAllItems($shopId, $name);
+
+        echo view("common/moderator_header");
+        echo view('moderator_new_item', $this->data);
+    }
+
+    public function addItem($name, $measure, $quantity, $shopId)
+    {
+        if(!$this->session->has('user'))
+            return redirect()->to('/login/index');
+        $user = $this->session->get('user');
+        if($user['type'] != ADMIN)
+            return redirect()->to('/homePage/index');
+
+        $itemModel = new ItemModel();
+        $data = [
+            'name' => $name,
+            'quantity' => $quantity,
+            'metrics' => $measure,
+            'image' => null,
+            'isCenoteka' => 1
+        ];
+        $itemId = $itemModel->insert($data);
+        $data = [
+            'idShopChain' => $shopId,
+            'price' => 0,
+            'idItem' => $itemId
+        ];
+        (new ItemPriceModel())->insert($data);
+        return redirect()->to('/moderator/index');
     }
 
 }
