@@ -22,19 +22,23 @@
             <div class="row">
                 <div class="col col-sm-6 offset-3">
                     <div class="form-group form-row">
-                        <div class="input-group col-6">
+                        <div class="input-group col-5">
                             <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                            <input type="text" name="search" class="form-control" placeholder="Search..." onchange="search()">
+                            <input type="text" name="search" class="form-control" placeholder="Search...">
                             <div class="input-group-addon"></div>
                         </div>
-                        <div class="input-group offset-2 col-4">
-                            <div class="input-group-addon">Sorted</div>
-                            <select name="sorted" id="sorted"  style="margin-bottom: 0px !important; " class="form-control h-100" onchange="search()">
-                                <option class="form-control" value="0" selected>None</option>
+                        <div class="input-group offset-1 col-3">
+<!--                            <div class="input-group-addon">Sorted</div>-->
+                            <select name="sorted" id="sorted"  class="form-control h-100">
+                                <option class="form-control" value="0" selected disabled><i>Sort</i></option>
+<!--                                <option class="form-control" value="0">None</option>-->
                                 <option class="form-control" value="1">Ascending</option>
                                 <option class="form-control" value="2">Descending</option>
                             </select>
-                            <div class="input-group-addon"></div>
+<!--                            <div class="input-group-addon"></div>-->
+                        </div>
+                        <div class="input-group offset-1 col-2 h-75">
+                            <button onclick="search()" class="btn btn-success btn-block" style="height: 34px;">Search</button>
                         </div>
                     </div>
                 </div>
@@ -47,7 +51,11 @@
                         <div class="product-layout">
                             <div class="product-img">
                                 <div>
-                                    <img src="<?= base_url().'/uploads/items/'.$cenotekaItem['image'] ?>">
+                                    <?php if ($cenotekaItem['image'] == null) {?>
+                                        <img src="<?= base_url().'/uploads/items/assets/images/articles/no-article-medium.jpg'?>">
+                                    <?php } else { ?>
+                                        <img src="<?= base_url().'/uploads/items'.$cenotekaItem['image'] ?>">
+                                    <?php }?>
                                 </div>
                             </div>
                             <div class="content-layout">
