@@ -125,7 +125,7 @@ class Group extends BaseController
             'groupId'=>$group['idGroup'],
             'myId'=>$this->session->get('user')['idUser'],
             'inGroup'=>$inGroupUsers,
-            //'errors' => $errors
+            'errors' => $errors
         ];
 
         echo view('common/header', ['groups' => '']);
@@ -294,17 +294,16 @@ class Group extends BaseController
     public function addNewMember($idGroup, $username) {
 
         $userModel = new UserModel();
- //       $username = $this->request->getPost('invite_member');
         $user = $userModel->findByUsername($username);
         $groupModel = new GroupModel();
         $group = $groupModel->find($idGroup);
 
-        if($username == null){
-            $this->renderEditGroup($idGroup, ['There is no user with set username']);
+        if($user == null){
+            $this->renderEditGroup($idGroup, ['There is no user with set username',0]);
         }
         else{
             $this->sendCall($user,$group);
-            $this->renderEditGroup($idGroup, ['Invite sent']);
+            $this->renderEditGroup($idGroup, ['Invite sent',1]);
         }
     }
 
@@ -411,9 +410,7 @@ class Group extends BaseController
 
             $notificationModel->save($data);
 
-            $path = 'group/renderEditGroup/'.$groupId;
-
-            return redirect()->to($path);
+            return redirect()->back()->withInput();
         }
     }
 

@@ -19,7 +19,7 @@ use App\Models\UserModel;
 
 class Lists extends BaseController
 {
-    public function render()
+    public function render($activeGroup)
     {
         $inGroupModel = new InGroupModel();
         $groupModel = new GroupModel();
@@ -48,14 +48,14 @@ class Lists extends BaseController
 
         echo view('common/header', ['lists' => '']);
         echo view('lists/all_lists', ['userGroups' => $userGroups,
-                                            'groupNames' => $groupNames]);
+                                            'groupNames' => $groupNames, 'activeGroup'=>$activeGroup]);
         echo view('common/footer', []);
     }
 
 
-    public function index()
+    public function index($activeGroup=null)
     {
-        $this->render();
+        $this->render($activeGroup);
     }
 
     public function renderList($idShoppingList, $errors = null)
