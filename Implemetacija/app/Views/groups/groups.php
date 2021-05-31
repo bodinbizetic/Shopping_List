@@ -61,7 +61,7 @@
                   <td>
                       <div class="btn-group">
                           <button class="btn btn-outline-info" onclick="window.location.href='<?php $id = $groups[$i]['idGroup']; echo base_url("group/viewGroup/$id");?>'">Info</button>
-                          <button class="btn btn-outline-success" onclick="window.location.href='<?php echo base_url("lists/index");?>'">Lists</button>
+                          <button class="btn btn-outline-success" onclick="window.location.href='<?php $id = $groups[$i]['idGroup']; echo base_url("lists/index/$id");?>'">Lists</button>
                           <button class="btn btn-outline-primary" onclick="window.location.href='<?php  $id = $groups[$i]['idGroup'];
                           echo base_url("group/renderEditGroup/$id");?>'"
                           <?php if($ingroups[$i]['type']=='0') echo 'disabled'; ?>>Edit</button>

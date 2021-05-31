@@ -66,7 +66,7 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                <div class="collapse" id="group-row<?=$groupId?>">
+                                <div class="<?php if(!isset($activeGroup) || ($activeGroup != $groupId)) echo 'collapse'; ?>" id="group-row<?=$groupId?>">
                                     <table class="table">
                                         <tbody class="hoverable-row" id="">
                                             <?php foreach ($lists as $listId => $listName) { ?>
