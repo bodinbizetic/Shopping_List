@@ -46,8 +46,6 @@
             <?php } ?>
             </tbody>
         </table>
-        <div class="w-100 text-center">
-            <a href="" type="button" class="btn btn-outline-danger <?php if(!$writable) echo 'disabled'?>" data-toggle="modal" data-target="#finishList" >Finish</a>
         </div>
     </div>
 </section>

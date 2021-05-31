@@ -12,6 +12,7 @@ use App\Models\ItemModel;
 use App\Models\ItemPriceModel;
 use App\Models\LinkModel;
 use App\Models\ListContainsModel;
+use App\Models\NotificationModel;
 use App\Models\ShopChainModel;
 use App\Models\ShoppingListModel;
 use App\Models\UserModel;
@@ -623,6 +624,30 @@ class Lists extends BaseController
         $shoppingList['active'] = 0;
         if (!$shoppingListModel->update($idShoppingList, $shoppingList))
         {
+            Error::show("Server error");
+        }
+
+        $linkModel = new LinkModel();
+        $link = [
+            'idShoppingList' => $idShoppingList,
+            'link' => uniqid($shoppingList['idShoppingList']),
+            'writable' => 0,
+        ];
+
+        if (!$linkModel->insert($link)) {
+            Error::show(implode(' ', $linkModel->errors()));
+        }
+
+        $notificationModel = new NotificationModel();
+        $notification = [
+          'isRead' => 0,
+          'idUser' => $this->session->get('user')['idUser'],
+          'idGroup' => $shoppingList['idGroup'],
+          'type'  => LIST_STATUS['type'],
+          'text' => LIST_STATUS['msg'].' '.$shoppingList['name'].' updated. Check out at this <a href="/guest/guest/'.$link['link'].'">link</a>.',
+        ];
+
+        if (!$notificationModel->insert($notification)) {
             Error::show("Server error");
         }
 
