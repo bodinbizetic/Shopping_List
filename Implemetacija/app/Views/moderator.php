@@ -8,7 +8,7 @@
     #my-table td:last-child {
         padding: 10px;
     }
-    #newShop, #search, #shops {
+    #newShop, #search, #shops, #addshop, #addShop, #addItem {
         height: 50px;
     }
 </style>
@@ -57,6 +57,21 @@
                             <a class="btn btn-danger btn-block" style="height: 50px; padding-top: 12px;" href="/scrapper">Update database</a>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group" >
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" name="item-name" id="addshop"  class="form-control" placeholder="Enter new shop" >
+                        </td>
+                        <td>
+                            <input type ="button" class="btn btn-success btn-block" id="addShop" value="Add new shop" onclick="add()" class="btn btn-success btn-block">
+                        </td>
+                        <td>
+                            <input type ="button" class="btn btn-success btn-block" id="addItem" value="Add new item" onclick="moditem()" class="btn btn-success btn-block">
+                        </td>
+                    </tr>
 
                     </form>
                     </tbody>
@@ -95,3 +110,11 @@
     </section><!-- End New Item Section -->
 
 </main><!-- End #main -->
+<script>
+    function add(){
+        window.location = "/moderator/addShop/" + document.getElementById("addshop").value;
+    }
+    function moditem(){
+        window.location = "/moderator/renderAddItem";
+    }
+</script>

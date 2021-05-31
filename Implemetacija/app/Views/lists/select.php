@@ -56,7 +56,7 @@
                                                 <input type="number" min = 0 name="register_fullname" class="form-control" placeholder="Quantity" >
                                             </div>-->
                                             <div class="property" style="text-align: center">
-                                                <span class="super-bold"><?php echo $cenotekaItem['price']; ?> RSD</span>
+                                                <span class="super-bold"><?php if($cenotekaItem['price'] == 0){echo "N/A";}else{echo $cenotekaItem['price']." RSD";} ?></span>
                                             </div>
                                         </div>
                                     </div>
