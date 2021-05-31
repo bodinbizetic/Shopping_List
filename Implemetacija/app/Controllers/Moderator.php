@@ -4,8 +4,10 @@ namespace App\Controllers;
 
 use App\Models\ItemPriceModel;
 use App\Models\ShopChainModel;
+use App\Models\UserModel;
 
 define("ADMIN", 0);
+
 
 class Moderator extends BaseController
 {
@@ -54,6 +56,15 @@ class Moderator extends BaseController
 
         $this->data['items'] = $items;
         $this->data['pager'] = $pager;
+    }
+
+    public function refreshPassword($new_pass) {
+
+        $user = $this->session->get('user');
+        $user['password'] = $new_pass;
+
+        (new UserModel())->update($user['idUser'], $user);
+        return redirect()->back();
     }
 
     public function index()

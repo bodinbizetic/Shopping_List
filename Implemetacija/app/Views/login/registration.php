@@ -8,7 +8,21 @@
             value = "Phone";
         }
         $("input[name='register_phone']").val(value);
-    })
+    });
+
+    function showImage() {
+        file_input = document.querySelector("input[type='file']");
+        if (file_input.files && file_input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#group-img')
+                    .attr('src', e.target.result)
+            };
+
+            reader.readAsDataURL(file_input.files[0]);
+        }
+    }
 </script>
 <form class="form-horizontal row" method="post" action="/login/register" enctype="multipart/form-data">
     <div class="col col-md-9">
@@ -68,8 +82,8 @@
     <div class="col col-md-3">
         <div class="form-group">
             <label for="image">
-                <input type="file" name="image" id="image" style="display:none;"/>
-                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle"/>
+                <input type="file" name="image" id="image" onchange="showImage()" style="display:none;"/>
+                <img id="group-img" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle"/>
                 <p>Browse image</p>
             </label>
         </div>

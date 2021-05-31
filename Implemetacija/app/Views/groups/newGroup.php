@@ -1,4 +1,18 @@
+<script>
+    function showImage() {
+        file_input = document.querySelector("input[type='file']");
+        if (file_input.files && file_input.files[0]) {
+            var reader = new FileReader();
 
+            reader.onload = function (e) {
+                $('#group-img')
+                    .attr('src', e.target.result)
+            };
+
+            reader.readAsDataURL(file_input.files[0]);
+        }
+    }
+</script>
 <main id="main">
     <section>
         <div class="container">
@@ -12,8 +26,8 @@
                     <div class="col col-md-4">
                         <div class="form-group" style="text-align: center">
                             <label for="image">
-                                <input type="file" name="image" id="image" style="display:none;"/>
-                                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%" >
+                                <input type="file" name="image" id="image" style="display:none;" onchange="showImage()"/>
+                                <img id="group-img" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%" >
                                 <p>Browse image</p>
                             </label>
                         </div>

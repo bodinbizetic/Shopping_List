@@ -200,7 +200,22 @@
         $("input[name='phone']").val("<?php echo $user['phone']; ?>");
         $("input[name='password']").val("<?php echo $user['password']; ?>");
         $("input[name='email']").val("<?php echo $user['email']; ?>");
-    })
+    });
+
+    function showImage() {
+        file_input = document.querySelector("input[type='file']");
+        if (file_input.files && file_input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#group-img')
+                    .attr('src', e.target.result)
+            };
+
+            reader.readAsDataURL(file_input.files[0]);
+        }
+    }
+
 </script>
 
 <section id="profile">
@@ -219,12 +234,12 @@
                     <form method="post" action="/profile/edit"  enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="image">
-                                <input type="file" name="image" id="image" align="center" style="display:none;"/>
+                                <input type="file" name="image" id="image" align="center" onchange="showImage()" style="display:none;"/>
                                 <?php
                                 if(isset($user['image'])): ?>
-                                    <img src="<?php echo base_url(). '/uploads/'. $user['image']; ?>">
+                                    <img id="group-img" src="<?php echo base_url(). '/uploads/'. $user['image']; ?>">
                                 <?php else: ?>
-                                    <img src="<?php echo base_url(). '/images/profile/person.jpg'; ?>">
+                                    <img  id="group-img" src="<?php echo base_url(). '/images/profile/person.jpg'; ?>">
                                 <?php endif; ?>
                             </label>
                             <h3>

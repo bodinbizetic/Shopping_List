@@ -1,5 +1,7 @@
+<!--
+<link href="<?php /*echo base_url(); */?>/css/profile.css" rel="stylesheet">-->
 
-<link href="<?php echo base_url(); ?>/css/profile.css" rel="stylesheet">
+<link href="<?php echo base_url(); ?>/css/singleGroup.css" rel="stylesheet">
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
@@ -195,110 +197,72 @@
         </div>
     </div>
 
-<div class="content">
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="slide">
-                <div class="form-group">
-                    <div class="form-group">
-                        <label for="image">
-                            <input type="file" name="image" id="image" style="display:none;"/>
+    <div class="content">
+        <div class="slide">
+            <div class="div-img">
+                <?php
+                if(isset($group['image'])): ?>
+                    <img src="<?php echo base_url(). '/groupUploads/'. $group['image']; ?>" class="avatar img-circle" style="border-radius: 50%">
+                <?php else: ?>
+                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%">
+                <?php endif; ?>
+                <h3>
+                    <?= $group['name'] ?>
+                </h3>
+                <h5>
+                    <?= $group['description'] ?>
+                </h5>
+            </div>
+            <div class="members">
+                <div class="count">
+                    <p><?php echo count($members); ?> members</p>
+                    <hr>
+                </div>
+                <div class="list">
+                    <ul>
+                        <?php $i=0; foreach($members as $member): ?>
+                        <li <?php if($inGroup[$i++]['type'] == '1') echo "class='bg-warning'" ?> >
+                            <!--<img src="imgs/person1.jpg" class="avatar img-circle"> Nikola Milovanovic-->
                             <?php
-                            if(isset($group['image'])): ?>
-                                <img src="<?php echo base_url(). '/groupUploads/'. $group['image']; ?>" class="avatar img-circle" style="border-radius: 50%">
-                            <?php else: ?>
-                                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%">
-                            <?php endif; ?>
-                        </label>
-                            <h3>
-                                <?= $group['name'] ?>
-                            </h3>
-                            <h5>
-                                <?= $group['description'] ?>
-                            </h5>
-                        </div>
-                        <div align="center">
-                            <table style="text-align: center">
-                                <thead>
-                                <tr>
-                                    <th class="groupMembers">Members</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php $i=0; foreach($members as $member): ?>
-                                    <tr>
-                                        <td>@<?php echo $member['username'];
-                                            if($inGroup[$i++]['type'] == '1') {echo '(Admin)';}?>
-                                        </td>
-                                    </tr>
-
-                                <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <br>
+                                echo $member['username'];
+                            ?>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-header">
-                    <span class="title">Most frequently requested YEAR</span>
-                </div>
-                <div class="card-body">
-                    <div class="year-popular"></div>
-                </div>
+        <div class="statistic">
+            <div class="row">
+                <table class="table">
+                    <caption>Monthly Spending / Monthly No Of Lists</caption>
+                </table>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-header">
-                    <span class="title">Most frequently requested MONTH</span>
-                </div>
-                <div class="card-body">
-                    <div class="month-popular"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">&nbsp;
-            <?php if(isset($errors)) { ?>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <?php
-                    echo $errors. "<br>";
-                    ?>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            <?php } ?>
-        </div>
-        <div class="col-sm-4 offset-3">
-            <div class="card">
-                <div class="card-header">
-                    <span class="title">Monthly Spending</span>
-                </div>
-                <div class="card-body">
+            <div class="row">
+                <div class="col col-sm-5">
                     <div class="spending">
                         <canvas id="spending-chart"></canvas>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-header">
-                    <span class="title">Monthly No Of Lists</span>
-                </div>
-                <div class="card-body">
+                <div class="col col-sm-5 offset-1">
                     <div class="lists">
                         <canvas id="lists-chart"></canvas>
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <table class="table">
+                    <caption>Most frequently requested YEAR / MONTH</caption>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col col-sm-5">
+                    <div class="year-popular"></div>
+                </div>
+                <div class="col col-sm-5 offset-1">
+                    <div class="month-popular"></div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
 </section>

@@ -1,6 +1,21 @@
+<script>
+    function showImage() {
+        file_input = document.querySelector("input[type='file']");
+        if (file_input.files && file_input.files[0]) {
+            var reader = new FileReader();
 
-  <link href="/public/css/common.css" rel="stylesheet">
-  <link href="/public/css/editGroup.css" rel="stylesheet">
+            reader.onload = function (e) {
+                $('#group-img')
+                    .attr('src', e.target.result)
+            };
+
+            reader.readAsDataURL(file_input.files[0]);
+        }
+    }
+</script>
+
+<link href="<?php echo base_url(); ?>/css/editGroup.css" rel="stylesheet">
+<link href="/public/css/common.css" rel="stylesheet">
 
    <!-- Modal -->
  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -56,11 +71,11 @@
               <div class="form-group">
                   <div class="form-group" style="text-align: center">
                       <label for="image">
-                          <input type="file" name="image" id="image" style="display:none;"/>
+                          <input type="file" name="image" id="image" style="display:none;" onchange="showImage()"/>
                           <?php if(isset($image)): ?>
-                              <img src="<?php echo base_url(). '/groupUploads/'. $image; ?>" class="avatar img-circle" style="border-radius: 50%">
+                              <img id="group-img" src="<?php echo base_url(). '/groupUploads/'. $image; ?>" class="avatar img-circle" style="border-radius: 50%">
                           <?php else: ?>
-                              <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%">
+                              <img  id="group-img" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%">
                           <?php endif; ?>
                           <p>Browse image</p>
                       </label>
