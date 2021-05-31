@@ -35,7 +35,7 @@ class Guest extends BaseController
 
         if ($shoppingList['active'] == 0)
         {
-            Error::show("Shopping list is not active anymore");
+            $link['writable'] = 0;
         }
 
         $idShoppingList = $link['idShoppingList'];
@@ -73,7 +73,11 @@ class Guest extends BaseController
         else {
             $shopName = $listShop['name'];
         }
-        echo view('lists/guest_header');
+
+        if ($this->session->get('user') == null)
+            echo view('lists/guest_header');
+        else
+            echo view('common/header');
         if ($link['writable'] == 0) {
             echo view("lists/guest", ['listName' => $shoppingList['name'],
                 'items' => $itemsList,
