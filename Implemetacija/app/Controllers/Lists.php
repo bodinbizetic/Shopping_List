@@ -160,25 +160,51 @@ class Lists extends BaseController
         $this->checkLegal($list);
 
         $search = $this->request->getUri()->getQuery(['only' => ['search']]);
+        $sorted = $this->request->getUri()->getQuery(['only' => ['sorted']]);
+
+        if ($sorted)
+            $sorted = explode('=', $this->request->getUri()->getQuery(['only' => ['sorted']]))[1];
+
         if($search)
             $search = explode('=', $this->request->getUri()->getQuery(['only' => ['search']]))[1];
 /*
         $cenotekaItems = $itemCategoryModel->where('idCategory', $idCategory)->find();*/
 
-        if($search)
-            $items = $itemCategoryModel->where('idCategory', $idCategory)
-                ->join('item', 'item.idItem = itemcategory.idItem')
-                ->like('item.name', '%'.$search.'%')
-                ->join('itemprice', 'item.idItem = itemprice.idItem')
-                ->where('itemprice.idShopChain', $list['idShop'])
-                ->paginate(20,'items');
-        else
-            $items = $itemCategoryModel->where('idCategory', $idCategory)
-                ->join('item', 'item.idItem = itemcategory.idItem')
-                ->join('itemprice', 'item.idItem = itemprice.idItem')
-                ->where('itemprice.idShopChain', $list['idShop'])
-                ->paginate(20,'items');
-
+        if ($sorted == null) {
+            if ($search)
+                $items = $itemCategoryModel->where('idCategory', $idCategory)
+                    ->join('item', 'item.idItem = itemcategory.idItem')
+                    ->like('item.name', '%' . $search . '%')
+                    ->join('itemprice', 'item.idItem = itemprice.idItem')
+                    ->where('itemprice.idShopChain', $list['idShop'])
+                    ->paginate(20, 'items');
+            else
+                $items = $itemCategoryModel->where('idCategory', $idCategory)
+                    ->join('item', 'item.idItem = itemcategory.idItem')
+                    ->join('itemprice', 'item.idItem = itemprice.idItem')
+                    ->where('itemprice.idShopChain', $list['idShop'])
+                    ->paginate(20, 'items');
+        } else {
+            $sortOrder = '';
+            if ($sorted == 1)
+                $sortOrder = 'ASC';
+            else $sortOrder = 'DESC';
+            if ($search)
+                $items = $itemCategoryModel->where('idCategory', $idCategory)
+                    ->join('item', 'item.idItem = itemcategory.idItem')
+                    ->like('item.name', '%' . $search . '%')
+                    ->join('itemprice', 'item.idItem = itemprice.idItem')
+                    ->where('itemprice.idShopChain', $list['idShop'])
+                    ->orderBy('price', $sortOrder)
+                    ->paginate(20, 'items');
+            else
+                $items = $itemCategoryModel->where('idCategory', $idCategory)
+                    ->join('item', 'item.idItem = itemcategory.idItem')
+                    ->join('itemprice', 'item.idItem = itemprice.idItem')
+                    ->where('itemprice.idShopChain', $list['idShop'])
+                    ->orderBy('price', $sortOrder)
+                    ->paginate(20, 'items');
+        }
         $pager = $itemCategoryModel->pager;
 
         echo view("common/header", [ 'lists' => '']);
