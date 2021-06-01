@@ -55,7 +55,15 @@ class Group extends BaseController
         // auth guard
         if(!$this->session->has('user'))
             return redirect()->to('/login/index');
+
         $user = $this->session->get('user');
+        $inGroupModel = new InGroupModel();
+        $inGroup = $inGroupModel->where('idUser',$user['idUser'])->where('idGroup',$id)->first();
+
+        if($inGroup==null || $inGroup['type']=='0'){
+            Error::show("Edit not allowed");
+        }
+
 
         $name = $this->request->getPost('group_name');
         $description = $this->request->getPost('description');
@@ -98,7 +106,14 @@ class Group extends BaseController
         // auth guard
         if(!$this->session->has('user'))
             return redirect()->to('/login/index');
+
         $user = $this->session->get('user');
+        $inGroupModel = new InGroupModel();
+        $inGroup = $inGroupModel->where('idUser',$user['idUser'])->where('idGroup',$id)->first();
+
+        if($inGroup==null || $inGroup['type']=='0'){
+            Error::show("Edit not allowed");
+        }
 
         $userModel = new UserModel();
         $inGroupModel = new InGroupModel();
@@ -163,7 +178,14 @@ class Group extends BaseController
         // auth guard
         if(!$this->session->has('user'))
             return redirect()->to('/login/index');
+
         $user = $this->session->get('user');
+        $inGroupModel = new InGroupModel();
+        $inGroup = $inGroupModel->where('idUser',$user['idUser'])->where('idGroup',$idGroup)->first();
+
+        if($inGroup==null){
+            Error::show("View not allowed");
+        }
 
         $groupModel = new GroupModel();
         $group = $groupModel->find($idGroup);
@@ -291,20 +313,31 @@ class Group extends BaseController
         return json_encode($arrOfArr);
     }
 
-    public function addNewMember($idGroup, $username) {
+    public function addNewMember($idGroup, $username=null) {
 
-        $userModel = new UserModel();
-        $user = $userModel->findByUsername($username);
-        $groupModel = new GroupModel();
-        $group = $groupModel->find($idGroup);
+        $active_user = $this->session->get('user');
+        $inGroupModel = new InGroupModel();
+        $inGroup = $inGroupModel->where('idUser',$active_user['idUser'])->where('idGroup',$idGroup)->first();
 
-        if($user == null){
-            $this->renderEditGroup($idGroup, ['There is no user with set username',0]);
+        if($inGroup==null || $inGroup['type']=='0'){
+            Error::show("Edit not allowed");
         }
-        else{
-            $this->sendCall($user,$group);
-            $this->renderEditGroup($idGroup, ['Invite sent',1]);
-        }
+
+        if($username!=null) {
+
+            $userModel = new UserModel();
+            $user = $userModel->findByUsername($username);
+            $groupModel = new GroupModel();
+            $group = $groupModel->find($idGroup);
+
+            if ($user == null) {
+                $this->renderEditGroup($idGroup, ['There is no user with set username', 0]);
+            } else {
+                $this->sendCall($user, $group);
+                $this->renderEditGroup($idGroup, ['Invite sent', 1]);
+            }
+        } else
+            $this->renderEditGroup($idGroup, ['Please enter username', 0]);
     }
 
     public function newGroup() {
@@ -362,6 +395,10 @@ class Group extends BaseController
     }
 
     public function joinGroup($userId, $groupId,$type){
+        // auth guard
+        if(!$this->session->has('user'))
+            return redirect()->to('/login/index');
+
         $ingroupData = [
             'idUser'=>$userId,
             'idGroup'=>$groupId,
@@ -373,6 +410,10 @@ class Group extends BaseController
     }
 
     public function sendCall($member,$group){
+
+        // auth guard
+        if(!$this->session->has('user'))
+            return redirect()->to('/login/index');
 
         $notificationModel = new NotificationModel();
         $data = [
@@ -387,12 +428,23 @@ class Group extends BaseController
 
     public function removeFromGroup($groupId, $userId){
 
+        // auth guard
+        if(!$this->session->has('user'))
+            return redirect()->to('/login/index');
+
+        $active_user = $this->session->get('user');
+        $inGroupModel = new InGroupModel();
+        $inGroup = $inGroupModel->where('idUser',$active_user['idUser'])->where('idGroup',$groupId)->first();
+
+        if($inGroup==null || $inGroup['type']=='0'){
+            Error::show("Edit not allowed");
+        }
+
         $groupModel = new GroupModel();
         $group = $groupModel->find($groupId);
-        $myId = $this->session->get('user')['idUser'];
+        $myId = $active_user['idUser'];
         if($myId==$userId) $this->leaveGroup($groupId);
         else{
-            $inGroupModel = new InGroupModel();
             $inGroup = $inGroupModel->where('idUser',$userId)->where('idGroup',$group['idGroup'])->findAll();
 
             $id = $inGroup[0]['idInGroup'];
@@ -411,16 +463,26 @@ class Group extends BaseController
             $notificationModel->save($data);
 
            return redirect()->to(base_url('/group/renderEditGroup/'.$groupId));
-           // return redirect()->back();
         }
     }
 
     public function leaveGroup($groupId){
 
+        // auth guard
+        if(!$this->session->has('user'))
+            return redirect()->to('/login/index');
+
+        $active_user = $this->session->get('user');
         $inGroupModel = new InGroupModel();
+        $inGroup = $inGroupModel->where('idUser',$active_user['idUser'])->where('idGroup',$groupId)->first();
+
+        if($inGroup==null){
+            Error::show("Edit not allowed");
+        }
+
         $thisGroup = $inGroupModel->findByGroupId($groupId);
 
-        $userId = $this->session->get('user')['idUser'];
+        $userId = $active_user['idUser'];
 
         $inGroup = $inGroupModel->where('idUser',$userId)->where('idGroup',$groupId)->findAll(1)[0];
 
@@ -451,7 +513,7 @@ class Group extends BaseController
         return redirect()->to('/group/index');
     }
 
-    protected function deleteGroup($idGroup){
+    private function deleteGroup($idGroup){
 
         $groupModel = new GroupModel();
         $listContainsModel = new ListContainsModel();
@@ -477,7 +539,8 @@ class Group extends BaseController
         }
 
         $groupModel->delete($idGroup);
-
+        //return redirect()->to('/group/index');
+        $this->index();
     }
 
 }
