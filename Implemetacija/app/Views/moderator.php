@@ -63,7 +63,7 @@
                             </div>
                         </td>
                         <td>
-                            <input type="text" name="item-name" id="addshop"  class="form-control" placeholder="Enter new shop" >
+                            <input type="text" id="addshop"  class="form-control" placeholder="Enter new shop" >
                         </td>
                         <td>
                             <input type ="button" class="btn btn-success btn-block" id="addShop" value="Add new shop" onclick="add()" class="btn btn-success btn-block">
