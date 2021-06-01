@@ -84,8 +84,9 @@
 <!-- ======= Header ======= -->
 <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
-        <h1 class="logo mr-auto"><a href="<?php echo base_url('homePage/index')?>">Jel ti usput?</a></h1>
-
+        <h1 class="logo mr-auto"><a href="<?php echo base_url('moderator/index')?>">Jel ti usput?</a></h1>
+        <a href="#" id="refresh" class="get-started-btn scrollto">Refresh password</a>
+        <a href="<?php echo base_url('login/logout')?>" class="get-started-btn scrollto">Logout</a>
     </div>
 </header>
 <!-- End Header -->
