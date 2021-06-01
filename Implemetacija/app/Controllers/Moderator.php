@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\CategoryModel;
+use App\Models\ItemCategoryModel;
 use App\Models\ItemModel;
 use App\Models\ItemPriceModel;
 use App\Models\ShopChainModel;
@@ -117,11 +119,15 @@ class Moderator extends BaseController
         $this->getShopNames();
         $this->getAllItems($shopId, $name);
 
+        $categoriesModel = new CategoryModel();
+        $categories = $categoriesModel->findAll();
         echo view("common/moderator_header");
+
+        $this->data['allCategories'] = $categories;
         echo view('moderator_new_item', $this->data);
     }
 
-    public function addItem($name, $measure, $quantity, $shopId)
+    public function addItem($name, $measure, $quantity, $category, $shopId)
     {
         if(!$this->session->has('user'))
             return redirect()->to('/login/index');
@@ -144,6 +150,11 @@ class Moderator extends BaseController
             'idItem' => $itemId
         ];
         (new ItemPriceModel())->insert($data);
+        $data = [
+            'idCategory' => $category,
+            'idItem' => $itemId
+        ];
+        (new ItemCategoryModel())->insert($data);
         return redirect()->to('/moderator/index');
     }
 
