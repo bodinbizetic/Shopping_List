@@ -48,7 +48,7 @@
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-male"></i></div>
                                 <input id="quantityvar" type="number" min = 0 name="register_fullname" class="form-control" placeholder="Quantity/Measurement" value="">
-                                <select id="quant" size='1'>
+                                <select class="form-control" id="quant" size='1'>
                                     <option selected>kom</option>
                                     <option>g</option>
                                     <option>kg</option>

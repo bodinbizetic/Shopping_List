@@ -49,7 +49,7 @@
         </button>
       </div>
       <div class="modal-body">
-        You sent someone invite to join your group. They will recive notification to join the group. You will get notification only if they accept.
+        This will send someone invite to join your group. They will recive notification to join the group. You will get notification only if they accept.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-primary" data-dismiss="modal" onclick="callNewMember()">OK</button>

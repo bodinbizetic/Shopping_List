@@ -8,7 +8,7 @@
     #my-table td:last-child {
         padding: 10px;
     }
-    #bute, #itemName, #quantity, #shops, #quant, #addShop, #additem {
+    #bute, #itemName, #quantity, #shops, #quant, #category, #additem {
         height: 50px;
     }
 </style>
@@ -55,7 +55,7 @@
                                 <input type="text" name="item-name" id="quantity"  class="form-control" placeholder="Quantity" >
                             </td>
                             <td>
-                                    <select id="quant" size='1'>
+                                    <select style="padding: 15px" class="form-control" id="quant" size='1'>
                                         <option selected>kom</option>
                                         <option>g</option>
                                         <option>kg</option>
@@ -65,6 +65,15 @@
                             </td>
                             <td>
                                 <input type ="button" class="btn btn-success btn-block" id="additem" onclick="funkc()" value="Add new item" class="btn btn-success btn-block">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select style="padding: 15px" class="form-control" id="category" size="1">
+                                    <?php foreach($allCategories as $category){ ?>
+                                        <option value="<?= $category['idCategory'] ?>"><?php echo $category['name']; ?></option>
+                                    <?php } ?>
+                                </select>
                             </td>
                         </tr>
                     </form>
@@ -84,10 +93,13 @@
         var strMeasure = e.options[e.selectedIndex].text;
         e = document.getElementById("shops");
         var strShop = e.options[e.selectedIndex].value;
+        e = document.getElementById("category");
+        var category = e.options[e.selectedIndex].value;
         window.location = "addItem/" +
             document.getElementById("itemName").value + "/" +
             strMeasure + "/" +
             document.getElementById("quantity").value + "/" +
+            category + "/" +
             strShop;
     }
 </script>
