@@ -410,7 +410,8 @@ class Group extends BaseController
 
             $notificationModel->save($data);
 
-            return redirect()->back()->withInput();
+           return redirect()->to(base_url('/group/renderEditGroup/'.$groupId));
+           // return redirect()->back();
         }
     }
 
