@@ -45,15 +45,15 @@
                                 <?php if($notifications[$i]['isRead'] == false): ?>
                                     <?php if($notifications[$i]['type'] == 0): ?>
                                         <div class="btn-group">
-                                            <button class="btn-outline-success"
+                                            <button class="btn btn-success"
                                                     onclick="window.location.href='<?php $id = $notifications[$i]['idNotification'];
                                                     echo base_url("notification/approve/$id");?>'">Approve</button>
-                                            <button class="btn-outline-danger"
+                                            <button class="btn btn-danger"
                                                     onclick="window.location.href='<?php $id = $notifications[$i]['idNotification'];
                                                     echo base_url("notification/decline/$id");?>'">Decline</button>
                                         </div>
                                     <?php else: ?>
-                                        <button class="btn-outline-info"
+                                        <button class="btn btn-info"
                                                 onclick="window.location.href='<?php $id = $notifications[$i]['idNotification'];
                                                 echo base_url("notification/markDone/$id");?>'"><i class="fa fa-check"></i></button>
                                     <?php endif; ?>

@@ -31,7 +31,7 @@ class Notification extends BaseController
             ->paginate(3, 'notif-group');
         $pager = $notificationModel->pager;
 
-        echo view('common/header');
+        echo view('common/header', [ 'notifications' => '']);
         echo view('notification', ['notifications' => $notifications, 'pager' => $pager, 'typesText' => $this->types_text, 'typesClass' => $this->types_class]);
         echo view('common/footer');
     }

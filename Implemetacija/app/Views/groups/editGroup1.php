@@ -17,7 +17,7 @@
 <link href="<?php echo base_url(); ?>/css/editGroup.css" rel="stylesheet">
 <link href="/public/css/common.css" rel="stylesheet">
 
-   <!-- Modal -->
+   <!-- Modal#1 -->
  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -31,19 +31,19 @@
         If you click Yes you will remove member from the group.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="leaveGroup()">Yes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="removeFromGroup()">Yes</button>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Modal#2 -->
-<div class="modal fade" id="membersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="membersModal" tabindex="-1" role="dialog" aria-labelledby="membersModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Invite sent</h5>
+        <h5 class="modal-title" id="membersModalCenterTitle">Invite sent</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -52,7 +52,7 @@
         You sent someone invite to join your group. They will recive notification to join the group. You will get notification only if they accept.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">OK</button>
+        <button type="button" class="btn btn-outline-primary" data-dismiss="modal" onclick="callNewMember()">OK</button>
       </div>
     </div>
   </div>
@@ -107,19 +107,15 @@
                 <?php $i=0; foreach($members as $member): ?>
                     <tr>
                       <td><?php echo $member['username'];
-                          if($myId==$member['idUser']) echo '(You)';?></td>
+                          if($myId==$member['idUser']) echo '&nbsp(You)';?></td>
                         <td>
                             <input type="checkbox" name="admin[]" value="<?php echo $member['idUser'];?>"
                                     <?php if($inGroup[$i]['type']=='1') {echo 'disabled';}?>
                                    <?php if($inGroup[$i]['type']=='1') {echo 'checked';} $i++?>>
                         </td>
-                        <td>
-                            <button class="btn btn-outline-danger"
-                                    onclick="window.location.href='<?php  $id = $member['idUser'];
-                                    echo base_url("group/removeFromGroup/$groupId/$id");?>'">
-                                <?php if($myId != $member['idUser']) echo 'Remove'; else echo 'Leave'; ?></button>
+                        <td><a href="#exampleModalCenter" class='btn btn-outline-danger' onclick=toModal(this,<?=$member['idUser']?>) role='button'
+                               aria-pressed='true' data-toggle='modal' data-target='#exampleModalCenter'><?php if($myId != $member['idUser']) echo 'Remove'; else echo 'Leave'; ?></a>
                         </td>
-
                     </tr>
 
                   <?php endforeach; ?>
@@ -130,10 +126,20 @@
                 <div class="input-group mb-3">
                     <input type="text" id='invite_member' name = "invite_member" class="form-control" placeholder="Invite members" aria-label="Invite user" aria-describedby="button-addon2">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-success" type="button" onclick="callNewMember()">Invite</button>
+                        <a href="#membersModal" class='btn btn-outline-success' role='button'
+                           aria-pressed='true' data-toggle='modal' data-target='#membersModal'>Invite</a>
                     </div>
                 </div>
               </div>
+              <?php if(isset($errors)) { ?>
+                  <div class="alert <?php if($errors[1]==0) echo 'alert-danger'; else echo 'alert-success';?> alert-dismissible" role="alert">
+                      <?php
+                          echo $errors[0]. "<br>";
+                      ?>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                  </div>
+              <?php } ?>
               <br>
               <input type="submit" value="Save changes" class="btn btn-success btn-block">
 
@@ -145,8 +151,19 @@
   </main>
 
 <script>
+    let link;
+
     function callNewMember(){
         let username = document.getElementById('invite_member').value;
         window.location.href = "/group/addNewMember/"+<?= $groupId ?>+"/"+username;
+    }
+
+    function toModal(val, id)
+    {
+        link = id;
+    }
+
+    function removeFromGroup() {
+        window.location.href = "/group/removeFromGroup/"+<?= $groupId ?>+"/"+link;
     }
 </script>

@@ -189,7 +189,7 @@ class Profile extends BaseController
         $data['user'] = $user;
         $data['errors'] = $errors;
 
-        echo view('common/header');
+        echo view('common/header', [ 'profile' => '']);
         echo view('profile', $data);
         echo view('common/footer');
     }

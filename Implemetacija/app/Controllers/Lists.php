@@ -19,7 +19,7 @@ use App\Models\UserModel;
 
 class Lists extends BaseController
 {
-    public function render()
+    public function render($activeGroup)
     {
         $inGroupModel = new InGroupModel();
         $groupModel = new GroupModel();
@@ -46,16 +46,16 @@ class Lists extends BaseController
         }
 
 
-        echo view('common/header', []);
+        echo view('common/header', ['lists' => '']);
         echo view('lists/all_lists', ['userGroups' => $userGroups,
-                                            'groupNames' => $groupNames]);
+                                            'groupNames' => $groupNames, 'activeGroup'=>$activeGroup]);
         echo view('common/footer', []);
     }
 
 
-    public function index()
+    public function index($activeGroup=null)
     {
-        $this->render();
+        $this->render($activeGroup);
     }
 
     public function renderList($idShoppingList, $errors = null)
@@ -160,28 +160,54 @@ class Lists extends BaseController
         $this->checkLegal($list);
 
         $search = $this->request->getUri()->getQuery(['only' => ['search']]);
+        $sorted = $this->request->getUri()->getQuery(['only' => ['sorted']]);
+
+        if ($sorted)
+            $sorted = explode('=', $this->request->getUri()->getQuery(['only' => ['sorted']]))[1];
+
         if($search)
             $search = explode('=', $this->request->getUri()->getQuery(['only' => ['search']]))[1];
 /*
         $cenotekaItems = $itemCategoryModel->where('idCategory', $idCategory)->find();*/
 
-        if($search)
-            $items = $itemCategoryModel->where('idCategory', $idCategory)
-                ->join('item', 'item.idItem = itemcategory.idItem')
-                ->like('item.name', '%'.$search.'%')
-                ->join('itemprice', 'item.idItem = itemprice.idItem')
-                ->where('itemprice.idShopChain', $list['idShop'])
-                ->paginate(20,'items');
-        else
-            $items = $itemCategoryModel->where('idCategory', $idCategory)
-                ->join('item', 'item.idItem = itemcategory.idItem')
-                ->join('itemprice', 'item.idItem = itemprice.idItem')
-                ->where('itemprice.idShopChain', $list['idShop'])
-                ->paginate(20,'items');
-
+        if ($sorted == null) {
+            if ($search)
+                $items = $itemCategoryModel->where('idCategory', $idCategory)
+                    ->join('item', 'item.idItem = itemcategory.idItem')
+                    ->like('item.name', '%' . $search . '%')
+                    ->join('itemprice', 'item.idItem = itemprice.idItem')
+                    ->where('itemprice.idShopChain', $list['idShop'])
+                    ->paginate(20, 'items');
+            else
+                $items = $itemCategoryModel->where('idCategory', $idCategory)
+                    ->join('item', 'item.idItem = itemcategory.idItem')
+                    ->join('itemprice', 'item.idItem = itemprice.idItem')
+                    ->where('itemprice.idShopChain', $list['idShop'])
+                    ->paginate(20, 'items');
+        } else {
+            $sortOrder = '';
+            if ($sorted == 1)
+                $sortOrder = 'ASC';
+            else $sortOrder = 'DESC';
+            if ($search)
+                $items = $itemCategoryModel->where('idCategory', $idCategory)
+                    ->join('item', 'item.idItem = itemcategory.idItem')
+                    ->like('item.name', '%' . $search . '%')
+                    ->join('itemprice', 'item.idItem = itemprice.idItem')
+                    ->where('itemprice.idShopChain', $list['idShop'])
+                    ->orderBy('price', $sortOrder)
+                    ->paginate(20, 'items');
+            else
+                $items = $itemCategoryModel->where('idCategory', $idCategory)
+                    ->join('item', 'item.idItem = itemcategory.idItem')
+                    ->join('itemprice', 'item.idItem = itemprice.idItem')
+                    ->where('itemprice.idShopChain', $list['idShop'])
+                    ->orderBy('price', $sortOrder)
+                    ->paginate(20, 'items');
+        }
         $pager = $itemCategoryModel->pager;
 
-        echo view("common/header");
+        echo view("common/header", [ 'lists' => '']);
         echo view("lists/select", [
             'idListContains' => $idListContains,
             'idCategory' => $idCategory,
@@ -249,7 +275,7 @@ class Lists extends BaseController
         $categoryModel = new CategoryModel();
         $categories = $categoryModel->findAll();
 
-        echo view("common/header");
+        echo view("common/header", ['lists' => '']);
         echo view("lists/edit_item", ['idListContained' => $idListContained,
             'id' => $item["idItem"],
             'idList' => $idList,
@@ -272,7 +298,7 @@ class Lists extends BaseController
         $categoriesModel = new CategoryModel();
         $categories = $categoriesModel->findAll();
 
-        echo view("common/header");
+        echo view("common/header", [ 'lists' => '']);
         echo view("lists/new_item", [
             'idList' => $idList,
             'categories' => $categories
@@ -451,7 +477,7 @@ class Lists extends BaseController
 
         ksort($shops);
 
-        echo view('common/header', []);
+        echo view('common/header', [ 'lists' => '']);
         echo view('lists/create_list', ['group_name' => $group['name'],
                                                 'group_id' => $groupId,
                                                 'shops' => $shops,
@@ -546,7 +572,7 @@ class Lists extends BaseController
             $shopName = $listShop['name'];
         }
 
-        echo view("common/header");
+        echo view("common/header", [ 'lists' => '']);
         echo view("lists/shopping", ['listName' => $shoppingList['name'],
                                             'items' => $itemsList,
                                             'listId' => $shoppingList['idShoppingList'],
