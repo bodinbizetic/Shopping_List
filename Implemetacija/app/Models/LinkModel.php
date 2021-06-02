@@ -1,11 +1,17 @@
 <?php
-
+/**
+ * Author - Bodin Bizetic 0058/2018
+ */
 
 namespace App\Models;
 
 
 use CodeIgniter\Model;
 
+/**
+ * Class LinkModel - model for Link table
+ * @package App\Models
+ */
 class LinkModel extends Model
 {
     protected $table      = 'link';

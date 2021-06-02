@@ -1,6 +1,7 @@
 <?php
-
-
+/**
+ * Author - Bodin Bizetic 0058/2018
+ */
 namespace App\Controllers;
 
 
@@ -11,8 +12,18 @@ use App\Models\ListContainsModel;
 use App\Models\ShopChainModel;
 use App\Models\ShoppingListModel;
 
+/**
+ * Guest - klasa za upucivanje korisnika gosta na odgovarajucu stranicu
+ *
+ * @version 1.0
+ */
 class Guest extends BaseController
 {
+    /**
+     * Preusmerava gosta na stranicu za listu na koju ukazuje $pageLink
+     *
+     * @param $pageLink - encodo
+     */
     public function guest($pageLink)
     {
         $linkModal = new LinkModel();

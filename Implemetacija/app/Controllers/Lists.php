@@ -1,4 +1,7 @@
 <?php
+/**
+ * Authors - Bodin Bizetic 0058/2018 i Andrej Gobeljic 0019/2018
+ */
 
 
 namespace App\Controllers;
@@ -17,8 +20,22 @@ use App\Models\ShopChainModel;
 use App\Models\ShoppingListModel;
 use App\Models\UserModel;
 
+
+/**
+ * Class Lists - klasa zaduzena za upravljanje listama i namirnicama unutar tih lista
+ *
+ * @package App\Controllers
+ * @version 1.0
+ */
 class Lists extends BaseController
 {
+
+    /**
+     * Prikazivanje stranice sa svim listama
+     *
+     * @param $activeGroup - odredjuje aktivnu grupu
+     * @return void
+     */
     public function render($activeGroup)
     {
         $inGroupModel = new InGroupModel();
@@ -53,66 +70,25 @@ class Lists extends BaseController
     }
 
 
+    /**
+     * Prikazuje stranicu sa svim listama po grupama pri pozivu metode kontrolera
+     *
+     * @param null $activeGroup - odredjuje aktivnu grupu
+     * @return void
+     */
     public function index($activeGroup=null)
     {
         $this->render($activeGroup);
     }
 
-    public function renderList($idShoppingList, $errors = null)
-    {
-        echo "DEPRECATED - REPORT BUG IMEDIATELY";
-//        $shoppingListModel = new ShoppingListModel();
-//        $listContainsModel = new ListContainsModel();
-//        $itemPriceModel = new ItemPriceModel();
-//        $itemModel = new ItemModel();
-//        $shopChainModel = new ShopChainModel();
-//
-//        $shoppingList = $shoppingListModel->find($idShoppingList);
-//        if ($shoppingList == null || $shoppingList['active'] == 0)
-//        {
-//            Error::show("List not found");
-//        }
-//        $this->checkLegal($shoppingList);
-//
-//        $itemsListContain = $listContainsModel->findAllInList($idShoppingList);
-//        $itemsList = [];
-//
-//        foreach ($itemsListContain as $contained)
-//        {
-//            $item = $itemModel->find($contained['idItem']);
-//            $bought = $contained['bought'];
-//
-//            $itemPrice = $itemPriceModel->where('idItem', $item['idItem'])->
-//            where('idShopChain', $shoppingList['idShop'])->
-//            first();
-//            if ($itemPrice == null)
-//            {
-//                $price = 'N/A';
-//            }
-//            else
-//            {
-//                $price = $itemPrice['price'];
-//            }
-//            //echo $price;
-//
-//            $itemDesc = [$item['name'], $item['quantity'].' '.$item['metrics'], $bought, $contained['idListContains'], $price, $contained['idListContains']];
-//            array_push($itemsList, $itemDesc);
-//        }
-//
-//        $shop = $shopChainModel->find($shoppingList['idShop']);
-//        $shops = $shopChainModel->findAll();
-//
-//        echo view("common/header");
-//        echo view("lists/edit_list", ['listName' => $shoppingList['name'],
-//            'id' => $idShoppingList,
-//            'items' => $itemsList,
-//            'listId' => $shoppingList['idShoppingList'],
-//            'shop' => $shop['name'],
-//            'shops' => $shops
-//        ]);
-//        echo view("common/footer");
-    }
-
+    /**
+     * Menja prodavnicu liste sa identifikatorom listId u prodavnicu sa shopId identifikatorom
+     *
+     * @param $listId - identifikator ShoppingList-e
+     * @param $shopId - identifikator nove prodavnice
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function changeShop($listId, $shopId){
         $listModel = new ShoppingListModel();
         $list = $listModel->find($listId);
@@ -139,6 +115,13 @@ class Lists extends BaseController
     }
 
 
+    /**
+     * Prikazuje stranicu sa svim kategorijama
+     *
+     * @param $listId - identifikator ShoppingList-e
+     * @param $idCategory - identifikator kategorije
+     * @param null $idListContains - identifikator veze ShoppingList i Item-a
+     */
     public function renderCategory($listId, $idCategory, $idListContains = null)
     {
         $category = (new CategoryModel())->find($idCategory);
@@ -253,6 +236,12 @@ class Lists extends BaseController
         echo view("common/footer");*/
     }
 
+    /**
+     * Menja parametre item-a
+     *
+     * @param $idListContained - identifikator veze ShoppingList i Item-a
+     * @param $idList - identifikator ShoppingList-e
+     */
     public function editItem($idListContained, $idList)
     {
         $listContainsModel = new ListContainsModel();
@@ -286,6 +275,12 @@ class Lists extends BaseController
         echo view("common/footer");
     }
 
+    /**
+     * Prikazuje stranicu za dodavanje novog itema
+     *
+     * @param $idList - identifikator ShoppingList-e
+     * @return void
+     */
     public function addItemRender($idList)
     {
         $listModel = new ShoppingListModel();
@@ -306,6 +301,16 @@ class Lists extends BaseController
         echo view("common/footer");
     }
 
+    /**
+     * Dodaje novi item za koji se ne prate cene
+     *
+     * @param $name - ime item-a
+     * @param $quantity - kolicina itema
+     * @param $measure  - merna jedinica
+     * @param $listId - identifikator ShoppingList-e
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function addItem($name, $quantity, $measure, $listId)
     {
         $user = $this->session->get('user');
@@ -337,6 +342,14 @@ class Lists extends BaseController
         return redirect()->to('/lists/shopping/'.$listId);
     }
 
+    /**
+     * Dodaje novi item za koji se prate cene
+     *
+     * @param $listId - identifikator ShoppingList-e
+     * @param $itemId - identifikator Item-a
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function addCenotekaItem($listId, $itemId)
     {
         $user = $this->session->get('user');
@@ -364,6 +377,15 @@ class Lists extends BaseController
         return redirect()->to('/lists/shopping/'.$listId);
     }
 
+    /**
+     * Menjanje parametara za item za koji se prate cene
+     *
+     * @param $listId - identifikator ShoppingList-e
+     * @param $itemId - identifikator Item-a ca koji se prate cene
+     * @param $listContains - identifikator veze ShoppingList-e i Item-a
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function changeCenotekaItem($listId, $itemId, $listContains)
     {
         $listModel = new ShoppingListModel();
@@ -394,6 +416,13 @@ class Lists extends BaseController
         return $this->addCenotekaItem($listId, $itemId);
     }
 
+    /**
+     * Brise item iz liste
+     *
+     * @param $idListContains - identifikator veze izmedju ShoppingList-e i Item-a
+     * @param $listId - identifikator ShoppingList-e
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function deleteItem($idListContains, $listId)
     {
         $listModel = new ShoppingListModel();
@@ -418,6 +447,18 @@ class Lists extends BaseController
         return redirect()->to('/lists/shopping/'.$listId);
     }
 
+    /**
+     * Menja parametre Item-a unutar neke ShoppingList-e
+     *
+     * @param $idListContains - identifikator veze izmedju ShoppingList-e i Item-a
+     * @param $itemId - identifikator Item-a
+     * @param $name - novo ime Item-a
+     * @param $quantity - nova kolicina Item-a
+     * @param $measure - nova merna jedinica Item-a
+     * @param $listId - identifikator ShoppingList-e
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function changeItem($idListContains, $itemId, $name, $quantity, $measure, $listId)
     {
         $listModel = new ShoppingListModel();
@@ -454,6 +495,12 @@ class Lists extends BaseController
         return redirect()->to('/lists/shopping/'.$listId);
     }
 
+    /**
+     * Prikazuje stranicu za kreiranje nove ShoppingList-e
+     *
+     * @param $groupId - identifikator Group-e za koju se kreira ShoppingList-a
+     * @param null $errors - lista gresaka koje su se desile pri kreiranju
+     */
     public function renderCreate($groupId, $errors = null)
     {
         $user = $this->session->get('user');
@@ -486,6 +533,12 @@ class Lists extends BaseController
         echo view('common/footer', []);
     }
 
+    /**
+     * Kreira novu listu pomocu POST zahteva
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function createNew()
     {
         $listName = $this->request->getPost('list_name');
@@ -521,6 +574,11 @@ class Lists extends BaseController
         return redirect()->to('/lists/index');
     }
 
+    /**
+     * Prikazuje stranicu sa svim Item-ima iz ShoppingList-e
+     *
+     * @param $idShoppingList - identifikator ShoppingList-e
+     */
     public function shopping($idShoppingList)
     {
         $shoppingListModel = new ShoppingListModel();
@@ -584,6 +642,14 @@ class Lists extends BaseController
         echo view("common/footer");
     }
 
+    /**
+     * Menja status Item-a unutar ShoppingList-e
+     *
+     * @param $idListContains - identifikator veze izmedju ShoppingList-e i Item-a
+     * @param $state - novo stanje u koje se prelazi
+     * @throws \ReflectionException
+     * @return void
+     */
     public function bought($idListContains, $state)
     {
         $listContainsModel = new ListContainsModel();
@@ -607,6 +673,16 @@ class Lists extends BaseController
         }
     }
 
+    /**
+     * Arhivira ShoppingList-u uz mogucnost da kreira novu ShoppingList-u sa
+     * artikklima koji nisu kupljeni
+     *
+     * @param $idShoppingList - identifikator ShoppingList-e
+     * @param $createNewList - opcija da li prebaciti jnekupljene Item-e u novu
+     * ShoppingList-u
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function finish($idShoppingList, $createNewList)
     {
         $shoppingListModel = new ShoppingListModel();
@@ -680,6 +756,12 @@ class Lists extends BaseController
         return redirect()->to('/lists/index');
     }
 
+    /**
+     * Brise listu
+     *
+     * @param $listId - identifikator ShoppingList-e
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function deleteList($listId)
     {
         $listModel = new ShoppingListModel();
@@ -706,6 +788,12 @@ class Lists extends BaseController
         return redirect()->to('/lists/index');
     }
 
+    /**
+     * Kreira novi link za korisnika gosta pomocu POST zahteva
+     *
+     * @param $listId - identifikator ShoppingList-e
+     * @throws \ReflectionException
+     */
     public function createLink($listId)
     {
         $linkModel = new LinkModel();
@@ -739,6 +827,11 @@ class Lists extends BaseController
         }
     }
 
+    /**
+     * Proverava mogucnost izvrsavanja operacija
+     *
+     * @param $list - identifikator ShoppingList-e
+     */
     public function checkLegal($list)
     {
         $ingroupModel = new InGroupModel();
@@ -747,10 +840,5 @@ class Lists extends BaseController
         {
             Error::show('Illegal request');
         }
-    }
-
-    public function table() {
-
-        return view("lists/table");
     }
 }

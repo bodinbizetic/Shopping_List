@@ -68,6 +68,15 @@ class Validation
 	//--------------------------------------------------------------------
 	// Rules
 
+    /**
+     * Proverava da li strani kljuc postoji u tabeli
+     *
+     * @param $id - id stranog kljuca
+     * @param string $args - format argumenata: imeTabele,imeKolone,Poruka o gresci
+     * @param array $data
+     * @param string|null $error - poruka o gresci
+     * @return bool
+     */
     public function in_db($id, string $args, array $data, string &$error = null): bool {
         $model = new Model();
         $explodedArgs = explode(",", $args);

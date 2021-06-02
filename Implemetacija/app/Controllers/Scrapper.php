@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Author - Bodin Bizetic 0058/2018
+ */
 
 namespace App\Controllers;
 
@@ -16,8 +18,16 @@ use Masterminds\HTML5;
 use mysql_xdevapi\Result;
 use PhpParser\Error;
 
+/**
+ * Class Scrapper - zaduzena za punjenje baze podataka sa cenama i namirnicama
+ * @package App\Controllers
+ * @version 1.0
+ */
 class Scrapper extends BaseController
 {
+    /**
+     * Ulazna tacka scrapper-a
+     */
     public function index()
     {
         $user = $this->session->get('user');
@@ -29,8 +39,7 @@ class Scrapper extends BaseController
 
         $articles_to_persist = [];
         $i = false;
-        foreach ($category_links as $cat_link)
-        {
+        foreach ($category_links as $cat_link) {
             if (!$i) {
                 $i = true;
                 continue;
@@ -44,12 +53,15 @@ class Scrapper extends BaseController
                     $all_articles = $this->iterateOverCategoryPages($link, $cat_link['name']);
                     $this->persistArticles($all_articles);
                 } catch (ErrorException $e) {
-                    echo "ERROR ".$e->getMessage().'<br>';
+                    echo "ERROR " . $e->getMessage() . '<br>';
                 }
             }
         }
     }
 
+    /**
+     * Ulazna tacka za testiranje scrapper-a
+     */
     public function test()
     {
         $user = $this->session->get('user');
@@ -61,8 +73,8 @@ class Scrapper extends BaseController
 
         $articles_to_persist = [];
         $cat_link = $category_links[1];
-        echo $cat_link['href'].' '.$cat_link['name'];
-        echo "TOTAL ".count($articles_to_persist);
+        echo $cat_link['href'] . ' ' . $cat_link['name'];
+        echo "TOTAL " . count($articles_to_persist);
         $cat_dom = $this->getDocument($cat_link['href']);
         sleep(2);
         $page_links = $this->extractLinksFromCategory($cat_dom);
@@ -76,42 +88,52 @@ class Scrapper extends BaseController
 //        }
 
         $i = 0;
-        foreach ($articles_to_persist as $item)
-        {
-            echo $i.' '.$item['name'].'<br>';
+        foreach ($articles_to_persist as $item) {
+            echo $i . ' ' . $item['name'] . '<br>';
             $i++;
         }
 
 //        $this->persistArticles($articles_to_persist);
 
-        echo "Done ".count($articles_to_persist);
+        echo "Done " . count($articles_to_persist);
     }
 
+    /**
+     * Cuva niz namirnica u bazu podataka
+     *
+     * @param array $articles_to_persist - niz namirnica koje se cuvaju u DB
+     */
     private function persistArticles(array $articles_to_persist)
     {
         $failed = 0;
-        foreach ($articles_to_persist as $item)
-        {
+        foreach ($articles_to_persist as $item) {
             try {
                 $idItem = $this->persistItem($item);
                 $this->persistShoppPrices($idItem, $item);
                 $this->persistItemCategory($idItem, $item['category']);
             } catch (ErrorException $e) {
-                echo "[ERROR] ".$e->getMessage().'<br>';
+                echo "[ERROR] " . $e->getMessage() . '<br>';
                 $failed++;
             }
         }
     }
 
+    /**
+     * Persistuje Item u DB
+     *
+     * @param array $item - niz sa atributima Item-a
+     * @return \CodeIgniter\Database\BaseResult|false|int|mixed|object|string
+     * @throws ErrorException
+     * @throws \ReflectionException
+     */
     private function persistItem(array $item)
     {
         $itemModel = new ItemModel();
         $item['name'] = trim($item['name']);
         $itemExists = $itemModel->where('name', $item['name'])
-                                    ->where('isCenoteka', 1)->first();
+            ->where('isCenoteka', 1)->first();
 
-        if ($itemExists != null)
-        {
+        if ($itemExists != null) {
             return $itemExists['idItem'];
         }
 
@@ -128,25 +150,28 @@ class Scrapper extends BaseController
         if ($item['img_link'] != null) {
             $this->persistImage($item['img_link']);
         }
-        if (!($idItem = $itemModel->insert($data)))
-        {
+        if (!($idItem = $itemModel->insert($data))) {
             echo implode('; ', $data);
-            throw new ErrorException('Item not persisted '.$item['name'].' '.implode(' ', $itemModel->errors()));
+            throw new ErrorException('Item not persisted ' . $item['name'] . ' ' . implode(' ', $itemModel->errors()));
         }
         return $idItem;
 
     }
 
+    /**
+     * Dovlaci i cuva sliku Item-a lokalno na serveru
+     *
+     * @param string $cenoteka_link - mesto na cenoteka serveru gde se cuva slika
+     */
     private function persistImage(string $cenoteka_link)
     {
-        $full_path = ROOTPATH.'public\\uploads\\items'.$cenoteka_link;
+        $full_path = ROOTPATH . 'public\\uploads\\items' . $cenoteka_link;
         $full_path = str_replace("\\", "/", $full_path);
         if (!file_exists(dirname($full_path))) {
             mkdir(dirname($full_path), 0777, true);
         }
-        $ch = curl_init('https://cenoteka.rs'.$cenoteka_link);
+        $ch = curl_init('https://cenoteka.rs' . $cenoteka_link);
         $fp = fopen($full_path, 'wb');
-//        echo "SAVED ".base_url().'uploads/items'.$cenoteka_link.'<br>';
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_exec($ch);
@@ -155,6 +180,13 @@ class Scrapper extends BaseController
         fclose($fp);
     }
 
+    /**
+     * Kreira u slucaju nepostojanja i cuva vezu izmedju Item-a i Category-je
+     *
+     * @param int $idItem - identifikator Item-a
+     * @param string $categoryName - ime kategorije Item-a
+     * @throws \ReflectionException
+     */
     private function persistItemCategory(int $idItem, string $categoryName)
     {
         $categoryName = trim($categoryName);
@@ -163,7 +195,7 @@ class Scrapper extends BaseController
         if ($category == null) {
             $idCategory = $categoryModel->insert(['name' => $categoryName]);
             if ($idCategory == null) {
-                echo "[ERROR]: ".$categoryName.' failed '.implode(" ", $categoryModel->errors()).' <br>';
+                echo "[ERROR]: " . $categoryName . ' failed ' . implode(" ", $categoryModel->errors()) . ' <br>';
                 return;
             }
             $category = $categoryModel->find($idCategory);
@@ -171,18 +203,26 @@ class Scrapper extends BaseController
 
         $itemCategoryModel = new ItemCategoryModel();
         $itemCategory = $itemCategoryModel->where('idItem', $idItem)
-                                            ->where('idCategory', $category['idCategory'])->first();
+            ->where('idCategory', $category['idCategory'])->first();
         if ($itemCategory == null) {
             if (!$itemCategoryModel->insert(['idItem' => $idItem, 'idCategory' => $category['idCategory']])) {
-                echo '[ERROR] '.implode(' ', $itemCategoryModel->errors());
+                echo '[ERROR] ' . implode(' ', $itemCategoryModel->errors());
             }
         }
     }
 
+    /**
+     * Persistuje veze sa cenama Item-a sa odgovarajucim ShoppChain-ovima. Ako ShoppChain-ovi ne postoje
+     * ShoppChain-ovi se kreiraju u bazi podataka.
+     *
+     * @param int $idItem - identifikator Item-a
+     * @param array $data - niz sa atributima Item-a
+     * @throws \ReflectionException
+     */
     private function persistShoppPrices(int $idItem, array $data)
     {
         foreach ($data['prices'] as $shopName => $price) {
-            if (strpos($price, '-')  !== false)
+            if (strpos($price, '-') !== false)
                 continue;
 
             $floatPrice = floatval($price);
@@ -196,49 +236,51 @@ class Scrapper extends BaseController
             $idShop = null;
             if ($shop == null) {
                 $idShop = $shopChainModel->insert(['name' => $shopName]);
-            }
-            else {
+            } else {
                 $idShop = $shop['idShopChain'];
             }
 
             $itemPriceModel = new ItemPriceModel();
             $itemPrice = $itemPriceModel->where('idItem', $idItem)
-                                        ->where('idShopChain', $idShop)->first();
+                ->where('idShopChain', $idShop)->first();
 
             if ($itemPrice == null) {
-                $itemPriceModel->insert(['idItem' => $idItem, 'price' => $price, 'idShopChain' => $idShop] );
-            }
-            else {
+                $itemPriceModel->insert(['idItem' => $idItem, 'price' => $price, 'idShopChain' => $idShop]);
+            } else {
                 $itemPrice['price'] = $price;
                 $itemPriceModel->update($itemPrice['idItemPrice'], $itemPrice);
             }
         }
     }
 
+    /**
+     * Iterira po svakoj stranicu odredjene podkategorije i izvlaci atribute itema sa te stranice
+     *
+     * @param string $page - mesto stranice na cenoteka serveru
+     * @param string $category - glavna kategorija stranice
+     * @return array - niz nizova sa atributima Item-a
+     */
     private function iterateOverCategoryPages(string $page, string $category): array
     {
         $all_articles = [];
         $pageNum = 1;
         do {
-            $dom = $this->getDocument($page.'?page='.$pageNum);
+            $dom = $this->getDocument($page . '?page=' . $pageNum);
 
             $section_tag = $this->getElementsByAttribute($dom, 'section', 'class', 'list-articles-content');
-            echo "sect ".count($section_tag).'<br>';
+            echo "sect " . count($section_tag) . '<br>';
             $new = 0;
-            foreach ($section_tag as $section)
-            {
+            foreach ($section_tag as $section) {
                 $articles = $this->exportTable($section);
-                foreach ($articles as $item)
-                {
-                    echo $item['name'].'<br>';
+                foreach ($articles as $item) {
+                    echo $item['name'] . '<br>';
                     $new++;
                     $item['category'] = $category;
                     array_push($all_articles, $item);
                 }
             }
-            echo "count ".$new."<br>";
-            if ($new == 0)
-            {
+            echo "count " . $new . "<br>";
+            if ($new == 0) {
                 break;
             }
 
@@ -249,14 +291,19 @@ class Scrapper extends BaseController
         return $all_articles;
     }
 
+    /**
+     * Izvlaci linkove i imena kategorija na stranici
+     *
+     * @param \DOMDocument $dom - glavni DOM stranice
+     * @return array - niz sa linkovima i imenima kategorija
+     */
     private function extractLinksFromNav(\DOMDocument $dom)
     {
         $link_nodes = $this->getElementsByAttribute($dom, 'a', 'class', 'nav-link dropdown-toggle');
 
         $category_links = [];
 
-        foreach ($link_nodes as $link_node)
-        {
+        foreach ($link_nodes as $link_node) {
             $category_link = [];
             $category_link['href'] = $link_node->getAttribute('href');
             $category_link['name'] = $link_node->textContent;
@@ -268,16 +315,21 @@ class Scrapper extends BaseController
         return $category_links;
     }
 
+
+    /**
+     * Izvlaci linkove podkategorija iz DOM-a
+     *
+     * @param \DOMDocument $dom - glavni DOM stranice
+     * @return array - niz linkova
+     */
     private function extractLinksFromCategory(\DOMDocument $dom)
     {
         $item_nodes = $this->getElementsByAttribute($dom, 'div', 'class', 'cat-list-item');
         $item_links = [];
 
         echo count($item_nodes);
-        foreach ($item_nodes as $node)
-        {
-            if ($node->childNodes->item(1)->nodeName == 'a')
-            {
+        foreach ($item_nodes as $node) {
+            if ($node->childNodes->item(1)->nodeName == 'a') {
                 $link = $node->childNodes->item(1)->getAttribute('href');
                 array_push($item_links, $link);
             }
@@ -286,6 +338,12 @@ class Scrapper extends BaseController
         return $item_links;
     }
 
+    /**
+     * Izvlaci item-e iz tabele
+     *
+     * @param DOMNode $table - tabela sa item-ima
+     * @return array - niz nizova sa atributima item-a
+     */
     private function exportTable(DOMNode $table)
     {
         $HEADER_OFFSET = 1;
@@ -296,14 +354,11 @@ class Scrapper extends BaseController
 
         $articles = [];
 
-        for ($i = $ARTICLE_OFFSET; $i < $count; $i++)
-        {
+        for ($i = $ARTICLE_OFFSET; $i < $count; $i++) {
             $article_row = $table->childNodes->item($i);
-            if ($article_row->childNodes->count() != 0)
-            {
+            if ($article_row->childNodes->count() != 0) {
                 $article = $this->extractArticle($article_row);
-                if ($article != null)
-                {
+                if ($article != null) {
 //                    $article['category'] = $category;
                     array_push($articles, $article);
                 }
@@ -313,6 +368,12 @@ class Scrapper extends BaseController
         return $articles;
     }
 
+    /**
+     * Izvlaci jedan niz atributa item-a
+     *
+     * @param DOMNode $article_row - red sa item-om
+     * @return array|null
+     */
     private function extractArticle(DOMNode $article_row): ?array
     {
         $IMAGE_DIV_OFFSET = 1;
@@ -332,11 +393,10 @@ class Scrapper extends BaseController
         try {
 
             $article_image = $article['img_link'] = $article_row->childNodes->
-                item($IMAGE_DIV_OFFSET)->childNodes-> item(1);
+            item($IMAGE_DIV_OFFSET)->childNodes->item(1);
             if ($article_image->childNodes->count() != 0) {
                 $article['img_link'] = $article_image->childNodes->item(1)->getAttribute('src');
-            }
-            else {
+            } else {
                 $article['img_link'] = null;
             }
             $article['name'] = $article_row->childNodes->
@@ -351,43 +411,59 @@ class Scrapper extends BaseController
             try {
                 $article['prices']['Idea'] = $article_row->childNodes->
                 item($IDEA_OFFSET)->textContent;
-            } catch (ErrorException $e) {}
+            } catch (ErrorException $e) {
+            }
             try {
                 $article['prices']['Maxi'] = $article_row->childNodes->
                 item($MAXI_OFFSET)->textContent;
-            } catch (ErrorException $e) {}
+            } catch (ErrorException $e) {
+            }
             try {
                 $article['prices']['Univerexport'] = $article_row->childNodes->
                 item($UNIVER_EXPORT_OFFSET)->textContent;
-            } catch (ErrorException $e) {}
+            } catch (ErrorException $e) {
+            }
             try {
                 $article['prices']['Tempo'] = $article_row->childNodes->
                 item($TEMPO_OFFSET)->textContent;
-            } catch (ErrorException $e) {}
+            } catch (ErrorException $e) {
+            }
             try {
                 $article['prices']['Dis'] = $article_row->childNodes->
                 item($DIS_OFFSET)->textContent;
-            } catch (ErrorException $e) {}
+            } catch (ErrorException $e) {
+            }
             try {
                 $article['prices']['Roda'] = $article_row->childNodes->
                 item($RODA_OFFSET)->textContent;
-            } catch (ErrorException $e) {}
+            } catch (ErrorException $e) {
+            }
             try {
                 $article['prices']['Lidl'] = $article_row->childNodes->
                 item($LIDL_OFFSET)->textContent;
-            } catch (ErrorException $e) {}
+            } catch (ErrorException $e) {
+            }
             return $article;
         } catch (ErrorException $e) {
-            echo "Failed ".$e." <br>";
+            echo "Failed " . $e . " <br>";
         }
         return null;
     }
 
+    /**
+     * Dohvata elemente iz $dom sa tagom $tag koji sadrze atribut $attribute
+     * koji ima jednu od vrednosti $value
+     *
+     * @param \DOMDocument $dom
+     * @param string $tag
+     * @param string $attribute
+     * @param string $value
+     * @return array
+     */
     public function getElementsByAttribute(\DOMDocument $dom, string $tag, string $attribute, string $value): array
     {
         $result = [];
-        foreach ($dom->getElementsByTagName($tag) as $node)
-        {
+        foreach ($dom->getElementsByTagName($tag) as $node) {
             $attr = $node->getAttribute($attribute);
             if (strpos($attr, $value) !== false) {
                 array_push($result, $node);
@@ -397,12 +473,18 @@ class Scrapper extends BaseController
         return $result;
     }
 
+    /**
+     * Kreira dom objekat iz fajla odredjen parametrom sa cenoteka servera
+     *
+     * @param string $url_no_base
+     * @return \DOMDocument - novi dom objekat
+     */
     private function getDocument(string $url_no_base)
     {
         $ch = curl_init();
 
-        echo "<br>CURL: "."https://cenoteka.rs".$url_no_base."<br>";
-        curl_setopt($ch, CURLOPT_URL, "https://cenoteka.rs".$url_no_base);
+        echo "<br>CURL: " . "https://cenoteka.rs" . $url_no_base . "<br>";
+        curl_setopt($ch, CURLOPT_URL, "https://cenoteka.rs" . $url_no_base);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
@@ -414,12 +496,5 @@ class Scrapper extends BaseController
         $dom = $document->loadHTML($result);
 
         return $dom;
-    }
-
-    public function run()
-    {
-
-        $scrapper = new Scrapper();
-        $scrapper->index();
     }
 }
