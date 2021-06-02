@@ -8,9 +8,6 @@
     #my-table td:last-child {
         padding: 10px;
     }
-    #bute, #itemName, #quantity, #shops, #quant, #category, #additem {
-        height: 50px;
-    }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -32,65 +29,67 @@
             <div class="section-title">
                 <h2>New item</h2>
             </div>
-            <div>
-                <table id="itemTable" class="table">
-
-                    <tbody>
-
-                    <form action="/moderator/" method="post">
-                        <tr>
-                            <td rowspan="6">
-                                <img><!-- OLGAAAAA -->
-                            </td>
-                            <td>
-                                <div class="form-group" >
-                                    <input type="text" name="item-name" id="itemName" class="form-control" placeholder="Item name" >
+            <form class="form-vertical" method="post" action="/group/newGroup" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col col-md-4">
+                        <div class="form-group" style="text-align: center">
+                            <label for="image">
+                                <input type="file" name="image" id="image" style="display:none;" onchange="showImage()"/>
+                                <img id="group-img" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%" >
+                                <p>Browse image</p>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col col-md-8">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group ">
+                                    <div class="input-group">
+                                        <input type="text" id="itemName" name="item_name" class="form-control" placeholder="Item Name" value="" required="required">
+                                    </div>
                                 </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <select type="text" name="Shops" id="shops" width="10" style="padding: 15px" class="form-control" placeholder="Item name">
-                                    <?php foreach ($shops as $shop): ?>
-                                        <option class="form-control" value="<?php echo $shop['idShopChain']; ?>"><?php echo $shop['name']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="text" name="item-name" id="quantity"  class="form-control" placeholder="Quantity" >
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                    <select style="padding: 15px" class="form-control" id="quant" size='1'>
-                                        <option selected>kom</option>
-                                        <option>g</option>
-                                        <option>kg</option>
-                                        <option>ml</option>
-                                        <option>l</option>
-                                    </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <select style="padding: 15px" class="form-control" id="category" size="1">
-                                    <?php foreach($allCategories as $category){ ?>
-                                        <option value="<?= $category['idCategory'] ?>"><?php echo $category['name']; ?></option>
-                                    <?php } ?>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type ="button" class="btn btn-success btn-block" id="additem" onclick="funkc()" value="Add new item" class="btn btn-success btn-block">
-                            </td>
-                        </tr>
-                    </form>
-                    </tbody>
-                </table>
-            </div>
+                                <div>
+                                    <div>
+                                        <select name="Shops" id="shops" style="margin-bottom: 15px" class="form-control" size='1'>
+                                            <option class="form-control" selected disabled value="-1">Select a shop</option>
+                                            <?php foreach ($shops as $shop): ?>
+                                                <option class="form-control" value="<?php echo $shop['idShopChain']; ?>"><?php echo $shop['name']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <div class="input-group">
+                                        <input type="text" name="item-name" id="quantity"  class="form-control" placeholder="Quantity" >
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <select style="margin-bottom: 15px" class="form-control" id="quant" size='1'>
+                                            <option selected>kom</option>
+                                            <option>g</option>
+                                            <option>kg</option>
+                                            <option>ml</option>
+                                            <option>l</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <select style="margin-bottom: 15px" class="form-control" id="category" size="1">
+                                            <?php foreach($allCategories as $category){ ?>
+                                                <option value="<?= $category['idCategory'] ?>"><?php echo $category['name']; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="buttongit" value="Create Item" class="btn btn-success btn-block" onclick="funkc()">
+                    </div>
+                </div>
+            </form>
+
         </div>
 
     </section><!-- End New Item Section -->
