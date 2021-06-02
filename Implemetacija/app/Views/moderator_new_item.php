@@ -39,11 +39,16 @@
 
                     <form action="/moderator/" method="post">
                         <tr>
+                            <td rowspan="6">
+                                <img><!-- OLGAAAAA -->
+                            </td>
                             <td>
                                 <div class="form-group" >
-                                    <input type="text" name="item-name" id="itemName"  class="form-control" placeholder="Item name" >
+                                    <input type="text" name="item-name" id="itemName" class="form-control" placeholder="Item name" >
                                 </div>
                             </td>
+                        </tr>
+                        <tr>
                             <td>
                                 <select type="text" name="Shops" id="shops" width="10" style="padding: 15px" class="form-control" placeholder="Item name">
                                     <?php foreach ($shops as $shop): ?>
@@ -51,9 +56,13 @@
                                     <?php endforeach; ?>
                                 </select>
                             </td>
+                        </tr>
+                        <tr>
                             <td>
                                 <input type="text" name="item-name" id="quantity"  class="form-control" placeholder="Quantity" >
                             </td>
+                        </tr>
+                        <tr>
                             <td>
                                     <select style="padding: 15px" class="form-control" id="quant" size='1'>
                                         <option selected>kom</option>
@@ -63,9 +72,6 @@
                                         <option>l</option>
                                     </select>
                             </td>
-                            <td>
-                                <input type ="button" class="btn btn-success btn-block" id="additem" onclick="funkc()" value="Add new item" class="btn btn-success btn-block">
-                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -74,6 +80,11 @@
                                         <option value="<?= $category['idCategory'] ?>"><?php echo $category['name']; ?></option>
                                     <?php } ?>
                                 </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type ="button" class="btn btn-success btn-block" id="additem" onclick="funkc()" value="Add new item" class="btn btn-success btn-block">
                             </td>
                         </tr>
                     </form>
