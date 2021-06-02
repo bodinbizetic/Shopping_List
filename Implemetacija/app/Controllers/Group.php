@@ -11,8 +11,21 @@ use App\Models\ShoppingListModel;
 use App\Models\UserModel;
 use CodeIgniter\Model;
 
+/**
+ * Autor: Tamara Avramovic 2018/0293
+ * Class Group - klasa za upravljanje grupama
+ * Ukljucuje: Prikazivanje svih korisnikovih grupa, kreiranje nove grupe,
+ *            editovanje grupa, pregled informacija o pojedinacnoj grupi
+ * @package App\Controllers
+ * @version 5.0
+ */
+
 class Group extends BaseController
 {
+    /**
+     * Prikazivanje svih korisnikovih grupa
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function index()
     {
         // auth guard
@@ -38,6 +51,10 @@ class Group extends BaseController
         echo view('common/footer');
     }
 
+    /**
+     * Prikazuje stranicu za kreiranje nove grupe
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function renderNewGroup()
     {
         // auth guard
@@ -50,6 +67,12 @@ class Group extends BaseController
         echo view('common/footer');
     }
 
+    /**
+     * Menja informacije o grupi u bazi
+     * @param $id
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function editGroup($id)
     {
         // auth guard
@@ -101,6 +124,12 @@ class Group extends BaseController
         return redirect()->to('/group/index');
     }
 
+    /**
+     * Prikazuje stranicu za menjanje informacija o grupi
+     * @param $id
+     * @param null $errors
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function renderEditGroup($id, $errors=null)
     {
         // auth guard
@@ -148,6 +177,13 @@ class Group extends BaseController
         echo view('common/footer');
     }
 
+    /**
+     * Menja tip izabranog korisnika u grupi - postavlja korisnika za admina grupe
+     * @param $groupId
+     * @param $memberId
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function changeAdmin($groupId, $memberId)
     {
         // auth guard
@@ -173,6 +209,11 @@ class Group extends BaseController
         }
     }
 
+    /**
+     * Prikazuje stranicu za pregled informacija i statistike grupe
+     * @param $idGroup
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function viewGroup($idGroup)
     {
         // auth guard
@@ -225,6 +266,11 @@ class Group extends BaseController
         echo view('common/footer');
     }
 
+    /**
+     * Racuna prosecnu mesecnu potrosnju za grupu
+     * @param $idGroup
+     * @return array
+     */
     private function getSpendingByMonth($idGroup)
     {
         $listContainsModel = new ListContainsModel();
@@ -241,6 +287,11 @@ class Group extends BaseController
 
     }
 
+    /**
+     * Vraca ukupan broj spiskova po mesecima za grupu
+     * @param $idGroup
+     * @return array
+     */
     private function getNoListsByMonth($idGroup)
     {
         $shoppingListModel = new ShoppingListModel();
@@ -253,6 +304,12 @@ class Group extends BaseController
         });
     }
 
+    /**
+     * Vraca najcesce trazene namirnice po godini za grupu
+     * @param $limit
+     * @param $idGroup
+     * @return array
+     */
     private function getPopularItemsYear($limit, $idGroup)
     {
         $shoppingList = new ShoppingListModel();
@@ -266,6 +323,12 @@ class Group extends BaseController
             ->findAll($limit);
     }
 
+    /**
+     * Vraca najcesce trazene namirnice po mesecu za grupu
+     * @param $limit
+     * @param $idGroup
+     * @return array
+     */
     private function getPopularItemsMonth($limit, $idGroup)
     {
         $listContainsModel = new ListContainsModel();
@@ -280,6 +343,11 @@ class Group extends BaseController
             ->findAll($limit);
     }
 
+    /**
+     * Prikazuje niz kao grafikon
+     * @param $monthSpendings
+     * @return false|string
+     */
     private function displayAsChartSpending($monthSpendings)
     {
         $data = [];
@@ -292,6 +360,11 @@ class Group extends BaseController
         return json_encode($data);
     }
 
+    /**
+     * Prikazuje niz kao grafikon
+     * @param $monthNoLists
+     * @return false|string
+     */
     private function displayAsChartNoLists($monthNoLists)
     {
         $noLists = [];
@@ -304,6 +377,11 @@ class Group extends BaseController
         return json_encode($noLists);
     }
 
+    /**
+     * Prikazuje niz kao pitu
+     * @param $popularItems
+     * @return false|string
+     */
     private function displayAsPie($popularItems)
     {
         $arrOfArr = [];
@@ -313,6 +391,13 @@ class Group extends BaseController
         return json_encode($arrOfArr);
     }
 
+    /**
+     * Za zadato korisnicko ime proverava da li korisnik postoji;
+     * Ukoliko postoji, poziva metod sendCall i salje poruku o uspehu;
+     * Ukoliko ne postoji salje poruku o gresci;
+     * @param $idGroup
+     * @param null $username
+     */
     public function addNewMember($idGroup, $username=null) {
 
         $active_user = $this->session->get('user');
@@ -340,6 +425,11 @@ class Group extends BaseController
             $this->renderEditGroup($idGroup, ['Please enter username', 0]);
     }
 
+    /**
+     * Kreira grupu sa podacima unetim u formu
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function newGroup() {
         // auth guard
         if(!$this->session->has('user'))
@@ -394,6 +484,14 @@ class Group extends BaseController
         return redirect()->to(base_url('/group/index'));
     }
 
+    /**
+     * Postavlja korisnika za clana zadate grupe i postavlja ga admina
+     * @param $userId
+     * @param $groupId
+     * @param $type
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function joinGroup($userId, $groupId,$type){
         // auth guard
         if(!$this->session->has('user'))
@@ -409,6 +507,13 @@ class Group extends BaseController
         $ingroupModel->save($ingroupData);
     }
 
+    /**
+     * Salje notifikaciju korisniku da je pozvan u grupu
+     * @param $member
+     * @param $group
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function sendCall($member,$group){
 
         // auth guard
@@ -426,6 +531,14 @@ class Group extends BaseController
         $notificationModel->save($data);
     }
 
+    /**
+     * Uklanja zadatog korisnika iz grupe
+     * Ukoliko je zadati korisnik ujedno i ulogovani korisnik, poziva metod leaveGroup;
+     * @param $groupId
+     * @param $userId
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function removeFromGroup($groupId, $userId){
 
         // auth guard
@@ -443,7 +556,10 @@ class Group extends BaseController
         $groupModel = new GroupModel();
         $group = $groupModel->find($groupId);
         $myId = $active_user['idUser'];
-        if($myId==$userId) $this->leaveGroup($groupId);
+        if($myId==$userId) {
+            $this->leaveGroup($groupId);
+            return redirect()->to('/group/index');
+        }
         else{
             $inGroup = $inGroupModel->where('idUser',$userId)->where('idGroup',$group['idGroup'])->findAll();
 
@@ -466,6 +582,13 @@ class Group extends BaseController
         }
     }
 
+    /**
+     * Uklanja ulogovanog korisnika iz zadate grupe
+     * Ukoliko je bio poslednji clan grupe poziva se metod deleteGroup
+     * @param $groupId
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function leaveGroup($groupId){
 
         // auth guard
@@ -513,6 +636,12 @@ class Group extends BaseController
         return redirect()->to('/group/index');
     }
 
+    /**
+     * Brisu se svi spiskovi vezani za zadatu grupu,
+     * brisu se sve notifikacije vezane za ovu grupu
+     * Brise se sama grupa
+     * @param $idGroup
+     */
     private function deleteGroup($idGroup){
 
         $groupModel = new GroupModel();

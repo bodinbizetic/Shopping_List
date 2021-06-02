@@ -66,7 +66,7 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                <div class="<?php if(!isset($activeGroup) || ($activeGroup != $groupId)) echo 'collapse'; ?>" id="group-row<?=$groupId?>">
+                                <div class='collapse <?php if(isset($activeGroup) && ($activeGroup == $groupId)) echo 'show';?>'  id="group-row<?=$groupId?>">
                                     <table class="table">
                                         <tbody class="hoverable-row" id="">
                                             <?php foreach ($lists as $listId => $listName) { ?>
@@ -115,6 +115,7 @@
                 ev.stopPropagation();
             });
         });
+
     })
 
     function submitModal() {
