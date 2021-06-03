@@ -1,4 +1,4 @@
-<!-- Autor - Olga Maslarevic 0007/2018 -->
+<!-- Autor - Olga Maslarevic 0007/2018, Andrej Gobeljic 0019/2018 -->
 <!-- Stranica za moderatora  -->
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -114,6 +114,11 @@
 
 </main><!-- End #main -->
 <script>
+
+    <?php if($fromShop != null){
+        echo "alert('New shop added')";
+    } ?>
+
     function add(){
         window.location = "/moderator/addShop/" + document.getElementById("addshop").value;
     }

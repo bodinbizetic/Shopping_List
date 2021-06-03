@@ -1,3 +1,6 @@
+<!-- Autor - Bodin Bizetic 0058/2018, Andrej Gobeljic 0019/2018 -->
+<!-- Stranica za doradjivanje spiska i kupovinu -->
+
 <div class="modal fade" id="finishList" tabindex="-1" role="dialog" aria-labelledby="finishListTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
