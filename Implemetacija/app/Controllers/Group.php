@@ -121,7 +121,7 @@ class Group extends BaseController
 
         $groupModel->update($id,$data);
 
-        return redirect()->to('/group/index');
+        return redirect()->to('/group/index/'.'Edit successful');
     }
 
     /**
@@ -454,6 +454,8 @@ class Group extends BaseController
         $groupModel = new GroupModel();
         $groupId = $groupModel->insert($data);
 
+        $info = 'New group created. <br>';
+
         $group = $groupModel->find($groupId);
 
         $userModel = new UserModel();
@@ -468,7 +470,13 @@ class Group extends BaseController
                 if ($user != null) {
                     $membersToCall[$i++] = $user;
                 }
+                else{
+                    $info = $info . 'Wrong username: '.$member . '<br>';
+                }
+
             }
+
+            $info = $info . 'You can invite members in Edit';
 
             foreach ($membersToCall as $mem) {
                 $this->sendCall($mem, $group);
@@ -479,7 +487,7 @@ class Group extends BaseController
         $userId = $this->session->get('user')['idUser'];
         $this->joinGroup($userId,$groupId,1);
 
-        return redirect()->to(base_url('/group/index/'.'New group created'));
+        return redirect()->to(base_url('/group/index/'.$info));
     }
 
     /**
@@ -556,7 +564,7 @@ class Group extends BaseController
         $myId = $active_user['idUser'];
         if($myId==$userId) {
             $this->leaveGroup($groupId);
-            return redirect()->to('/group/index');
+            return redirect()->to('/group/index/'.'You are no longer a member');
         }
         else{
             $inGroup = $inGroupModel->where('idUser',$userId)->where('idGroup',$group['idGroup'])->findAll();
@@ -631,7 +639,7 @@ class Group extends BaseController
             $this->deleteGroup($groupId);
         }
 
-        return redirect()->to('/group/index');
+        return redirect()->to('/group/index/'.'You are no longer member');
     }
 
     /**
@@ -666,8 +674,8 @@ class Group extends BaseController
         }
 
         $groupModel->delete($idGroup);
-        //return redirect()->to('/group/index');
-        $this->index();
+        return redirect()->to('/group/index');
+        //$this->index();
     }
 
 }
