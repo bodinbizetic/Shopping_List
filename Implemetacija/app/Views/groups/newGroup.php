@@ -30,7 +30,7 @@
                         <div class="form-group" style="text-align: center">
                             <label for="image">
                                 <input type="file" name="image" id="image" style="display:none;" onchange="showImage()"/>
-                                <img id="group-img" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%" >
+                                <img id="group-img" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%; width: 60%;" >
                                 <p>Browse image</p>
                             </label>
                         </div>

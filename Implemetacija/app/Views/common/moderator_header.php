@@ -1,3 +1,6 @@
+<!-- Autor - Olga Maslarevic 0007/2018 -->
+<!-- Prikaz header-a i navigacije za moderatora sajta -->
+
 <!DOCTYPE html>
 <html lang="en">
 

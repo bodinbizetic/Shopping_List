@@ -24,7 +24,9 @@ define("ADMIN", 0);
  */
 class Moderator extends BaseController
 {
-
+    /**
+     * @var array - podaci koji se prosledjuju u Moderator View
+     */
     private $data = [];
     private $idItem;
 

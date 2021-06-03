@@ -1,3 +1,6 @@
+<!-- Autor - Olga Maslarevic 0007/2018 -->
+<!-- Prikaz footer-a sajta -->
+
 <!-- ======= Footer ======= -->
 <footer id="footer">
     <div class="container">

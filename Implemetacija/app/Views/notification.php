@@ -1,8 +1,11 @@
+<!-- Autor - Olga Maslarevic 0007/2018 -->
+<!-- Prikaz notifikacija  -->
+
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
 
-<link href="<?php echo base_url(); ?>public/css/notification.css" rel="stylesheet">
-<script src="<?php echo base_url(); ?>public/js/notification.js" type="text/javascript"></script>
+<link href="<?php echo base_url(); ?>/public/css/notification.css" rel="stylesheet">
+<script src="<?php echo base_url(); ?>/public/js/notification.js" type="text/javascript"></script>
 
 
 <main id="main">
@@ -16,11 +19,11 @@
             <table class="table" id="my-table">
                 <thead>
                 <tr>
-                    <th>Image</th>
-                    <th>Group</th>
-                    <th>Message</th>
-                    <th>Type</th>
-                    <th>Action</th>
+                    <th style="text-align: center">Image</th>
+                    <th style="text-align: center">Group</th>
+                    <th style="text-align: center">Message</th>
+                    <th style="text-align: center">Type</th>
+                    <th style="text-align: center">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -28,20 +31,19 @@
                     <?php for ($i = 0; $i < count($notifications); $i++): ?>
 
                         <tr class="<?php if($notifications[$i]['isRead'] == 1) echo 'bg-white'; else echo 'bg-warning'; ?>">
-                            <td>
-                                <?php
-                                if(isset($notifications[$i]['image']))
-                                    echo'<img height="50" width="50" src="data:image;base64,'.base64_encode( $notifications[$i]['image'] ).'">';
-                                ?>
+                            <td style="text-align: center">
+                                <?php if(isset($notifications[$i]['image'])): ?>
+                                     <img height="50" width="50" src="<?php echo base_url(). '/groupUploads/'. $notifications[$i]['image']; ?>">
+                                <?php endif; ?>
                             </td>
-                            <td><?php echo $notifications[$i]['name']; ?></td>
-                            <td><?php echo $notifications[$i]['text']; ?></td>
-                            <td>
+                            <td style="padding: 20px; text-align: center"><?php echo $notifications[$i]['name']; ?></td>
+                            <td style="padding: 20px; text-align: center""><?php echo $notifications[$i]['text']; ?></td>
+                            <td style="padding: 20px; text-align: center"">
                                 <span class="<?php echo $typesClass[$notifications[$i]['type']]; ?>">
                                     <?php echo $typesText[$notifications[$i]['type']];?>
                                 </span>
                             </td>
-                            <td>
+                            <td style="padding: 20px;">
                                 <?php if($notifications[$i]['isRead'] == false): ?>
                                     <?php if($notifications[$i]['type'] == 0): ?>
                                         <div class="btn-group">

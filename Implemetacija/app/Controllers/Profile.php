@@ -1,14 +1,28 @@
 <?php
-
+/**
+ * Autor - Olga Maslarevic 0007/2018
+ */
 namespace App\Controllers;
 
 use App\Models\InGroupModel;
 use App\Models\ListContainsModel;
 use App\Models\UserModel;
 
+/**
+ * Class Profile - Klasa za upravljanje nalogom korisnika
+ *
+ * @package App\Controllers
+ * @version 1.0
+ */
 class Profile extends BaseController
 {
-    // month spending (only current year and shop is not NULL)
+    /**
+     * Pomocna funkcija - dohvata potrosnju korisnika na godisnjem nivou
+     *
+     * @param $idUser - id korisnika za koga se dohvataju informacije o potrosnji
+     *
+     * @return array - niz parova oblika { Year, Spending }
+     */
     private function getSpendingByMonth($idUser)
     {
         $listContainsModel = new ListContainsModel();
@@ -23,7 +37,13 @@ class Profile extends BaseController
                 ->findAll();
     }
 
-
+    /**
+     * Pomocna funkcija - dohvata broj listi koje je korisnik napravio za svaki mesec tekuce godine
+     *
+     * @param $idUser - id korisnika za koga se dohvata broj listi
+     *
+     * @return array - niz parova oblika { Month, Count }
+     */
     private function getNoListsByMonth($idUser)
     {
         $inGroupModel = new InGroupModel();
@@ -37,7 +57,14 @@ class Profile extends BaseController
         });
     }
 
-
+    /**
+     * Pomocna funkcija - dohvata najtrazenije proizvode datog korisnika za tekucu godinu
+     *
+     * @param $limit - limit u broju proizvoda
+     * @param $idUser - id korisnika za koga se vrsi pretraga najtrazenijih proizvoda
+     *
+     * @return array - niz proizvoda sortiranih opadajuce po potraznji
+     */
     private function getPopularItemsYear($limit, $idUser)
     {
         $listContainsModel = new ListContainsModel();
@@ -50,6 +77,14 @@ class Profile extends BaseController
             ->findAll($limit);
     }
 
+    /**
+     * Pomocna funkcija - dohvata najtrazenije proizvode datog korisnika za tekuci mesec
+     *
+     * @param $limit - limit u broju proizvoda
+     * @param $idUser - id korisnika za koga se vrsi pretraga najtrazenijih proizvoda
+     *
+     * @return array - niz proizvoda sortiranih opadajuce po potraznji
+     */
     private function getPopularItemsMonth($limit, $idUser)
     {
         $listContainsModel = new ListContainsModel();
@@ -62,6 +97,12 @@ class Profile extends BaseController
             ->findAll($limit);
     }
 
+    /**
+     * Pomocna funkcija - formatira podatke o potrosni u oblik pogodan za prikaz na Chart diagramu
+     *
+     * @param $monthSpendings - niz parova oblika {Month, Spending} koje je potrebno formatirati
+     * @return false|string - formatirani podaci pogodni za prikaz
+     */
     private function displayAsChartSpending($monthSpendings)
     {
         $data = [];
@@ -74,6 +115,12 @@ class Profile extends BaseController
         return json_encode($data);
     }
 
+    /**
+     * Pomocna funkcija - formatira  odatke o broju lista u oblik pogodan za prikaz na Chart diagramu
+     *
+     * @param $monthNoLists - niz parova oblika {Month, Number of Lists} koje je potrebno formatirati
+     * @return false|string - formatirani podaci pogodni za prikaz
+     */
     private function displayAsChartNoLists($monthNoLists)
     {
         $noLists = [];
@@ -86,6 +133,12 @@ class Profile extends BaseController
         return json_encode($noLists);
     }
 
+    /**
+     * Pomocna funkcija - formatira podatke o najtrazenijim proizvodima u oblik pogodan za prikaz na Pie diagramu
+     *
+     * @param $popularItems - niz parova oblika {Item Name, Popular} koje je potrebno formatirati
+     * @return false|string - formatirani podaci pogodni za prikaz
+     */
     private function displayAsPie($popularItems)
     {
         $arrOfArr = [];
@@ -95,6 +148,14 @@ class Profile extends BaseController
         return json_encode($arrOfArr);
     }
 
+    /**
+     * Proverava da li su podaci validni i azurira korisnikov nalog na sistemu
+     *
+     * @param $oldUser - korisnik ciji se podaci azuriraju
+     * @param $newUser - korisnik sa azuriranim podacima
+     * @return string|null
+     * @throws \ReflectionException
+     */
     private function updateUser($oldUser, $newUser) {
 
         $this->validation->reset();
@@ -121,6 +182,12 @@ class Profile extends BaseController
         return null;
     }
 
+    /**
+     * Dohvata izmenjene podatke i azurira korisnikov direktorijum sa izmenjenim fajlovima (brise one koje vise ne koristi u upload novih)
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function edit()
     {
         // auth guard
@@ -167,6 +234,13 @@ class Profile extends BaseController
         return redirect()->to(site_url('profile/index/'));
     }
 
+    /**
+     * Prikaz stranice sa informacijama o korisniku
+     * Prikaz statistike korisnika u obliku Char i Pie diagrama
+     *
+     * @param null $errors - greske koje su se pojavile prilikom azuriranja profila
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function index($errors = null)
     {
         // auth guard

@@ -1,3 +1,6 @@
+<!-- Autor - Olga Maslarevic 0007/2018 -->
+<!-- Forma za logovanje -->
+
 <?= $this->extend('login/login_common') ?>
 
 <?= $this->section('content') ?>

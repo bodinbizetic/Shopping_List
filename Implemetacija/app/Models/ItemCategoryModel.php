@@ -15,8 +15,8 @@ class ItemCategoryModel extends Model
     protected $allowedFields = ['idCategory', 'idItem'];
 
     protected $validationRules    = [
-        'idCategory' => 'required|in_db[category,idCategory,Foreign key not in category]',
-        'idItem' => 'required|in_db[item,idItem,Foreign key not in category]',
+        'idCategory' => 'required',
+        'idItem' => 'required',
     ];
 
 

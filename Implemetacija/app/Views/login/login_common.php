@@ -1,3 +1,6 @@
+<!-- Autor - Olga Maslarevic 0007/2018 -->
+<!-- Logo sa animacijom -->
+
 <!DOCTYPE html>
 <html>
 <head>
