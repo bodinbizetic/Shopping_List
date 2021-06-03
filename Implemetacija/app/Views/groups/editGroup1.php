@@ -1,3 +1,5 @@
+<!-- Tamara Avramovic 2018/0293 -->
+
 <script>
     function showImage() {
         file_input = document.querySelector("input[type='file']");
