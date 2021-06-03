@@ -10,7 +10,9 @@ use CodeIgniter\Model;
 
 /**
  * Class LinkModel - model for Link table
+ *
  * @package App\Models
+ * @version 1.0
  */
 class LinkModel extends Model
 {

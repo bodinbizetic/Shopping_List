@@ -1,11 +1,18 @@
 <?php
-
+/**
+ * Autor - Olga Maslarevic 0007/2018
+ */
 namespace App\Models;
 
 use CodeIgniter\Model;
 
 
-
+/**
+ * Class ItemModel - model za tabelu Item
+ *
+ * @package App\Models
+ * @version 1.0
+ */
 class ItemModel extends Model
 {
     protected $table      = 'item';

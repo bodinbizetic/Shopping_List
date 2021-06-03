@@ -1,11 +1,18 @@
 <?php
-
+/**
+ * Autor - Olga Maslarevic 0007/2018
+ */
 namespace App\Models;
 
 use CodeIgniter\Model;
 
 
-
+/**
+ * Class ItemPriceModel - model za tabelu ItemPrice
+ *
+ * @package App\Models
+ * @version 1.0
+ */
 class ItemPriceModel extends Model
 {
     protected $table      = 'itemprice';
@@ -16,8 +23,8 @@ class ItemPriceModel extends Model
 
 
     protected $validationRules    = [
-        'idItem'     => 'required|in_db[item,idItem,Not valid item]',
-        'idShopChain'     => 'required|in_db[shopchain,idShopChain, Not valid shop]',
+        'idItem'     => 'required',
+        'idShopChain'     => 'required',
         'price' => 'required',
     ];
 

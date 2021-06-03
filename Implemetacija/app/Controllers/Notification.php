@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Autor - Olga Maslarevic 0007/2018
+ */
 namespace App\Controllers;
 
 use App\Models\InGroupModel;
@@ -7,14 +9,25 @@ use App\Models\NotificationModel;
 use App\Models\GroupModel;
 
 
-
+/**
+ * Class Notification - prikaz obavestenja
+ *
+ * @package App\Controllers
+ * @version 1.0
+ */
 class Notification extends BaseController
 {
-
+    /**
+     * @var string[] - mapiranje tipa notifikacije sa prikazom u View
+     */
     private $types_text = ['Join Group', 'New members', 'List status','Removed from group'];
     private $types_class = ['label label-success', 'label label-primary','label label-info', 'label label-info'];
 
-
+    /**
+     * Prikaz svih obavestenja za ulogovanog korisnika
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function index()
     {
         // auth guard
@@ -36,11 +49,24 @@ class Notification extends BaseController
         echo view('common/footer');
     }
 
+    /**
+     * Postavlja status da je notifikacija procitana
+     *
+     * @param $idNotification - id nostifikacije
+     * @throws \ReflectionException
+     */
     public function setDoneFlag($idNotification) {
         $notificationModel = new NotificationModel();
         $notificationModel->update($idNotification, ['isRead' => 1]);
     }
 
+    /**
+     * Pridruzuje korisnika novoj grupi i salje obavestenja starim clanovima te grupe o novom clanu
+     *
+     * @param $idNotification - id notifikacije za pristup grupi
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function approve($idNotification)
     {
         $notificationModel = new NotificationModel();
@@ -78,12 +104,26 @@ class Notification extends BaseController
         return redirect()->to('/notification/index');
     }
 
+    /**
+     * Oznacava notifikaciju kao procitanu i odbija pristup novoj grupi
+     *
+     * @param $idNotification - id notifikacije za pristup grupi
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function decline($idNotification)
     {
         $this->setDoneFlag($idNotification);
         return redirect()->to('/notification/index');
     }
 
+    /**
+     * Notifikacija je procitana - arhivira se
+     *
+     * @param $idNotification - id notifikacije koja je procitana
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function markDone($idNotification)
     {
         $this->setDoneFlag($idNotification);

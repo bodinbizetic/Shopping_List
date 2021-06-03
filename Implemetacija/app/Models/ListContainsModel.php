@@ -1,24 +1,31 @@
 <?php
-
+/**
+ * Autor - Olga Maslarevic 0007/2018
+ */
 namespace App\Models;
 
 use CodeIgniter\Model;
 
 
-
+/**
+ * Class ListContainsModel - model za tabelu ListContains
+ *
+ * @package App\Models
+ * @version 1.0
+ */
 class ListContainsModel extends Model
 {
     protected $table      = 'listcontains';
     protected $primaryKey = 'idListContains';
     protected $useAutoIncrement = true;
     protected $returnType     = 'array';
-    protected $allowedFields = ['bought', 'idShoppingList', 'idItem', 'bought', 'idUser'];
+    protected $allowedFields = ['bought', 'idShoppingList', 'idItem', 'idUser'];
 
 
     protected $validationRules    = [
-        'idShoppingList'     => 'required|in_db[shoppinglist,idShoppingList]',
-        'idItem'     => 'required|in_db[item,idItem]',
-        'idUser'     => 'required|in_db[user,idUser,NotExist]',
+        'idShoppingList'     => 'required',
+        'idItem'     => 'required',
+        'idUser'     => 'required',
     ];
 
 

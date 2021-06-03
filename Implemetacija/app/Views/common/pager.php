@@ -1,3 +1,6 @@
+<!-- Autor - Olga Maslarevic 0007/2018 -->
+<!-- Pagination -->
+
 <?php $pager->setSurroundCount(0) ?>
 
 <nav aria-label="Page navigation">

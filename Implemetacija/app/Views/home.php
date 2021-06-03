@@ -1,3 +1,6 @@
+<!-- Autor - Olga Maslarevic 0007/2018 -->
+<!-- Home Page za 'obicnog' usera -->
+
 <link href="<?php echo base_url('css/home.css')?>" rel="stylesheet">
 
 <!-- ======= Hero Section ======= -->
