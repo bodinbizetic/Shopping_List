@@ -114,6 +114,11 @@
 
 </main><!-- End #main -->
 <script>
+
+    <?php if($fromShop != null){
+        echo "alert('New shop added')";
+    } ?>
+
     function add(){
         window.location = "/moderator/addShop/" + document.getElementById("addshop").value;
     }

@@ -113,7 +113,7 @@ class Moderator extends BaseController
      * @param void
      * @return void
      */
-    public function index()
+    public function index($fromShop=null)
     {
         if(!$this->session->has('user'))
             return redirect()->to('/login/index');
@@ -126,6 +126,8 @@ class Moderator extends BaseController
 
         $this->getShopNames();
         $this->getAllItems($shopId, $name);
+
+        $this->data['fromShop'] = $fromShop;
 
         echo view("common/moderator_header");
         echo view('moderator', $this->data);
@@ -151,7 +153,7 @@ class Moderator extends BaseController
             'name' => $shopName
         ];
         $shopChainModel->insert($data);
-        return redirect()->back();
+        return redirect()->to("/moderator/index/1");
     }
 
     /**
