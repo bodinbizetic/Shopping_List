@@ -237,7 +237,7 @@ class Lists extends BaseController
     }
 
     /**
-     * Menja parametre item-a
+     * Prikazuje stranicu za menjanje parametara item-a
      *
      * @param $idListContained - identifikator veze ShoppingList i Item-a
      * @param $idList - identifikator ShoppingList-e
