@@ -17,6 +17,20 @@
         console.log(id + " " + newPrice);
         window.location.href = "/moderator/changePrice/" + id + "/" + newPrice;
     }
+    function showImage() {
+        file_input = document.querySelector("input[type='file']");
+        if (file_input.files && file_input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#group-img')
+                    .attr('src', e.target.result)
+            };
+
+            reader.readAsDataURL(file_input.files[0]);
+        }
+    }
+
 </script>
 
 
@@ -29,13 +43,13 @@
             <div class="section-title">
                 <h2>New item</h2>
             </div>
-            <form class="form-vertical" method="post" action="/group/newGroup" enctype="multipart/form-data">
+            <form class="form-vertical" method="post" action="/moderator/addItem" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col col-md-4">
                         <div class="form-group" style="text-align: center">
                             <label for="image">
                                 <input type="file" name="image" id="image" style="display:none;" onchange="showImage()"/>
-                                <img id="group-img" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%" >
+                                <img id="group-img" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle" style="border-radius: 50%; width: 80%;" >
                                 <p>Browse image</p>
                             </label>
                         </div>
@@ -60,12 +74,12 @@
                                 </div>
                                 <div class="form-group ">
                                     <div class="input-group">
-                                        <input type="text" name="item-name" id="quantity"  class="form-control" placeholder="Quantity" >
+                                        <input type="text" name="qty" id="quantity"  class="form-control" placeholder="Quantity" >
                                     </div>
                                 </div>
                                 <div>
                                     <div>
-                                        <select style="margin-bottom: 15px" class="form-control" id="quant" size='1'>
+                                        <select style="margin-bottom: 15px" class="form-control" id="quant" size='1' name="measure">
                                             <option selected>kom</option>
                                             <option>g</option>
                                             <option>kg</option>
@@ -76,7 +90,7 @@
                                 </div>
                                 <div>
                                     <div>
-                                        <select style="margin-bottom: 15px" class="form-control" id="category" size="1">
+                                        <select style="margin-bottom: 15px" class="form-control" id="category" size="1" name="category">
                                             <?php foreach($allCategories as $category){ ?>
                                                 <option value="<?= $category['idCategory'] ?>"><?php echo $category['name']; ?></option>
                                             <?php } ?>
@@ -85,7 +99,7 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="buttongit" value="Create Item" class="btn btn-success btn-block" onclick="funkc()">
+                        <input type="submit" value="Create Item" class="btn btn-success btn-block">
                     </div>
                 </div>
             </form>
@@ -105,6 +119,8 @@
         var strShop = e.options[e.selectedIndex].value;
         e = document.getElementById("category");
         var category = e.options[e.selectedIndex].value;
+        var image_name = document.querySelector("input[type='file']");
+        console.log(image_name);
         window.location = "addItem/" +
             document.getElementById("itemName").value + "/" +
             strMeasure + "/" +

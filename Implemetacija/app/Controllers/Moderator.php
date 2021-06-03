@@ -127,16 +127,16 @@ class Moderator extends BaseController
         $this->getShopNames();
         $this->getAllItems($shopId, $name);
 
-
         echo view("common/moderator_header");
         echo view('moderator', $this->data);
+        echo view("common/footer");
     }
 
     /**
      * Dodavanje nove prodavnice
      *
      * @param $shopName - naziv nove prodavnice
-     * @return void
+     * @return \CodeIgniter\HTTP\RedirectResponse
      */
     public function addShop($shopName)
     {
@@ -179,20 +179,18 @@ class Moderator extends BaseController
         echo view("common/moderator_header");
 
         $this->data['allCategories'] = $categories;
+
+        echo view("common/moderator_header");
         echo view('moderator_new_item', $this->data);
+        echo view("common/footer");
     }
 
     /**
-     * Dodavanje novog Item-a
+     * Dodavanje novog Item-a post zahtevom
      *
-     * @param $name - ime novog proizvoda
-     * @param $measure - jedinica mere
-     * @param $quantity - kolicina u jedinici mere
-     * @param $category - kategorija novog proizvoda
-     * @param $shopId - id prodavnice za koju se dodaje Item
-     * @return CodeIgniter\HTTP\RedirectResponse
+     * @return \CodeIgniter\HTTP\RedirectResponse
      */
-    public function addItem($name, $measure, $quantity, $category, $shopId)
+    public function addItem()
     {
         if(!$this->session->has('user'))
             return redirect()->to('/login/index');
@@ -202,13 +200,26 @@ class Moderator extends BaseController
 
         $itemModel = new ItemModel();
         $data = [
-            'name' => $name,
-            'quantity' => $quantity,
-            'metrics' => $measure,
+            'name' => $this->request->getVar('item_name'),
+            'quantity' => $this->request->getVar('qty'),
+            'metrics' => $this->request->getVar('measure'),
             'image' => null,
-            'isCenoteka' => 1
+            'isCenoteka' => 0,
         ];
+        // /assets/images/articles
+
+        $shopId = $this->request->getVar('Shops');
+        $category = $this->request->getVar('category');
+
+        if($this->request->getFile('image')->getName() != "") {
+            $time_unique = strtotime("now");
+            $this->request->getFile('image')->move(ROOTPATH . 'public\uploads\items\assets\images\articles\\' . $time_unique, $this->request->getFile('image')->getName());
+            $data['image'] = "/assets/images/articles/". $time_unique. "/". $this->request->getFile('image')->getName();
+        } else
+            $data['image'] = null;
+
         $itemId = $itemModel->insert($data);
+
         $data = [
             'idShopChain' => $shopId,
             'price' => 0,
@@ -220,6 +231,7 @@ class Moderator extends BaseController
             'idItem' => $itemId
         ];
         (new ItemCategoryModel())->insert($data);
+
         return redirect()->to('/moderator/index');
     }
 
