@@ -26,7 +26,7 @@ class Group extends BaseController
      * Prikazivanje svih korisnikovih grupa
      * @return \CodeIgniter\HTTP\RedirectResponse
      */
-    public function index()
+    public function index($info=null)
     {
         // auth guard
         if(!$this->session->has('user'))
@@ -47,7 +47,7 @@ class Group extends BaseController
         }
 
         echo view('common/header', ['groups' => '']);
-        echo view('Views/groups/groups',['groups'=>$userGroups, 'ingroups'=>$ingroups]);
+        echo view('Views/groups/groups',['groups'=>$userGroups, 'ingroups'=>$ingroups, 'info'=>$info]);
         echo view('common/footer');
     }
 
@@ -436,8 +436,6 @@ class Group extends BaseController
             return redirect()->to('/login/index');
         $user = $this->session->get('user');
 
- //       include(ROOTPATH . 'public\assets\\simplehtmldom_parser\\simple_html_dom.php');
-
         $name = $this->request->getPost('group_name');
         $desc = $this->request->getPost('description');
 
@@ -481,7 +479,7 @@ class Group extends BaseController
         $userId = $this->session->get('user')['idUser'];
         $this->joinGroup($userId,$groupId,1);
 
-        return redirect()->to(base_url('/group/index'));
+        return redirect()->to(base_url('/group/index/'.'New group created'));
     }
 
     /**
