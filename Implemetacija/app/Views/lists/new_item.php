@@ -191,6 +191,7 @@
         var strMeasure = e.options[e.selectedIndex].text;
         if(e.value == 0)
             strMeasure = ""
-        window.location = "/lists/addItem/"+strName+"/"+strQuantity+"/"+strMeasure+"/<?=$idList?>";
+        if((strName != "") && (strQuantity!=""))
+            window.location = "/lists/addItem/"+strName+"/"+strQuantity+"/"+strMeasure+"/<?=$idList?>";
     }
 </script>
