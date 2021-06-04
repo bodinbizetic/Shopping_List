@@ -181,7 +181,7 @@
 
     function callNewMember(){
         let username = document.getElementById('invite_member').value;
-        window.location.href = "/group/addNewMember/"+<?= $groupId ?>+"/"+username;
+        window.location.href = "/group/addNewMember/" + <?= $groupId ?> + "/" + username;
     }
 
     function toModal(val, id)

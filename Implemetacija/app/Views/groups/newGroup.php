@@ -80,16 +80,18 @@
 <script>
     function addMember(){
         let username=document.getElementById('member').value;
-        let row = $("<tr></tr>");
-        let btn = $('<button class="btn btn-outline-danger dismissMember" name="dismissMember" value="Dismiss">Dismiss</button>');
-        let col = $("<td></td>").append($("<input type='text' name='members[]' hidden value="+username+">"));
-        let col1 = $("<td></td>").append('@'+username);
-        let col2 = $("<td style='text-align: right'></td>").append(btn);
+        if(username!="") {
+            let row = $("<tr></tr>");
+            let btn = $('<button class="btn btn-outline-danger dismissMember" name="dismissMember" value="Dismiss">Dismiss</button>');
+            let col = $("<td></td>").append($("<input type='text' name='members[]' hidden value=" + username + ">"));
+            let col1 = $("<td></td>").append('@' + username);
+            let col2 = $("<td style='text-align: right'></td>").append(btn);
 
-        row.append($(col1));
-        row.append($(col).attr('name',username));
-        row.append(col2);
-        $("#membersToCall").append(row);
+            row.append($(col1));
+            row.append($(col).attr('name', username));
+            row.append(col2);
+            $("#membersToCall").append(row);
+        }
     }
 
     $("#membersToCall").on('click', '.dismissMember', function () {

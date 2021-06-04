@@ -412,14 +412,21 @@ class Group extends BaseController
 
             $userModel = new UserModel();
             $user = $userModel->findByUsername($username);
-            $groupModel = new GroupModel();
-            $group = $groupModel->find($idGroup);
 
-            if ($user == null) {
-                $this->renderEditGroup($idGroup, ['There is no user with set username', 0]);
-            } else {
-                $this->sendCall($user, $group);
-                $this->renderEditGroup($idGroup, ['Invite sent', 1]);
+            if($inGroupModel->where('idUser', $user['idUser'])->where('idGroup', $idGroup)->first() != null){
+                $this->renderEditGroup($idGroup, ['This user is already a member', 0]);
+            }
+            else {
+
+                $groupModel = new GroupModel();
+                $group = $groupModel->find($idGroup);
+
+                if ($user == null) {
+                    $this->renderEditGroup($idGroup, ['There is no user with set username', 0]);
+                } else {
+                    $this->sendCall($user, $group);
+                    $this->renderEditGroup($idGroup, ['Invite sent', 1]);
+                }
             }
         } else
             $this->renderEditGroup($idGroup, ['Please enter username', 0]);
