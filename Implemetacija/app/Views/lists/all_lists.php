@@ -83,7 +83,7 @@
 <!--                                                        <a href="/lists/renderList/--><?//=$listId?><!--" class="btn btn-outline-primary propagate" role="button" aria-pressed="true">Edit</a>-->
                                                         <button class="btn btn-outline-success link-button" role="button" aria-pressed="true" create-link="<?= base_url().'/guest/guest/'.uniqid($listId); ?>" listid="<?=$listId ?>">Create Link</button>
                                                         <a href="/lists/deleteList/<?=$listId?>" class="btn btn-outline-danger propagate" role="button" aria-pressed="true">Delete</a>
-                                                    <!-- TODO: implementiraj -->
+
                                                     </div>
                                                 </td>
                                             </tr>
