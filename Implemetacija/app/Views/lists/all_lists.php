@@ -1,3 +1,5 @@
+<!-- Autor - Bodin Bizetic 0058/2018 -->
+<!--Stranica koja priakzuje sve liste po grupama-->
 <link href="<?php echo base_url(); ?>/css/list/list.css" rel="stylesheet">
 <link href="<?php echo base_url(); ?>/css/common.css" rel="stylesheet">
 

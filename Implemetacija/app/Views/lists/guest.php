@@ -1,3 +1,6 @@
+<!-- Autor - Bodin Bizetic 0058/2018 -->
+<!--Stranica koja prikazuje readonly verziju ShoppinigListe sa Item-ima-->
+
 <div class="modal fade" id="finishList" tabindex="-1" role="dialog" aria-labelledby="finishListTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

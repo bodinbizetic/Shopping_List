@@ -22,7 +22,7 @@ class Guest extends BaseController
     /**
      * Preusmerava gosta na stranicu za listu na koju ukazuje $pageLink
      *
-     * @param $pageLink - encodo
+     * @param $pageLink - skriveni identifikator ShoppingList stranice
      */
     public function guest($pageLink)
     {
