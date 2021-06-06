@@ -402,7 +402,7 @@ class Lists extends BaseController
 
         $this->checkLegal($list);
         $itemModel = new ItemModel();
-        $item = $listModel->find($itemId);
+        $item = $itemModel->find($itemId);
         if ($item == null)
         {
             Error::show("Item not found");
