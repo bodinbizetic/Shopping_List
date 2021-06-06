@@ -57,6 +57,7 @@ class Scrapper extends BaseController
                 }
             }
         }
+        return redirect()->back();
     }
 
     /**
