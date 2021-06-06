@@ -466,6 +466,11 @@ class Lists extends BaseController
      */
     public function changeItem($idListContains, $itemId, $name, $quantity, $measure, $listId)
     {
+        if($name == null || $name == "" || $quantity == null || $quantity == "")
+        {
+            Error::show("Not enough information");
+        }
+
         $listModel = new ShoppingListModel();
         $list = $listModel->find($listId);
         if ($list == null || $list['active'] == 0)
