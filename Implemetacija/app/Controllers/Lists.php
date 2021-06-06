@@ -785,13 +785,23 @@ class Lists extends BaseController
      */
     public function deleteList($listId)
     {
+        $user = $this->session->get('user');
         $listModel = new ShoppingListModel();
         $list = $listModel->find($listId);
         if ($list == null || $list['active'] == 0)
         {
             Error::show("List not found");
         }
+
         $this->checkLegal($list);
+
+        $ingroupModel = new InGroupModel();
+        $ingroup = $ingroupModel->where('idGroup', $list['idGroup'])->where('idUser', $user['idUser'])->first();
+        if($ingroup == null || $ingroup['type'] != 1)
+        {
+            Error::show("You are not an administrator");
+        }
+
         $listModel = new ShoppingListModel();
         $itemModel = new ItemModel();
         $listContainsModel = new ListContainsModel();
