@@ -657,12 +657,19 @@ class Lists extends BaseController
      */
     public function bought($idListContains, $state)
     {
+        $shoppingListModel = new ShoppingListModel();
         $listContainsModel = new ListContainsModel();
         $listContains = $listContainsModel->find($idListContains);
         if ($listContains == null)
         {
             Error::show("Item not found");
         }
+        $shoppingList = $shoppingListModel->find($listContains['idShoppingList']);
+        if ($shoppingList == null || $shoppingList['active'] == 0)
+        {
+            Error::show("List does not exists");
+        }
+
         if ($state == 'null')
         {
             $listContains['bought'] = null;
@@ -696,6 +703,10 @@ class Lists extends BaseController
         if ($shoppingList == null)
         {
             Error::show("Invalid api call");
+        }
+        if ($shoppingList['active'] == 0)
+        {
+            Error::show("List does not exists");
         }
 
         $this->checkLegal($shoppingList);
