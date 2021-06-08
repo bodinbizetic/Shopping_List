@@ -13,6 +13,7 @@
         $("input[name='register_phone']").val(value);
     });
 
+
     function showImage() {
         file_input = document.querySelector("input[type='file']");
         if (file_input.files && file_input.files[0]) {

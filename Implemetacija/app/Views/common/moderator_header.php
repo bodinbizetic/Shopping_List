@@ -35,7 +35,10 @@
             });
             $("#save").bind('click', function() {
                 pass = $("input[type='password']").val();
-                window.location.href = "/moderator/refreshPassword/" + pass;
+                if(pass == "")
+                    alert("Password can not be empty!");
+                else
+                    window.location.href = "/moderator/refreshPassword/" + pass;
             });
             $("#passModal").css({'display': "none"});
         });
@@ -65,7 +68,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Change Password</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
