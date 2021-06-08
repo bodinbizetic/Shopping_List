@@ -20,8 +20,12 @@
 
     function changePrice(id) {
         newPrice = $("#" + id).val();
-        console.log(id + " " + newPrice);
-        window.location.href = "/moderator/changePrice/" + id + "/" + newPrice;
+
+        if(!/^[1-9][0-9]*$/.test(newPrice))
+            alert("Only digits allowed!");
+        else
+            window.location.href = "/moderator/changePrice/" + id + "/" + newPrice;
+
     }
 </script>
 
@@ -79,7 +83,6 @@
                     </form>
                     </tbody>
                 </table>
-
 
             <table class="table" id="my-table">
                 <thead>
