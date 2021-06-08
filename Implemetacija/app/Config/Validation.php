@@ -40,6 +40,9 @@ class Validation
 		'single' => 'CodeIgniter\Validation\Views\single',
 	];
 
+    /**
+     * @var string[] - Pravila za validaciju polja forme prilikom registracije
+     */
 	public $registration = [
         'password'     => 'required|min_length[6]',
         'email'        => 'required|valid_email|is_unique[user.email]',
@@ -47,6 +50,9 @@ class Validation
         'fullName'     => 'required|min_length[2]'
     ];
 
+    /**
+     * @var string[] - Greske prilikom registracije
+     */
 	public $registration_errors = [
         'email'        => [
             'is_unique' => 'Sorry. That email has already been taken. Please choose another.'
@@ -56,7 +62,9 @@ class Validation
         ]
     ];
 
-
+    /**
+     * @var string[] - Pravila za validaciju polja forme za promenu user profila
+     */
     public $edit = [
         'password'     => 'required|min_length[6]',
         'email'        => 'required|valid_email',
