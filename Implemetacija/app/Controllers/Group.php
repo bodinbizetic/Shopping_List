@@ -418,14 +418,21 @@ class Group extends BaseController
             }
             else {
 
-                $groupModel = new GroupModel();
-                $group = $groupModel->find($idGroup);
+                $notificationModel = new NotificationModel();
+                if($notificationModel->where('idUser',$user['idUser'])->where('idGroup',$idGroup)->where('type','0')->where('isRead',0)->first()!=null){
+                    $this->renderEditGroup($idGroup, ['This user is already invited', 0]);
+                }
+                else {
 
-                if ($user == null) {
-                    $this->renderEditGroup($idGroup, ['There is no user with set username', 0]);
-                } else {
-                    $this->sendCall($user, $group);
-                    $this->renderEditGroup($idGroup, ['Invite sent', 1]);
+                    $groupModel = new GroupModel();
+                    $group = $groupModel->find($idGroup);
+
+                    if ($user == null || $user['type']=='0') {
+                        $this->renderEditGroup($idGroup, ['There is no user with set username', 0]);
+                    } else {
+                        $this->sendCall($user, $group);
+                        $this->renderEditGroup($idGroup, ['Invite sent', 1]);
+                    }
                 }
             }
         } else
