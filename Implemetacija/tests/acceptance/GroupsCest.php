@@ -49,7 +49,7 @@ class GroupsCest
         $I->fillField('group_name', 'Family');
         $I->fillField('description', 'Family group one member');
         $I->click('Create Group');
-        $I->amOnPage('/group/index');
+
         $I->see('GROUPS');
         $I->see('Family');
 
@@ -99,7 +99,9 @@ class GroupsCest
         $I->fillField('group_name', 'Group with Unknown');
         $I->fillField("#member", 'nepostojeci');
         $I->click('Add');
-        $I->dontSee('@nepostojeci');
+        $I->click('Create Group');
+
+        $I->waitForElement("#infoModal");
     }
 
     public function removeInvitedMemberCreateNewGroup(AcceptanceTester $I)
@@ -185,6 +187,9 @@ class GroupsCest
         $I->dontSee('Family');
 
     }
+
+
+
 
     public function testBecomeAdminCreatedGroup(AcceptanceTester $I)
     {
@@ -406,6 +411,7 @@ class GroupsCest
         $I->click('Save changes');
 
         $I->see('GROUPS');
+        $I->amOnPage('/group/index');
 
         $I->click('Info');
         $I->see("1 members");
@@ -494,6 +500,7 @@ class GroupsCest
         $I->dontSee("Family");
 
         $I->amGoingTo("Logout");
+        $I->amOnPage('/group/index');
         $I->click('Logout');
         $I->amOnPage('/login/logout');
         $I->see('Login');
@@ -534,10 +541,12 @@ class GroupsCest
         $I->see("EDIT GROUP");
         $I->fillField("#invite_member", "bodin");
         $I->click('Invite');
-        $I->see('Invite sent');
+        $I->see('Do you want to send invite?');
+
         $I->click('OK');
         $I->see('Invite sent');
         $I->click('Save changes');
+        $I->amOnPage('/group/index');
 
         $I->amGoingTo("Logout");
         $I->click('Logout');
@@ -603,11 +612,12 @@ class GroupsCest
         $I->see("EDIT GROUP");
         $I->fillField("#invite_member", "bodin");
         $I->click('Invite');
-        $I->see('Invite sent');
+        $I->see('Do you want to send invite?');
         $I->click('OK');
         $I->see('Invite sent');
         $I->click('Save changes');
 
+        $I->amOnPage('/group/index');
         $I->amGoingTo("Logout");
         $I->click('Logout');
         $I->amOnPage('/login/logout');
@@ -655,11 +665,13 @@ class GroupsCest
         $I->click("Edit");
         $I->see("EDIT GROUP");
         $I->fillField("#invite_member", "bodin");
-        $I->click('Invite');
-        $I->see('Invite sent');
+        $I->click("Invite");
+        $I->see('Do you want to send invite?');
         $I->click('OK');
-        $I->dontSee('Invite sent');
+        $I->see('This user is already a member');
 
     }
-
 }
+
+
+
