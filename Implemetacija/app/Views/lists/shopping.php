@@ -1,3 +1,6 @@
+<!-- Autor - Bodin Bizetic 0058/2018, Andrej Gobeljic 0019/2018 -->
+<!-- Stranica za doradjivanje spiska i kupovinu -->
+
 <div class="modal fade" id="finishList" tabindex="-1" role="dialog" aria-labelledby="finishListTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -86,7 +89,7 @@
                         <td class="actions">
                             <div class='btn-group btn-group' role='group' id="button-group">
                                 <a href='/lists/editItem/<?=$item[3]?>/<?=$id?>' class='btn btn-outline-primary' role='button' aria-pressed='true'>Edit</a>
-                                <a href='#' class='btn btn-outline-danger' onclick='toModal(this, )' content="/lists/deleteItem/<?=$item[3]?>/<?=$listId?>" role='button' aria-pressed='true' data-toggle='modal' data-target='#exampleModalCenter'>Delete</a>
+                                <a href='#' class='btn btn-outline-danger' onclick='toModal(this, "/lists/deleteItem/<?=$item[3]?>/<?=$listId?>")' content="/lists/deleteItem/<?=$item[3]?>/<?=$listId?>" data-toggle='modal' data-target='#exampleModalCenter'>Delete</a>
                             </div>
                         </td>
                     </tr>
@@ -171,6 +174,7 @@
     {
         //setRowIndex(val);
         link = id;
+        $('#exampleModalCenter').modal('toggle');
     }
 
     function delItem()

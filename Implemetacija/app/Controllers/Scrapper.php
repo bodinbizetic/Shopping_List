@@ -36,7 +36,7 @@ class Scrapper extends BaseController
             Error::show("You don't have permission");
         $dom = $this->getDocument('');
         $category_links = $this->extractLinksFromNav($dom);
-
+        for ($i=1000000; $i > 0; $i--) echo $i.'<br>';
         $articles_to_persist = [];
         $i = false;
         foreach ($category_links as $cat_link) {
@@ -57,6 +57,7 @@ class Scrapper extends BaseController
                 }
             }
         }
+        return redirect()->to('/moderator');
     }
 
     /**
@@ -81,21 +82,15 @@ class Scrapper extends BaseController
         $link = $page_links[0];
         $all_articles = $this->iterateOverCategoryPages($link, $cat_link['name']);
         $this->persistArticles($all_articles);
-        return;
 
 //        foreach ($all_articles as $item){
 //            array_push($articles_to_persist, $item);
 //        }
 
-        $i = 0;
-        foreach ($articles_to_persist as $item) {
-            echo $i . ' ' . $item['name'] . '<br>';
-            $i++;
-        }
 
 //        $this->persistArticles($articles_to_persist);
 
-        echo "Done " . count($articles_to_persist);
+        return redirect()->to('/moderator');
     }
 
     /**
@@ -347,13 +342,12 @@ class Scrapper extends BaseController
     private function exportTable(DOMNode $table)
     {
         $HEADER_OFFSET = 1;
-        $ARTICLE_OFFSET = 2;
+        $ARTICLE_OFFSET = 4;
         $count = $table->childNodes->count();
         $category = $table->childNodes->item($HEADER_OFFSET)->textContent;
 
 
         $articles = [];
-
         for ($i = $ARTICLE_OFFSET; $i < $count; $i++) {
             $article_row = $table->childNodes->item($i);
             if ($article_row->childNodes->count() != 0) {
@@ -392,7 +386,7 @@ class Scrapper extends BaseController
 
         try {
 
-            $article_image = $article['img_link'] = $article_row->childNodes->
+            $article_image = $article_row->childNodes->
             item($IMAGE_DIV_OFFSET)->childNodes->item(1);
             if ($article_image->childNodes->count() != 0) {
                 $article['img_link'] = $article_image->childNodes->item(1)->getAttribute('src');

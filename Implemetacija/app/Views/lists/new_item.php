@@ -1,3 +1,6 @@
+<!-- Autor - Andrej Gobeljic 0019/2018 -->
+<!-- Stranica za dodavanje novog Item-a u spisak -->
+
 <link href="<?php echo base_url(); ?>/css/list/list.css" rel="stylesheet">
 <link href="<?php echo base_url(); ?>/css/common.css" rel="stylesheet">
 <link href="<?php echo base_url(); ?>/css/list/editItem.css" rel="stylesheet">
@@ -188,6 +191,7 @@
         var strMeasure = e.options[e.selectedIndex].text;
         if(e.value == 0)
             strMeasure = ""
-        window.location = "/lists/addItem/"+strName+"/"+strQuantity+"/"+strMeasure+"/<?=$idList?>";
+        if((strName != "") && (strQuantity!=""))
+            window.location = "/lists/addItem/"+strName+"/"+strQuantity+"/"+strMeasure+"/<?=$idList?>";
     }
 </script>

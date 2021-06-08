@@ -315,6 +315,11 @@ class Lists extends BaseController
     {
         $user = $this->session->get('user');
 
+        if($name == null || $name == "" || $quantity == null || $quantity == "")
+        {
+            Error::show("Not enough information");
+        }
+
         $listModel = new ShoppingListModel();
         $list = $listModel->find($listId);
         if ($list == null || $list['active'] == 0)
@@ -397,7 +402,7 @@ class Lists extends BaseController
 
         $this->checkLegal($list);
         $itemModel = new ItemModel();
-        $item = $listModel->find($itemId);
+        $item = $itemModel->find($itemId);
         if ($item == null)
         {
             Error::show("Item not found");
@@ -461,6 +466,11 @@ class Lists extends BaseController
      */
     public function changeItem($idListContains, $itemId, $name, $quantity, $measure, $listId)
     {
+        if($name == null || $name == "" || $quantity == null || $quantity == "")
+        {
+            Error::show("Not enough information");
+        }
+
         $listModel = new ShoppingListModel();
         $list = $listModel->find($listId);
         if ($list == null || $list['active'] == 0)
@@ -652,12 +662,19 @@ class Lists extends BaseController
      */
     public function bought($idListContains, $state)
     {
+        $shoppingListModel = new ShoppingListModel();
         $listContainsModel = new ListContainsModel();
         $listContains = $listContainsModel->find($idListContains);
         if ($listContains == null)
         {
             Error::show("Item not found");
         }
+        $shoppingList = $shoppingListModel->find($listContains['idShoppingList']);
+        if ($shoppingList == null || $shoppingList['active'] == 0)
+        {
+            Error::show("List does not exists");
+        }
+
         if ($state == 'null')
         {
             $listContains['bought'] = null;
@@ -691,6 +708,10 @@ class Lists extends BaseController
         if ($shoppingList == null)
         {
             Error::show("Invalid api call");
+        }
+        if ($shoppingList['active'] == 0)
+        {
+            Error::show("List does not exists");
         }
 
         $this->checkLegal($shoppingList);
@@ -764,13 +785,23 @@ class Lists extends BaseController
      */
     public function deleteList($listId)
     {
+        $user = $this->session->get('user');
         $listModel = new ShoppingListModel();
         $list = $listModel->find($listId);
         if ($list == null || $list['active'] == 0)
         {
             Error::show("List not found");
         }
+
         $this->checkLegal($list);
+
+        $ingroupModel = new InGroupModel();
+        $ingroup = $ingroupModel->where('idGroup', $list['idGroup'])->where('idUser', $user['idUser'])->first();
+        if($ingroup == null || $ingroup['type'] != 1)
+        {
+            Error::show("You are not an administrator");
+        }
+
         $listModel = new ShoppingListModel();
         $itemModel = new ItemModel();
         $listContainsModel = new ListContainsModel();

@@ -1,3 +1,5 @@
+<!-- Autor - Bodin Bizetic 0058/2018 -->
+<!--Stranica koja priakzuje sve liste po grupama-->
 <link href="<?php echo base_url(); ?>/css/list/list.css" rel="stylesheet">
 <link href="<?php echo base_url(); ?>/css/common.css" rel="stylesheet">
 
@@ -35,6 +37,26 @@
                     <input type="reset" class="btn btn-secondary" data-dismiss="modal">
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModalCenter_" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Confirm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal" onclick="deleteList()">OK</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+            </div>
         </div>
     </div>
 </div>
@@ -80,8 +102,8 @@
                                                     <div class="btn-group" role="group">
 <!--                                                        <a href="/lists/renderList/--><?//=$listId?><!--" class="btn btn-outline-primary propagate" role="button" aria-pressed="true">Edit</a>-->
                                                         <button class="btn btn-outline-success link-button" role="button" aria-pressed="true" create-link="<?= base_url().'/guest/guest/'.uniqid($listId); ?>" listid="<?=$listId ?>">Create Link</button>
-                                                        <a href="/lists/deleteList/<?=$listId?>" class="btn btn-outline-danger propagate" role="button" aria-pressed="true">Delete</a>
-                                                    <!-- TODO: implementiraj -->
+                                                        <button onclick="id(<?=$listId?>)" listId="<?=$listId?>" data-toggle="modal" data-target="#exampleModalCenter_" class="btn btn-outline-danger del-btn" role="button" aria-pressed="true">Delete</button>
+
                                                     </div>
                                                 </td>
                                             </tr>
@@ -105,7 +127,7 @@
     {
         window.location = $(this).data('href');
     });
-
+    var link;
     $(document).ready(function () {
         $('.link-button').each(function(index) {
             $(this).get(0).addEventListener('click', function (ev) {
@@ -116,7 +138,23 @@
             });
         });
 
-    })
+        $('.del-btn').each(function (index){
+           $(this).get(0).addEventListener('click', function(ev){
+               link = $(this).attr('listId');
+               $('#exampleModalCenter_').modal('toggle');
+               ev.stopPropagation();
+           })
+        });
+
+    });
+
+    function id(id){
+        link = id;
+    }
+
+    function deleteList() {
+        window.location = "/lists/deleteList/" + link;
+    }
 
     function submitModal() {
         $.ajax({

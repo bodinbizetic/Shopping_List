@@ -1,3 +1,5 @@
+<!-- Tamara Avramovic 2018/0293 -->
+
 <script>
     function showImage() {
         file_input = document.querySelector("input[type='file']");
@@ -43,19 +45,42 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="membersModalCenterTitle">Invite sent</h5>
+        <h5 class="modal-title" id="membersModalCenterTitle">Do you want to send invite?</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         This will send someone invite to join your group. They will recive notification to join the group. You will get notification only if they accept.
+          <br>
+          This can't be undone.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-primary" data-dismiss="modal" onclick="callNewMember()">OK</button>
       </div>
     </div>
   </div>
+</div>
+
+<!-- Modal#3 -->
+<div class="modal fade" id="discardModal" tabindex="-1" role="dialog" aria-labelledby="discardModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="discardModalTitle">Do you want to disard changes?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                This will discard changes made on group name, description, image and admins.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal" onclick="back()">Yes</button>
+            </div>
+        </div>
+    </div>
 </div>
 
   <main id="main">
@@ -142,7 +167,8 @@
               <?php } ?>
               <br>
               <input type="submit" value="Save changes" class="btn btn-success btn-block">
-
+              <a href="#discardModal" class='btn btn-outline-info' role='button'
+                 aria-pressed='true' data-toggle='modal' data-target='#discardModal' style="width: 100%; margin-top: 10px">Back</a>
           </div>
       </div>
   </form>
@@ -155,7 +181,7 @@
 
     function callNewMember(){
         let username = document.getElementById('invite_member').value;
-        window.location.href = "/group/addNewMember/"+<?= $groupId ?>+"/"+username;
+        window.location.href = "/group/addNewMember/" + <?= $groupId ?> + "/" + username;
     }
 
     function toModal(val, id)
@@ -165,5 +191,9 @@
 
     function removeFromGroup() {
         window.location.href = "/group/removeFromGroup/"+<?= $groupId ?>+"/"+link;
+    }
+
+    function back(){
+        window.location.href = '/group/index';
     }
 </script>

@@ -1,3 +1,5 @@
+<!-- Autor - Bodin Bizetic 0058/2018 -->
+<!--Stranica koja sluzi za kreiranje nove liste-->
 <link href="<?php echo base_url(); ?>/css/common.css" rel="stylesheet">
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
