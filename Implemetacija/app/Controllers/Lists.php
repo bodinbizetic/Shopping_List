@@ -320,6 +320,11 @@ class Lists extends BaseController
             Error::show("Not enough information");
         }
 
+        if(!is_numeric($quantity))
+        {
+            Error::show("Only numerical quantities are allowed.");
+        }
+
         $listModel = new ShoppingListModel();
         $list = $listModel->find($listId);
         if ($list == null || $list['active'] == 0)
@@ -469,6 +474,11 @@ class Lists extends BaseController
         if($name == null || $name == "" || $quantity == null || $quantity == "")
         {
             Error::show("Not enough information");
+        }
+
+        if(!is_numeric($quantity))
+        {
+            Error::show("Only numerical quantities are allowed.");
         }
 
         $listModel = new ShoppingListModel();

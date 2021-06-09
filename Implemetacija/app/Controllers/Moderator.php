@@ -149,6 +149,11 @@ class Moderator extends BaseController
             return redirect()->to('/homePage/index');
 
         $shopChainModel = new ShopChainModel();
+        $shop = $shopChainModel->where('name', $shopName)->first();
+        if($shop != null)
+        {
+            Error::show("Shop already exists.");
+        }
         $data = [
             'name' => $shopName
         ];
@@ -200,13 +205,23 @@ class Moderator extends BaseController
         if($user['type'] != ADMIN)
             return redirect()->to('/homePage/index');
 
+        if($this->request->getVar('Shops') == null)
+        {
+            Error::show("No shop selected.");
+        }
+
+        if(!is_numeric($this->request->getVar('qty')))
+        {
+            Error::show("Only numerical quantities are allowed.");
+        }
+
         $itemModel = new ItemModel();
         $data = [
             'name' => $this->request->getVar('item_name'),
             'quantity' => $this->request->getVar('qty'),
             'metrics' => $this->request->getVar('measure'),
             'image' => null,
-            'isCenoteka' => 0,
+            'isCenoteka' => 1,
         ];
         // /assets/images/articles
 

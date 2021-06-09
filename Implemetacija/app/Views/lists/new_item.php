@@ -193,5 +193,7 @@
             strMeasure = ""
         if((strName != "") && (strQuantity!=""))
             window.location = "/lists/addItem/"+strName+"/"+strQuantity+"/"+strMeasure+"/<?=$idList?>";
+        else
+            alert("Missing information");
     }
 </script>

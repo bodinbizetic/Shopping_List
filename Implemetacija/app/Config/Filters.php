@@ -2,7 +2,9 @@
 
 namespace Config;
 
+use App\Controllers\Moderator;
 use App\Filters\LogedInFilter;
+use App\Filters\ModeratorFilter;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -21,6 +23,7 @@ class Filters extends BaseConfig
 		'toolbar'  => DebugToolbar::class,
 		'honeypot' => Honeypot::class,
         'login' => LogedInFilter::class,
+        'mod' => ModeratorFilter::class
 	];
 
 	/**
@@ -61,6 +64,7 @@ class Filters extends BaseConfig
 	 * @var array
 	 */
 	public $filters = [
-	    'login' => ['before' => ['lists/*', 'homepage/*']],
+	    'login' => ['before' => ['lists/*', 'homepage/*', 'group', 'group/*', 'home/*', 'notification/*', 'profile/*']],
+        'mod' => ['before' => ['moderator/*', 'scrapper/*', 'moderator', 'debug', 'scrapper']],
     ];
 }
