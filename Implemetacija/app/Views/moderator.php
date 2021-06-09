@@ -124,9 +124,9 @@
 
     function add(){
         if(document.getElementById("addshop").value == "" || document.getElementById("addshop").value == null)
-            window.location = "/moderator/addShop/" + document.getElementById("addshop").value;
-        else
             alert("Missing information.");
+        else
+            window.location = "/moderator/addShop/" + document.getElementById("addshop").value;
     }
     function moditem(){
         window.location = "/moderator/renderAddItem";

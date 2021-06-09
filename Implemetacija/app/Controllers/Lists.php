@@ -144,12 +144,12 @@ class Lists extends BaseController
 
         $search = $this->request->getUri()->getQuery(['only' => ['search']]);
         $sorted = $this->request->getUri()->getQuery(['only' => ['sorted']]);
-
         if ($sorted)
             $sorted = explode('=', $this->request->getUri()->getQuery(['only' => ['sorted']]))[1];
 
         if($search)
-            $search = explode('=', $this->request->getUri()->getQuery(['only' => ['search']]))[1];
+            $search = $_GET['search'];
+//            $search = explode('=', $this->request->getUri()->getQuery(['only' => ['search']]))[1];
 /*
         $cenotekaItems = $itemCategoryModel->where('idCategory', $idCategory)->find();*/
 
