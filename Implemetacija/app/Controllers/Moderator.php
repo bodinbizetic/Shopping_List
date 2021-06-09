@@ -154,6 +154,8 @@ class Moderator extends BaseController
         {
             Error::show("Shop already exists.");
         }
+        if($shopName == null || $shopName == "")
+            Error::show("Missing information.");
         $data = [
             'name' => $shopName
         ];
