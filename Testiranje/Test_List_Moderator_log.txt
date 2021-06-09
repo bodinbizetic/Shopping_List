@@ -1,0 +1,488 @@
+Running 'List - Add Item'21:44:23
+1.open on /moderator OK21:44:25
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:44:25
+3.if on ${logout_cnt} > 0 OK21:44:27
+4.click on linkText=Logout OK21:44:28
+5.end OK21:44:29
+6.sendKeys on name=login_username with value Bodin OK21:44:30
+7.sendKeys on name=login_password with value 123456 OK21:44:31
+8.click on css=.btn OK21:44:32
+9.executeScript on return window.location.pathname with value path OK21:44:33
+10.assert on path with value /homePage/index OK21:44:35
+11.click on linkText=Shopping list OK21:44:36
+12.click on css=.group-info:nth-child(1) > .group-name OK21:44:37
+13.click on linkText=Create new OK21:44:39
+14.sendKeys on name=list_name with value Muffin OK21:44:40
+15.select on id=shopid with value Maxi OK21:44:42
+16.click on css=.btn OK21:44:42
+17.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:44:42
+18.click on xpath=//td[text() = 'Muffin'] OK21:44:44
+19.click on linkText=Add New Item OK21:44:44
+20.store on Pametni Muffini with value item_name OK21:44:45
+21.sendKeys on id=namevar with value ${item_name} OK21:44:45
+22.sendKeys on id=quantityvar with value 1234 OK21:44:46
+23.click on css=.btn-success OK21:44:47
+"24.verifyElementPresent on xpath=//td[contains(.,'${item_name}')] OK21:44:47"
+25.open on /lists/index OK21:44:48
+26.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:44:48
+27.click on xpath=//td[text() = 'Muffin']/..//button[text() = 'Delete'] OK21:44:49
+28.click on css=.btn-outline-primary OK21:44:50
+29.assertElementNotPresent on xpath=//td[text() = 'Muffin'] OK21:44:50
+'List - Add Item' completed successfully21:44:51
+Running 'List - Add Item - No Name'21:44:51
+1.open on /moderator OK21:44:53
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:44:53
+3.if on ${logout_cnt} > 0 OK21:44:55
+4.click on linkText=Logout OK21:44:55
+5.end OK21:44:55
+6.sendKeys on name=login_username with value Bodin OK21:44:56
+7.sendKeys on name=login_password with value 123456 OK21:44:56
+8.click on css=.btn OK21:44:56
+9.executeScript on return window.location.pathname with value path OK21:44:56
+10.assert on path with value /homePage/index OK21:44:58
+11.click on linkText=Shopping list OK21:44:58
+12.click on css=.group-info:nth-child(1) > .group-name OK21:44:58
+13.click on linkText=Create new OK21:44:59
+14.sendKeys on name=list_name with value Muffin OK21:44:59
+15.select on id=shopid with value Maxi OK21:45:01
+16.click on css=.btn OK21:45:01
+17.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:45:01
+18.click on xpath=//td[text() = 'Muffin'] OK21:45:03
+19.click on linkText=Add New Item OK21:45:03
+20.store on Pametni Muffini with value item_name OK21:45:04
+21.executeScript on return window.location.pathname with value path_1 OK21:45:04
+22.sendKeys on id=quantityvar with value 1234 OK21:45:05
+23.click on css=.btn-success OK21:45:05
+24.executeScript on return window.location.pathname with value path_2 OK21:45:05
+25.verify on path_1 with value ${path_2} OK21:45:06
+26.open on /lists/index OK21:45:06
+27.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:45:06
+28.click on xpath=//td[text() = 'Muffin']/..//button[text() = 'Delete'] OK21:45:07
+29.click on css=.btn-outline-primary OK21:45:07
+30.assertElementNotPresent on xpath=//td[text() = 'Muffin'] OK21:45:07
+'List - Add Item - No Name' completed successfully21:45:09
+Running 'List - Change Shop'21:45:09
+1.open on /moderator OK21:45:10
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:45:10
+3.if on ${logout_cnt} > 0 OK21:45:11
+4.click on linkText=Logout OK21:45:11
+5.end OK21:45:11
+6.sendKeys on name=login_username with value Bodin OK21:45:12
+7.sendKeys on name=login_password with value 123456 OK21:45:12
+8.click on css=.btn OK21:45:12
+9.executeScript on return window.location.pathname with value path OK21:45:13
+10.assert on path with value /homePage/index OK21:45:14
+11.click on linkText=Shopping list OK21:45:14
+12.click on css=.group-info:nth-child(1) > .group-name OK21:45:14
+13.click on linkText=Create new OK21:45:16
+14.sendKeys on name=list_name with value Muffin OK21:45:16
+15.select on id=shopid with value Maxi OK21:45:17
+16.click on css=.btn OK21:45:17
+17.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:45:17
+18.click on xpath=//td[text() = 'Muffin'] OK21:45:19
+19.select on id=shops with value Tempo OK21:45:19
+20.assertText on css=h3:nth-child(2) with value Tempo OK21:45:20
+21.select on id=shops with value Maxi OK21:45:21
+22.assertText on css=h3:nth-child(2) with value Maxi OK21:45:21
+23.open on /lists/index OK21:45:23
+24.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:45:23
+25.click on xpath=//td[text() = 'Muffin']/..//button[text() = 'Delete'] OK21:45:24
+26.click on css=.btn-outline-primary OK21:45:24
+27.assertElementNotPresent on xpath=//td[text() = 'Muffin'] OK21:45:24
+'List - Change Shop' completed successfully21:45:26
+Running 'List - Delete Cenoteka Item'21:45:26
+1.open on /moderator OK21:45:26
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:45:27
+3.if on ${logout_cnt} > 0 OK21:45:28
+4.click on linkText=Logout OK21:45:28
+5.end OK21:45:28
+6.sendKeys on name=login_username with value Bodin OK21:45:29
+7.sendKeys on name=login_password with value 123456 OK21:45:29
+8.click on css=.btn OK21:45:29
+9.executeScript on return window.location.pathname with value path OK21:45:30
+10.assert on path with value /homePage/index OK21:45:31
+11.click on linkText=Shopping list OK21:45:31
+12.click on css=.group-info:nth-child(1) > .group-name OK21:45:31
+13.click on linkText=Create new OK21:45:32
+14.sendKeys on name=list_name with value Muffin OK21:45:33
+15.select on id=shopid with value Maxi OK21:45:34
+16.click on css=.btn OK21:45:34
+17.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:45:34
+18.click on xpath=//td[text() = 'Muffin'] OK21:45:36
+19.click on linkText=Add New Item OK21:45:36
+20.click on css=.item:nth-child(1) img OK21:45:37
+21.storeText on css=.item:nth-child(1) .p2 with value name OK21:45:38
+22.click on linkText=Add Item OK21:45:40
+"23.verifyElementPresent on xpath=//td[contains(.,'${name}')] OK21:45:40"
+24.click on xpath=//a[text() = 'Delete'] OK21:45:41
+25.click on css=#exampleModalCenter .btn-primary OK21:45:42
+"26.verifyElementNotPresent on xpath=//td[contains(.,'${name}')] OK21:45:42"
+27.open on /lists/index OK21:45:43
+28.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:45:43
+29.click on xpath=//td[text() = 'Muffin']/..//button[text() = 'Delete'] OK21:45:45
+30.click on css=.btn-outline-primary OK21:45:45
+31.assertElementNotPresent on xpath=//td[text() = 'Muffin'] OK21:45:45
+'List - Delete Cenoteka Item' completed successfully21:45:46
+Running 'List - Delete List'21:45:46
+1.open on /moderator OK21:45:47
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:45:47
+3.if on ${logout_cnt} > 0 OK21:45:49
+4.click on linkText=Logout OK21:45:49
+5.end OK21:45:49
+6.sendKeys on name=login_username with value Bodin OK21:45:50
+7.sendKeys on name=login_password with value 123456 OK21:45:50
+8.click on css=.btn OK21:45:50
+9.executeScript on return window.location.pathname with value path OK21:45:50
+10.assert on path with value /homePage/index OK21:45:51
+11.click on linkText=Shopping list OK21:45:52
+12.click on css=.group-info:nth-child(1) > .group-name OK21:45:52
+13.click on linkText=Create new OK21:45:53
+14.sendKeys on name=list_name with value Muffin OK21:45:53
+15.select on id=shopid with value Maxi OK21:45:55
+16.click on css=.btn OK21:45:55
+17.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:45:55
+18.click on xpath=//td[text() = 'Muffin']/..//button[text() = 'Delete'] OK21:45:56
+19.click on css=.btn-outline-primary OK21:45:57
+20.assertElementNotPresent on xpath=//td[text() = 'Muffin'] OK21:45:57
+'List - Delete List' completed successfully21:45:58
+Running 'List - Edit Cenoteka Item - Change'21:45:58
+1.open on /moderator OK21:45:59
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:45:59
+3.if on ${logout_cnt} > 0 OK21:46:00
+4.click on linkText=Logout OK21:46:01
+5.end OK21:46:01
+6.sendKeys on name=login_username with value Bodin OK21:46:02
+7.sendKeys on name=login_password with value 123456 OK21:46:02
+8.click on css=.btn OK21:46:02
+9.executeScript on return window.location.pathname with value path OK21:46:02
+10.assert on path with value /homePage/index OK21:46:04
+11.click on linkText=Shopping list OK21:46:04
+12.click on css=.group-info:nth-child(1) > .group-name OK21:46:04
+13.click on linkText=Create new OK21:46:05
+14.sendKeys on name=list_name with value Muffin OK21:46:05
+15.select on id=shopid with value Maxi OK21:46:07
+16.click on css=.btn OK21:46:07
+17.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:46:07
+18.click on xpath=//td[text() = 'Muffin'] OK21:46:09
+19.click on linkText=Add New Item OK21:46:09
+20.click on css=.item:nth-child(1) img OK21:46:10
+21.storeText on css=.item:nth-child(1) .p2 with value name OK21:46:11
+22.click on linkText=Add Item OK21:46:13
+"23.verifyElementPresent on xpath=//td[contains(.,'${name}')] OK21:46:13"
+24.click on xpath=//a[text() = 'Edit'] OK21:46:14
+25.click on css=.item:nth-child(7) img OK21:46:14
+26.storeText on css=.item:nth-child(1) .p2 with value name OK21:46:16
+27.click on linkText=Change Item OK21:46:17
+"28.verifyElementPresent on xpath=//td[contains(.,'${name}')] OK21:46:17"
+29.open on /lists/index OK21:46:18
+30.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:46:19
+31.click on xpath=//td[text() = 'Muffin']/..//button[text() = 'Delete'] with value xpath=//td[text() = 'Muffin']/..//a[text() = 'Delete'] OK21:46:20
+32.click on css=.btn-outline-primary OK21:46:20
+33.assertElementNotPresent on xpath=//td[text() = 'Muffin'] OK21:46:20
+'List - Edit Cenoteka Item - Change' completed successfully21:46:21
+Running 'List - Edit Cenoteka Item - Change Name'21:46:22
+1.open on /moderator OK21:46:23
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:46:23
+3.if on ${logout_cnt} > 0 OK21:46:24
+4.click on linkText=Logout OK21:46:24
+5.end OK21:46:24
+6.sendKeys on name=login_username with value Bodin OK21:46:25
+7.sendKeys on name=login_password with value 123456 OK21:46:25
+8.click on css=.btn OK21:46:26
+9.executeScript on return window.location.pathname with value path OK21:46:26
+10.assert on path with value /homePage/index OK21:46:27
+11.click on linkText=Shopping list OK21:46:27
+12.click on css=.group-info:nth-child(1) > .group-name OK21:46:28
+13.click on linkText=Create new OK21:46:29
+14.sendKeys on name=list_name with value Muffin OK21:46:29
+15.select on id=shopid with value Maxi OK21:46:30
+16.click on css=.btn OK21:46:30
+17.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:46:31
+18.click on xpath=//td[text() = 'Muffin'] OK21:46:32
+19.click on linkText=Add New Item OK21:46:32
+20.click on css=.item:nth-child(1) img OK21:46:33
+21.storeText on css=.item:nth-child(1) .p2 with value name OK21:46:35
+22.click on linkText=Add Item OK21:46:36
+"23.verifyElementPresent on xpath=//td[contains(.,'${name}')] OK21:46:37"
+24.click on xpath=//a[text() = 'Edit'] OK21:46:38
+25.type on id=namevar OK21:46:38
+26.sendKeys on id=namevar with value New Name OK21:46:40
+27.store on New Name with value name OK21:46:40
+28.click on css=.btn-success with value name OK21:46:40
+"29.verifyElementPresent on xpath=//td[contains(.,'${name}')] OK21:46:40"
+30.open on /lists/index OK21:46:41
+31.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:46:41
+32.click on xpath=//td[text() = 'Muffin']/..//button[text() = 'Delete'] OK21:46:43
+33.click on css=.btn-outline-primary OK21:46:43
+34.assertElementNotPresent on xpath=//td[text() = 'Muffin'] OK21:46:43
+'List - Edit Cenoteka Item - Change Name' completed successfully21:46:45
+Running 'List - Edit Cenoteka Item - Change Name - No Name'21:46:45
+1.open on /moderator OK21:46:46
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:46:46
+3.if on ${logout_cnt} > 0 OK21:46:47
+4.click on linkText=Logout OK21:46:47
+5.end OK21:46:48
+6.sendKeys on name=login_username with value Bodin OK21:46:48
+7.sendKeys on name=login_password with value 123456 OK21:46:49
+8.click on css=.btn OK21:46:49
+9.executeScript on return window.location.pathname with value path OK21:46:49
+10.assert on path with value /homePage/index OK21:46:50
+11.click on linkText=Shopping list OK21:46:50
+12.click on css=.group-info:nth-child(1) > .group-name OK21:46:51
+13.click on linkText=Create new OK21:46:52
+14.sendKeys on name=list_name with value Muffin OK21:46:52
+15.select on id=shopid with value Maxi OK21:46:54
+16.click on css=.btn OK21:46:54
+17.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:46:54
+18.click on xpath=//td[text() = 'Muffin'] OK21:46:56
+19.click on linkText=Add New Item OK21:46:56
+20.click on css=.item:nth-child(1) img OK21:46:57
+21.storeText on css=.item:nth-child(1) .p2 with value name OK21:46:59
+22.click on linkText=Add Item OK21:47:00
+"23.verifyElementPresent on xpath=//td[contains(.,'${name}')] OK21:47:00"
+24.click on xpath=//a[text() = 'Edit'] OK21:47:02
+25.executeScript on return window.location.pathname with value path_1 OK21:47:02
+26.type on id=namevar OK21:47:03
+27.click on css=.btn-success OK21:47:03
+28.executeScript on return window.location.pathname with value path_2 OK21:47:04
+29.verify on path_1 with value ${path_2} OK21:47:04
+30.open on /lists/index OK21:47:04
+31.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:47:04
+32.click on xpath=//td[text() = 'Muffin']/..//button[text() = 'Delete'] OK21:47:05
+33.click on css=.btn-outline-primary OK21:47:06
+34.assertElementNotPresent on xpath=//td[text() = 'Muffin'] OK21:47:06
+'List - Edit Cenoteka Item - Change Name - No Name' completed successfully21:47:07
+Running 'List - Edit NonCenoteka Item - Change'21:47:07
+1.open on /moderator OK21:47:08
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:47:08
+3.if on ${logout_cnt} > 0 OK21:47:10
+4.click on linkText=Logout OK21:47:10
+5.end OK21:47:10
+6.sendKeys on name=login_username with value Bodin OK21:47:11
+7.sendKeys on name=login_password with value 123456 OK21:47:11
+8.click on css=.btn OK21:47:11
+9.executeScript on return window.location.pathname with value path OK21:47:12
+10.assert on path with value /homePage/index OK21:47:13
+11.click on linkText=Shopping list OK21:47:14
+12.click on css=.group-info:nth-child(1) > .group-name OK21:47:14
+13.click on linkText=Create new OK21:47:17
+14.sendKeys on name=list_name with value Muffin OK21:47:18
+15.select on id=shopid with value Maxi OK21:47:21
+16.click on css=.btn OK21:47:21
+17.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:47:22
+18.click on xpath=//td[text() = 'Muffin'] OK21:47:26
+19.click on linkText=Add New Item OK21:47:26
+20.store on Pametni Muffini with value item_name OK21:47:29
+21.sendKeys on id=namevar with value ${item_name} OK21:47:30
+22.sendKeys on id=quantityvar with value 1234 OK21:47:32
+23.click on css=.btn-success OK21:47:32
+"24.verifyElementPresent on xpath=//td[contains(.,'${item_name}')] OK21:47:33"
+25.click on xpath=//a[text() = 'Edit'] OK21:47:34
+26.click on css=.item:nth-child(2) img OK21:47:34
+27.storeText on css=.item:nth-child(1) .p2 with value new_name OK21:47:36
+28.click on linkText=Change Item OK21:47:37
+"29.verifyElementPresent on xpath=//td[contains(.,'${new_name}')] OK21:47:37"
+30.open on /lists/index OK21:47:39
+31.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:47:39
+32.click on xpath=//td[text() = 'Muffin']/..//button[text() = 'Delete'] OK21:47:40
+33.click on css=.btn-outline-primary OK21:47:40
+34.assertElementNotPresent on xpath=//td[text() = 'Muffin'] OK21:47:40
+'List - Edit NonCenoteka Item - Change' completed successfully21:47:42
+Running 'Lists - Add Cenoteka Item'21:47:42
+1.open on /moderator OK21:47:43
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:47:43
+3.if on ${logout_cnt} > 0 OK21:47:45
+4.click on linkText=Logout OK21:47:45
+5.end OK21:47:45
+6.sendKeys on name=login_username with value Bodin OK21:47:46
+7.sendKeys on name=login_password with value 123456 OK21:47:46
+8.click on css=.btn OK21:47:46
+9.executeScript on return window.location.pathname with value path OK21:47:47
+10.assert on path with value /homePage/index OK21:47:48
+11.click on linkText=Shopping list OK21:47:48
+12.click on css=.group-info:nth-child(1) > .group-name OK21:47:48
+13.click on linkText=Create new OK21:47:50
+14.sendKeys on name=list_name with value Muffin OK21:47:50
+15.select on id=shopid with value Maxi OK21:47:51
+16.click on css=.btn OK21:47:51
+17.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:47:51
+18.click on xpath=//td[text() = 'Muffin'] OK21:47:53
+19.click on linkText=Add New Item OK21:47:53
+20.click on css=.item:nth-child(1) img OK21:47:55
+21.storeText on css=.item:nth-child(1) .p2 with value name OK21:47:56
+22.click on linkText=Add Item OK21:47:57
+"23.verifyElementPresent on xpath=//td[contains(.,'${name}')] OK21:47:57"
+24.open on /lists/index OK21:47:59
+25.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:47:59
+26.click on xpath=//td[text() = 'Muffin']/..//button[text() = 'Delete'] OK21:48:00
+27.click on css=.btn-outline-primary OK21:48:00
+28.assertElementNotPresent on xpath=//td[text() = 'Muffin'] OK21:48:01
+'Lists - Add Cenoteka Item' completed successfully21:48:02
+Running 'Mod - Create New Item Moderator - Add New Item'21:48:02
+1.open on /moderator OK21:48:03
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:48:03
+3.if on ${logout_cnt} > 0 OK21:48:05
+4.click on linkText=Logout OK21:48:05
+5.end OK21:48:05
+6.sendKeys on name=login_username with value olga OK21:48:06
+7.sendKeys on name=login_password with value 123456 OK21:48:06
+8.click on css=.btn OK21:48:06
+9.executeScript on return window.location.pathname with value path OK21:48:06
+10.assert on path with value /moderator/index OK21:48:08
+11.store on Oglii Muffin Shop with value shop_name OK21:48:08
+12.sendKeys on id=addshop with value ${shop_name} OK21:48:08
+13.click on id=addShop OK21:48:09
+14.open on /moderator OK21:48:09
+15.click on id=addItem OK21:48:09
+16.store on Devil Muffin with value item_name OK21:48:11
+17.sendKeys on id=itemName with value ${item_name} OK21:48:11
+18.select on id=shops with value ${shop_name} OK21:48:15
+19.sendKeys on id=quantity with value 1 OK21:48:15
+20.click on css=.btn OK21:48:16
+21.click on linkText=Logout OK21:48:16
+22.sendKeys on name=login_username with value Bodin OK21:48:21
+23.sendKeys on name=login_password with value 123456 OK21:48:23
+24.click on css=.btn OK21:48:24
+25.executeScript on return window.location.pathname with value path OK21:48:24
+26.assert on path with value /homePage/index OK21:48:27
+27.open on /lists/index OK21:48:28
+28.click on linkText=Create new OK21:48:28
+29.sendKeys on name=list_name with value Muffins OK21:48:32
+30.select on id=shopid with value ${shop_name} OK21:48:35
+31.click on css=.btn OK21:48:35
+32.click on css=.group-info:nth-child(1) > .group-name OK21:48:35
+33.click on xpath=//td[text() = 'Muffins'] OK21:48:36
+34.click on linkText=Add New Item OK21:48:37
+35.click on css=.item:nth-child(1) img OK21:48:38
+36.sendKeys on name=search with value ${item_name} OK21:48:39
+37.click on css=.input-group > .btn OK21:48:40
+38.click on linkText=Add Item OK21:48:41
+"39.verifyElementPresent on xpath=//td[contains(.,'${item_name}')] OK21:48:42"
+40.open on /lists/index OK21:48:43
+41.click on css=.group-info:nth-child(1) > td:nth-child(3) OK21:48:44
+42.click on xpath=//td[text() = 'Muffins']/..//button[text() = 'Delete'] OK21:48:45
+43.click on css=.btn-outline-primary OK21:48:45
+44.assertElementNotPresent on xpath=//td[text() = 'Muffin'] OK21:48:45
+'Mod - Create New Item Moderator - Add New Item' completed successfully21:48:47
+Running 'Mod - Create new Item'21:48:47
+1.open on /moderator OK21:48:48
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:48:48
+echo: 121:48:49
+4.if on ${logout_cnt} > 0 OK21:48:49
+5.click on linkText=Logout OK21:48:49
+6.end OK21:48:50
+7.sendKeys on name=login_username with value olga OK21:48:50
+8.sendKeys on name=login_password with value 123456 OK21:48:51
+9.click on css=.btn OK21:48:51
+10.click on id=addItem OK21:48:51
+"11.executeScript on return ""Tamarini Muffini"" + (Math.floor(Math.random()*1000000)) with value name OK21:48:53"
+12.sendKeys on id=itemName with value ${name} OK21:48:55
+13.sendKeys on id=quantity with value 32 OK21:48:55
+14.select on id=shops with value Tempo OK21:48:55
+15.click on css=.btn OK21:48:56
+16.executeScript on return window.location.pathname with value path OK21:48:56
+17.assert on path with value /moderator/index OK21:48:57
+18.sendKeys on id=search with value ${name} OK21:48:58
+19.select on id=shops with value Tempo OK21:48:58
+20.click on id=newShop OK21:48:58
+21.assertElementPresent on xpath=//td[text() = '${name}'] OK21:48:58
+'Mod - Create new Item' completed successfully21:49:00
+Running 'Mod - Create new Item - malicious input'21:49:00
+1.open on /moderator OK21:49:01
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:49:01
+echo: 121:49:02
+4.if on ${logout_cnt} > 0 OK21:49:02
+5.click on linkText=Logout OK21:49:03
+6.end OK21:49:03
+7.sendKeys on name=login_username with value olga OK21:49:04
+8.sendKeys on name=login_password with value 123456 OK21:49:04
+9.click on css=.btn OK21:49:04
+10.click on id=addItem OK21:49:04
+"11.executeScript on return ""DROP TABLE user"" with value name OK21:49:06"
+12.sendKeys on id=itemName with value ${name} OK21:49:08
+13.sendKeys on id=quantity with value bez_broja_ovdje OK21:49:08
+14.select on id=shops with value Tempo OK21:49:09
+15.click on css=.btn OK21:49:09
+16.assertText on css=.col > h1 with value ERROR! OK21:49:09
+'Mod - Create new Item - malicious input' completed successfully21:49:12
+Running 'Mod - Create new Item - no information - no shop'21:49:13
+1.open on /moderator OK21:49:15
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:49:15
+echo: 121:49:20
+4.if on ${logout_cnt} > 0 OK21:49:21
+5.click on linkText=Logout OK21:49:21
+6.end OK21:49:21
+7.sendKeys on name=login_username with value olga OK21:49:24
+8.sendKeys on name=login_password with value 123456 OK21:49:24
+9.click on css=.btn OK21:49:25
+10.click on id=addItem OK21:49:26
+"11.executeScript on return ""Tamarini Muffini"" + (Math.floor(Math.random()*1000000)) with value name OK21:49:33"
+12.sendKeys on id=itemName with value ${name} OK21:49:35
+13.sendKeys on id=quantity with value 32 OK21:49:36
+14.click on css=.btn OK21:49:36
+15.executeScript on return window.location.pathname with value path OK21:49:36
+16.assertText on css=.col > h1 with value ERROR! OK21:49:37
+'Mod - Create new Item - no information - no shop' completed successfully21:49:38
+Running 'Mod - Create new Item - no name'21:49:38
+1.open on /moderator OK21:49:38
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:49:38
+echo: 121:49:40
+4.if on ${logout_cnt} > 0 OK21:49:40
+5.click on linkText=Logout OK21:49:40
+6.end OK21:49:41
+7.sendKeys on name=login_username with value olga OK21:49:41
+8.sendKeys on name=login_password with value 123456 OK21:49:41
+9.click on css=.btn OK21:49:42
+10.click on id=addItem OK21:49:42
+11.click on css=.btn OK21:49:43
+12.executeScript on return window.location.pathname with value path OK21:49:46
+13.assert on path with value /moderator/renderAddItem OK21:49:46
+'Mod - Create new Item - no name' completed successfully21:49:46
+Running 'Mod - Create new Item - no quantity'21:49:46
+1.open on /moderator OK21:49:47
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:49:47
+echo: 121:49:48
+4.if on ${logout_cnt} > 0 OK21:49:48
+5.click on linkText=Logout OK21:49:49
+6.end OK21:49:49
+7.sendKeys on name=login_username with value olga OK21:49:50
+8.sendKeys on name=login_password with value 123456 OK21:49:50
+9.click on css=.btn OK21:49:50
+10.click on id=addItem OK21:49:50
+"11.executeScript on return ""Tamarini Muffini"" + (Math.floor(Math.random()*1000000)) with value name OK21:49:52"
+12.sendKeys on id=itemName with value ${name} OK21:49:55
+13.select on id=shops with value Tempo OK21:49:55
+14.click on css=.btn OK21:49:55
+15.executeScript on return window.location.pathname with value path OK21:49:56
+16.assert on path with value /moderator/renderAddItem OK21:49:56
+'Mod - Create new Item - no quantity' completed successfully21:49:56
+Running 'Mod - Create new Shop'21:49:56
+1.open on /moderator OK21:49:57
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:49:57
+3.if on ${logout_cnt} > 0 OK21:49:58
+4.click on linkText=Logout OK21:49:58
+5.end OK21:49:59
+6.sendKeys on name=login_username with value olga OK21:49:59
+7.sendKeys on name=login_password with value 123456 OK21:50:00
+"8.executeScript on return ""Tamarini Muffini"" + (Math.floor(Math.random()*1000000)) with value name OK21:50:00"
+echo: Tamarini Muffini4036921:50:00
+10.click on css=.btn OK21:50:00
+11.sendKeys on id=addshop with value ${name} OK21:50:00
+12.click on id=addShop OK21:50:02
+13.open on /moderator OK21:50:02
+"14.assertElementPresent on xpath=//option[text() = ""${name}""] OK21:50:02"
+'Mod - Create new Shop' completed successfully21:50:04
+Running 'Mod - Create new Shop - no name'21:50:04
+1.open on /moderator OK21:50:05
+2.storeXpathCount on xpath=//*[text() = 'Logout'] with value logout_cnt OK21:50:05
+3.if on ${logout_cnt} > 0 OK21:50:06
+4.click on linkText=Logout OK21:50:07
+5.end OK21:50:07
+6.sendKeys on name=login_username with value olga OK21:50:07
+7.sendKeys on name=login_password with value 123456 OK21:50:08
+8.click on css=.btn OK21:50:08
+9.click on id=addShop OK21:50:08
+10.executeScript on return window.location.pathname with value path OK21:50:10
+echo: /moderator/index21:50:10
+12.assert on path with value /moderator/index OK21:50:10
+'Mod - Create new Shop - no name' completed successfully
