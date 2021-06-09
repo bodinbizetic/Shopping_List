@@ -1,0 +1,288 @@
+T1_UspesnoLogovanjeObicnogKorisnika: Loguje se korisnik koji postoji u bazi
+									1. Korisnik unosi korisnicko ime;
+									2. Korisnik unosi lozinku;
+									3. Korisnik pritiska dugme "Login";
+VT:									4. Prikazuje se stranica za korisnike;
+
+T2_NeuspesnoLogovanjeObicnogKorisnika: Korisnik unosi nepostojece korisnicko ime
+									1. Korisnik unosi nepostojece korisnicko ime;
+									2. Korisnik unosi lozinku;
+									3. Korisnik pritisne dugme "Login"
+VT:									4. Prikazuje se greska da ne postoji korisnicko ime;
+
+T3_NeuspesnoLogovanjeObicnogKOrisnika: Korisnik unosi pogresnu sifru
+									1. Korisnik unosi korisnicko ime;
+									2. Korisnik unosi pogresnu lozinku;
+									3. Korisnik pritisne dugme "Login"
+VT:									4. Prikazuje se greska da je pogresna lozinka;
+
+T4_UspesnoLogovanjeAdmina: Loguje se admin koji postoji u bazi
+									1. Admin unosi korisnicko ime;
+									2. Admin unosi lozinku;
+									3. Admin pritiska dugme "Login";
+VT:									4. Prikazuje se stranica za admine;
+
+T5_NeuspesnoLogovanjeAdmina: Admin unosi nepostojece korisnicko ime
+									1. Admin unosi nepostojece korisnicko ime;
+									2. Admin unosi lozinku;
+									3. Admin pritisne dugme "Login"
+VT:									4. Prikazuje se greska da ne postoji korisnicko ime;
+
+T6_NeuspesnoLogovanjeAdmina: Admin unosi pogresnu sifru
+									1. Admin unosi korisnicko ime;
+									2. Admin unosi pogresnu lozinku;
+									3. Admin pritisne dugme "Login"
+VT:									4. Prikazuje se greska da je pogresna lozinka;
+
+T7_UspesnaRegistracijaNovogKorisnika: Korisnik unosi podatke koje sistem cuva
+									1. Korisnik unosi korisnicko ime koje ne postoji u sistemu;
+									2. Korisnik unosi ime i prezime;
+									3. Korisnik unosi imejl adresu u ispravnom formatu (nesto@nesto);
+									4. Korisnik unosi sliku i broj telefona;
+									5. Korisnik unosi sifru u dobrom formatu: 123456;
+									6. Korisnik unosi ispravnu sifru kao potvrdu;
+									7. Korisnik pritiska dugme "Registration";
+VT:									8. Prikazuje se stranica za korisnike;
+
+T8_NeuspesnaRegistracijaNovogKorisnika: Korisnik unosi pogresne podatke
+									1. Korisnik unosi korisnicko ime koje postoji u sistemu;
+									2. Korisnik unosi ime i prezime;
+									3. Korisnik unosi imejl adresu u ispravnom formatu (nesto@nesto);
+									4. Korisnik unosi sliku i broj telefona;
+									5. Korisnik unosi sifru u dobrom formatu: 123456;
+									6. Korisnik unosi ispravnu sifru kao potvrdu;
+									7. Korisnik pritiska dugme "Registration";
+VT:									8. Prikazuje se poruka o pogresnom korisnickom imenu;
+
+T9_NeuspesnaRegistracijaNovogKorisnika: Korisnik unosi pogresne podatke
+									1. Korisnik ne unosi korisnicko ime;
+									2. Korisnik unosi ime i prezime;
+									3. Korisnik unosi imejl adresu u ispravnom formatu (nesto@nesto);
+									4. Korisnik unosi sliku i broj telefona;
+									5. Korisnik unosi sifru u dobrom formatu: 123456;
+									6. Korisnik unosi ispravnu sifru kao potvrdu;
+									7. Korisnik pritiska dugme "Registration";
+VT:									8. Prikazuje se poruka o obaveznim poljima;
+
+
+T10_NeuspesnaRegistracijaNovogKorisnika: Korisnik unosi pogresne podatke
+									1. Korisnik unosi korisnicko ime koje ne postoji u sistemu;
+									2. Korisnik ne unosi ime i prezime;
+									3. Korisnik unosi imejl adresu u ispravnom formatu (nesto@nesto);
+									4. Korisnik unosi sliku i broj telefona;
+									5. Korisnik unosi sifru u dobrom formatu: 123456;
+									6. Korisnik unosi ispravnu sifru kao potvrdu;
+									7. Korisnik pritiska dugme "Registration";
+VT:									8. Prikazuje se poruka o obaveznim poljima;
+
+T11_NeuspesnaRegistracijaNovogKorisnika: Korisnik unosi pogresne podatke
+									1. Korisnik unosi korisnicko ime koje ne postoji u sistemu;
+									2. Korisnik unosi ime i prezime;
+									3. Korisnik unosi imejl adresu u pogresnom formatu;
+									4. Korisnik unosi sliku i broj telefona;
+									5. Korisnik unosi sifru u dobrom formatu: 123456;
+									6. Korisnik unosi ispravnu sifru kao potvrdu;
+									7. Korisnik pritiska dugme "Registration";
+VT:									8. Prikazuje se poruka o pogresnom formatu mejl adrese;
+
+T12_NeuspesnaRegistracijaNovogKorisnika: Korisnik unosi pogresne podatke
+									1. Korisnik unosi korisnicko ime koje ne postoji u sistemu;
+									2. Korisnik unosi ime i prezime;
+									3. Korisnik ne unosi imejl adresu;
+									4. Korisnik unosi sliku i broj telefona;
+									5. Korisnik unosi sifru u dobrom formatu: 123456;
+									6. Korisnik unosi ispravnu sifru kao potvrdu;
+									7. Korisnik pritiska dugme "Registration";
+VT:									8. Prikazuje se poruka o obaveznim poljima;
+
+
+T13_NeuspesnaRegistracijaNovogKorisnika: Korisnik unosi pogresne podatke
+									1. Korisnik unosi korisnicko ime koje ne postoji u sistemu;
+									2. Korisnik unosi ime i prezime;
+									3. Korisnik unosi imejl adresu u ispravnom formatu (nesto@nesto);
+									4. Korisnik unosi sliku i broj telefona;
+									5. Korisnik unosi sifru u pogresnom formatu: 12345;
+									6. Korisnik unosi ispravnu sifru kao potvrdu;
+									7. Korisnik pritiska dugme "Registration";
+VT:									8. Prikazuje se poruka o pogresnom formatu sifre;
+
+T14_NeuspesnaRegistracijaNovogKorisnika: Korisnik unosi pogresne podatke
+									1. Korisnik unosi korisnicko ime koje ne postoji u sistemu;
+									2. Korisnik ne unosi ime i prezime;
+									3. Korisnik unosi imejl adresu u ispravnom formatu (nesto@nesto);
+									4. Korisnik unosi sliku i broj telefona;
+									5. Korisnik ne unosi sifru; u dobrom formatu: 12345;
+									6. Korisnik unosi ispravnu sifru kao potvrdu;
+									7. Korisnik pritiska dugme "Registration";
+VT:									8. Prikazuje se poruka o obaveznim poljima;
+
+T15_NeuspesnaRegistracijaNovogKorisnika: Korisnik unosi pogresne podatke
+									1. Korisnik unosi korisnicko ime koje ne postoji u sistemu;
+									2. Korisnik unosi ime i prezime;
+									3. Korisnik unosi imejl adresu u ispravnom formatu (nesto@nesto);
+									4. Korisnik unosi sliku i broj telefona;
+									5. Korisnik unosi sifru u dobrom formatu: 123456;
+									6. Korisnik unosi pogresnu sifru kao potvrdu;
+									7. Korisnik pritiska dugme "Registration";
+VT:									8. Prikazuje se poruka o pogresnoj sifri;
+
+T16_NeuspesnaRegistracijaNovogKorisnika: Korisnik unosi pogresne podatke
+									1. Korisnik unosi korisnicko ime koje ne postoji u sistemu;
+									2. Korisnik unosi ime i prezime;
+									3. Korisnik unosi imejl adresu u ispravnom formatu (nesto@nesto);
+									4. Korisnik unosi sliku i broj telefona;
+									5. Korisnik unosi sifru u dobrom formatu: 123456;
+									6. Korisnik unosi ne sifru kao potvrdu;
+									7. Korisnik pritiska dugme "Registration";
+VT:									8. Prikazuje se poruka o obaveznim poljima;
+
+T17_UspesanPregledPraznihNotifikacija: Korisnik trazi pregled notifikacija. 
+									1. Korisnik bira opciju "Notification"
+									2. Spisak notifikacija je prazan
+VT:									3. Prikazuje se prazna tabela notifikacija
+
+T18_UspesnoPrihvatanjeUlaskaUGrupu: Korisnik prihvata poziv za uclanjenje u grupu.
+									1. Korisnik pregleda notifikacije
+									2. Korisnik bira aopciju "Approve" na pozivu da se uclani u grupu
+									3. Notifikacija se oznacava kao procitana
+VT:									4. Korisnik postaje deo grupe, grupa je vidljiva u opciji "Groups"
+
+T19_UspesnoOdbijanjeUlaskaUGrupu: Korisnik odbija poziv za uclanjenje u grupu.
+									1. Korisnik pregleda notifikacije
+									2. Korisnik odbija poziv za uclanjenjem u grupu
+VT:									3. Notifikacija se oznacava kao prozitana
+
+T20_UspesnoCitanjeNotifikacija: Korisnik oznacava notifikaciju kao procitanu.
+									1. Korisnik pregleda notifikacije
+									2. Korisnik pritska dugme za potvrdu
+VT:									3. Notifikacija se oznacava kao prozitana
+
+T21_UspesnoCitanjePrazneStatistikeKorisnika: Korisnik trazi pregled statistike koja je prazna.
+									1. Korisnik bira opciju "Profile"
+VT:									2. Prikazuju se dva prazna dijagrama za broj spiskova i statistiku trosenja
+VT:									3. Ispisuje se "No data" na dijagramima za najpopularnije namirnice
+
+T22_UspesnoCitanjeStatistikeKorisnika: Korisnik trzi pregled statistike .
+									1. Korisnik bira opciju "Profile"
+VT:									2. Prikazuju se dva dijagrama sa brojem spiskova i statistikom trosenja
+VT:									3. Prikazuju se pita-dijagrami za najpopularnije namirnice
+
+T23_UspesnoMenjanjeInformacijaOKorisniku: Korisnik unosi podatke za promenu informacija.
+									1. Korisnik bira opciju "Profile"
+									2. Korisnik unosi novo korisnicko ime koje ne postoji u sistemu
+									3. Korinsik unosi novu lozinku koja odgavara ogranicenjima
+									4. Korisnik unosi novo puno ime
+									5. Korinsik unosi novu imejl adresu u odgovarajucem formatu
+									6. Korisnik unosi broj telefon i sliku
+									7. Korisnik bira opciju "Save changes"
+VT:									8. Prikazuje se Profile strana bez gresaka
+
+
+T24_NeuspesnoMenjanjeInformacijaOKorisniku: Korisnik unosi pogresne podatke za promenu informacija.
+									1. Korisnik bira opciju "Profile"
+									2. Korisnik unosi novo korisnicko ime koje postoji u sistemu
+									3. Korinsik unosi novu lozinku koja odgavara ogranicenjima
+									4. Korisnik unosi novo puno ime
+									5. Korinsik unosi novu imejl adresu u odgovarajucem formatu
+									6. Korisnik unosi broj telefon i sliku
+									7. Korisnik bira opciju "Save changes"
+VT:									8. Prikazuje se Profile strana sa porukom o pogresnom korisnickom imenu
+
+
+T25_NeuspesnoMenjanjeInformacijaOKorisniku: Korisnik unosi pogresne podatke za promenu informacija.
+									1. Korisnik bira opciju "Profile"
+									2. Korisnik uklanja korisnicko ime
+									3. Korinsik unosi novu lozinku koja odgavara ogranicenjima
+									4. Korisnik unosi novo puno ime
+									5. Korinsik unosi novu imejl adresu u odgovarajucem formatu
+									6. Korisnik unosi broj telefon i sliku
+									7. Korisnik bira opciju "Save changes"
+VT:									8. Prikazuje se Profile strana sa porukom o neophodnom korisnickom imenu
+
+
+T26_NeuspesnoMenjanjeInformacijaOKorisniku: Korisnik unosi pogresne podatke za promenu informacija.
+									1. Korisnik bira opciju "Profile"
+									2. Korisnik unosi novo korisnicko ime koje ne postoji u sistemu
+									3. Korinsik unosi novu lozinku koja ne odgavara ogranicenjima
+									4. Korisnik unosi novo puno ime
+									5. Korinsik unosi novu imejl adresu u odgovarajucem formatu
+									6. Korisnik unosi broj telefon i sliku
+									7. Korisnik bira opciju "Save changes"
+VT:									8. Prikazuje se Profile strana sa porukom o pogresnoj lozinki
+
+
+T27_NeuspesnoMenjanjeInformacijaOKorisniku: Korisnik unosi pogresne podatke za promenu informacija.
+									1. Korisnik bira opciju "Profile"
+									2. Korisnik unosi novo korisnicko ime koje ne postoji u sistemu
+									3. Korinsik uklanja lozinku
+									4. Korisnik unosi novo puno ime
+									5. Korinsik unosi novu imejl adresu u odgovarajucem formatu
+									6. Korisnik unosi broj telefon i sliku
+									7. Korisnik bira opciju "Save changes"
+VT:									8. Prikazuje se Profile strana sa porukom o neophodnoj lozinki
+
+
+T28_NeuspesnoMenjanjeInformacijaOKorisniku: Korisnik unosi pogresne podatke za promenu informacija.
+									1. Korisnik bira opciju "Profile"
+									2. Korisnik unosi novo korisnicko ime koje ne postoji u sistemu
+									3. Korinsik unosi novu lozinku koja odgavara ogranicenjima
+									4. Korisnik uklanja puno ime
+									5. Korinsik unosi novu imejl adresu u odgovarajucem formatu
+									6. Korisnik unosi broj telefon i sliku
+									7. Korisnik bira opciju "Save changes"
+VT:									8. Prikazuje se Profile strana sa porukom o neophodnm polju
+
+
+T29_NeuspesnoMenjanjeInformacijaOKorisniku: Korisnik unosi pogresne podatke za promenu informacija.
+									1. Korisnik bira opciju "Profile"
+									2. Korisnik unosi novo korisnicko ime koje ne postoji u sistemu
+									3. Korinsik unosi novu lozinku koja odgavara ogranicenjima
+									4. Korisnik unosi novo puno ime
+									5. Korinsik unosi novu imejl adresu u pogresnom formatu
+									6. Korisnik unosi broj telefon i sliku
+									7. Korisnik bira opciju "Save changes"
+VT:									8. Prikazuje se Profile strana sa porukom o pogresnoj imejl adresi
+
+
+T30_NeuspesnoMenjanjeInformacijaOKorisniku: Korisnik unosi pogresne podatke za promenu informacija.
+									1. Korisnik bira opciju "Profile"
+									2. Korisnik unosi novo korisnicko ime koje ne postoji u sistemu
+									3. Korinsik unosi novu lozinku koja odgavara ogranicenjima
+									4. Korisnik unosi novo puno ime
+									5. Korinsik uklanja imejl adresu
+									6. Korisnik unosi broj telefon i sliku
+									7. Korisnik bira opciju "Save changes"
+VT:									8. Prikazuje se Profile strana sa porukom o neophodnom polju
+
+
+T31_UspesnoMenjanjeLozinkeAdministratora: Administrator menja lozinku.
+									1. Administrator bira opciju "Refresh password"
+VT:									2. Pojavi se prozor za menjanje
+									3. Unosi se nova lozinka
+									4. Bira se opcija "Save"
+VT:									5. Vraca se na stranicu za administriranje
+
+
+T32_NeuspesnoMenjanjeLozinkeAdministratora: Administrator menja lozinku.
+									1. Administrator bira opciju "Refresh password"
+VT:									2. Pojavi se prozor za menjanje
+									3. Ne unosi se nova lozinka
+									4. Bira se opcija "Save"
+VT:									5. Ispisuje se poruka o neophodnoj lozniki			
+									6. Vraca se na stranicu za administriranje
+
+T33_UspesnoMenjanjeCeneNamirnica: Admin manja cene namirnica.
+									1.Admin unosi novu cenu namirnice koju zeli da promeni
+									2. Admin bira opciju "Change price"
+VT:									3. Cena je promenjena
+
+T34_NeuspesnoMenjanjeCeneNamirnica: Admin manja cene namirnica.
+									1.Admin unosi pogresan format cene
+									2. Admin bira opciju "Change price"
+VT:									3. Cena nije promenjena
+
+T35_UspesnoPretrazivanjeNamirnica: Admin pretrazuje namirnice
+									1.Admin unosi pojam u polje za pretragu
+									2. Admin bira opciju "Submit filters"
+VT:									3. Prikazuju se namirnice koje sadrze taj pojam u nazivu
+										
