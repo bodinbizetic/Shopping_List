@@ -123,7 +123,10 @@
     } ?>
 
     function add(){
-        window.location = "/moderator/addShop/" + document.getElementById("addshop").value;
+        if(document.getElementById("addshop").value == "" || document.getElementById("addshop").value == null)
+            window.location = "/moderator/addShop/" + document.getElementById("addshop").value;
+        else
+            alert("Missing information.");
     }
     function moditem(){
         window.location = "/moderator/renderAddItem";
