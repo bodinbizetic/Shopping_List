@@ -4095,13 +4095,6 @@
       ],
       "value": ""
     }, {
-      "id": "b28ffa96-14f0-48d5-9546-3acc8ddce0e4",
-      "comment": "",
-      "command": "assertAlert",
-      "target": "Only digits allowed!",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "2b010ba5-ef96-49ac-9f93-1b4d89a3a918",
       "comment": "",
       "command": "verifyText",
@@ -4304,12 +4297,8 @@
       "value": ""
     }]
   }, {
-    "id": "7bea42b5-ae5a-492f-8ca2-da177ba5979c",
-    "name": "T29_NeuspesnoMenjanjeInformacijaOKorisniku",
-    "commands": []
-  }, {
     "id": "c1880307-0e10-4337-bf11-973aef2c3c6f",
-    "name": "T36_NeuspesnoMenjanjeInformacijaOKorisniku",
+    "name": "T29_NeuspesnoMenjanjeInformacijaOKorisniku",
     "commands": [{
       "id": "0b5cd0c0-9597-4ab0-982a-7c544f7781f4",
       "comment": "",
