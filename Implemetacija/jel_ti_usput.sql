@@ -101,7 +101,6 @@ CREATE TABLE IF NOT EXISTS `ingroup` (
 --
 
 INSERT INTO `ingroup` (`type`, `idGroup`, `idUser`, `idInGroup`) VALUES
-(1, 1, 13, 1),
 (1, 1, 27, 2),
 (0, 1, 28, 3),
 (0, 4, 28, 5);
