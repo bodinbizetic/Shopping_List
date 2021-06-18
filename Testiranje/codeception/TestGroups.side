@@ -1,0 +1,3227 @@
+{
+  "id": "b999acfa-7d19-47c0-9c9c-b3d4fc499893",
+  "version": "2.0",
+  "name": "TestGroups",
+  "url": "http://localhost:8080/homePage/index",
+  "tests": [{
+    "id": "a90584b9-1e21-4d88-be3c-06b717f3ad44",
+    "name": "Kreiranje grupe TP1: Uspesno kreiranje nove grupe",
+    "commands": [{
+      "id": "ddb5e3f1-a60d-4ddc-875c-2897d85d183c",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/group/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1e0ec404-005d-44ab-bcbb-3df5402eaa60",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1040",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "73ed96c2-3cae-40ef-ada9-73a157888147",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//section[@id='groups']/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "GROUPS"
+    }, {
+      "id": "4574d742-a534-4205-a31f-c1fa3f63005f",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Create new",
+      "targets": [
+        ["linkText=Create new", "linkText"],
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//a[contains(text(),'Create new')]", "xpath:link"],
+        ["xpath=//section[@id='groups']/div/div[2]/div/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/renderNewGroup']", "xpath:href"],
+        ["xpath=//div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Create new')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2bdaf73f-0ba6-4951-a4ce-7fd2f865bdaa",
+      "comment": "",
+      "command": "click",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3c08cfb8-032d-447b-97d2-58510a19053b",
+      "comment": "",
+      "command": "type",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "Group1"
+    }, {
+      "id": "c7a86c97-707b-428b-a9c9-0e23c55d3cea",
+      "comment": "",
+      "command": "type",
+      "target": "name=description",
+      "targets": [
+        ["name=description", "name"],
+        ["css=.form-group:nth-child(2) .form-control", "css:finder"],
+        ["xpath=//input[@name='description']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "Group Success"
+    }, {
+      "id": "cb964834-cb6b-407f-ab3d-924da42e110d",
+      "comment": "",
+      "command": "type",
+      "target": "id=member",
+      "targets": [
+        ["id=member", "id"],
+        ["css=#member", "css:finder"],
+        ["xpath=//input[@id='member']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "olga"
+    }, {
+      "id": "0079ef45-7530-4fb0-a630-8f0fcef26b60",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3a57beab-a1db-4ef9-8c30-74829cc2d879",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=td:nth-child(1)",
+      "targets": [
+        ["css=td:nth-child(1)", "css:finder"],
+        ["xpath=//table[@id='membersToCall']/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'@olga')]", "xpath:innerText"]
+      ],
+      "value": "@olga"
+    }, {
+      "id": "7e680dc4-71a0-4b21-8acb-bd74a55b8c61",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-success",
+      "targets": [
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//input[@value='Create Group']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3e13514d-060c-4ec2-a83d-4a524762cd7d",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=td:nth-child(2)",
+      "targets": [
+        ["css=td:nth-child(2)", "css:finder"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[2]", "xpath:idRelative"],
+        ["xpath=//td[2]", "xpath:position"],
+        ["xpath=//td[contains(.,'Group1')]", "xpath:innerText"]
+      ],
+      "value": "Group1"
+    }, {
+      "id": "58990893-273b-4c15-9e55-e8e2d6a72e40",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//section[@id='groups']/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "GROUPS"
+    }]
+  }, {
+    "id": "d82a79a3-dc8a-4870-a78f-8e3a85946820",
+    "name": "Kreiranje grupe TP2: Neuspesno kreiranje nove grupe - naziv grupe nije unet",
+    "commands": [{
+      "id": "313812cb-672f-4bf4-a3eb-eb9113f573c5",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/group/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ae54017d-f304-452f-830f-8e416efd4ab8",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c66d94da-a7c8-4062-a944-0bf787073608",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Create new",
+      "targets": [
+        ["linkText=Create new", "linkText"],
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//a[contains(text(),'Create new')]", "xpath:link"],
+        ["xpath=//section[@id='groups']/div/div[2]/div/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/renderNewGroup']", "xpath:href"],
+        ["xpath=//div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Create new')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a6475f4e-c05f-4cdc-9ec8-860d32c31a79",
+      "comment": "",
+      "command": "click",
+      "target": "name=description",
+      "targets": [
+        ["name=description", "name"],
+        ["css=.form-group:nth-child(2) .form-control", "css:finder"],
+        ["xpath=//input[@name='description']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "af6c0e9d-dec2-4de6-bc48-5c84b4880271",
+      "comment": "",
+      "command": "type",
+      "target": "name=description",
+      "targets": [
+        ["name=description", "name"],
+        ["css=.form-group:nth-child(2) .form-control", "css:finder"],
+        ["xpath=//input[@name='description']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "Group emprty name"
+    }, {
+      "id": "c9d22f14-c5f8-4f95-8105-676852f28b86",
+      "comment": "",
+      "command": "type",
+      "target": "id=member",
+      "targets": [
+        ["id=member", "id"],
+        ["css=#member", "css:finder"],
+        ["xpath=//input[@id='member']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "olga"
+    }, {
+      "id": "1210e3e7-a3ad-4ab0-b840-62722f965ab1",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0980caa6-0b59-4ba0-95ed-6623471dcd4b",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "dd19ef47-151e-4c8e-a5d8-cd4867836781",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "57251435-1103-453c-8a83-bf928909c7fd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-success",
+      "targets": [
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//input[@value='Create Group']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "46f17da3-9924-4cbb-b754-3a8ac0fa5e0d",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//main[@id='main']/section/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "NEW GROUP"
+    }, {
+      "id": "592fa1b7-01bc-46a9-ae64-ced944308b08",
+      "comment": "",
+      "command": "assertValue",
+      "target": "name=group_name",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "bf5c7867-7143-45b6-9722-fac58b0d99fc",
+    "name": "Kreiranje grupe TP3: Korisnik sa unetim imenom ne postoji u sistemu",
+    "commands": [{
+      "id": "324b5b16-0ccf-4c5f-9bfd-45d3de12da34",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/group/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3e765ab5-eeb9-486b-aebe-a149bcb7a3d2",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6f2a8e58-1c93-4535-a24e-fe7cbf9f9a1a",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Create new",
+      "targets": [
+        ["linkText=Create new", "linkText"],
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//a[contains(text(),'Create new')]", "xpath:link"],
+        ["xpath=//section[@id='groups']/div/div[2]/div/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/renderNewGroup']", "xpath:href"],
+        ["xpath=//div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Create new')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "78712ed5-e7b3-430d-a33f-1fed2452d21a",
+      "comment": "",
+      "command": "click",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "14759e59-5198-4616-bc0d-07acf3305641",
+      "comment": "",
+      "command": "type",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "Group"
+    }, {
+      "id": "85ae543c-32e8-4fe5-af9d-15796d32cf58",
+      "comment": "",
+      "command": "type",
+      "target": "name=description",
+      "targets": [
+        ["name=description", "name"],
+        ["css=.form-group:nth-child(2) .form-control", "css:finder"],
+        ["xpath=//input[@name='description']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "PSI group"
+    }, {
+      "id": "e8aa8510-cfbc-4db4-ac26-b5880ad81a88",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bedba91f-e7c9-4cb0-be84-718e821eaef0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-success",
+      "targets": [
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//input[@value='Create Group']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ebe8ea65-b4ce-48d7-961c-fef369944a90",
+      "comment": "",
+      "command": "verifyNotText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//section[@id='groups']/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "GROUPS"
+    }, {
+      "id": "e85a1ba1-ae6a-471b-af1f-791e526025e0",
+      "comment": "",
+      "command": "assertElementNotPresent",
+      "target": "css=td:nth-child(2)",
+      "targets": [
+        ["css=td:nth-child(2)", "css:finder"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[2]", "xpath:idRelative"],
+        ["xpath=//td[2]", "xpath:position"],
+        ["xpath=//td[contains(.,'Group')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "ab8d1559-795c-4b66-8ea6-10b06a6e376e",
+    "name": "Kreiranje grupe TP4: Prikaz novog korisnika na spisku korisnika koje treba pozvati",
+    "commands": [{
+      "id": "a7f082e2-2fac-4b13-b226-6c40a05f5f33",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/group/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2b2b5d89-0f0c-4e82-bdc7-f163c754edd0",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e9b18d5e-25ec-429c-92ea-116bd9193da3",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Create new",
+      "targets": [
+        ["linkText=Create new", "linkText"],
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//a[contains(text(),'Create new')]", "xpath:link"],
+        ["xpath=//section[@id='groups']/div/div[2]/div/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/renderNewGroup']", "xpath:href"],
+        ["xpath=//div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Create new')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "81b65fd7-3d00-4159-9df2-2827f299a5b1",
+      "comment": "",
+      "command": "click",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3bc51ae2-d8ec-4180-9773-811be52be6c4",
+      "comment": "",
+      "command": "type",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "Group"
+    }, {
+      "id": "952b491f-5512-4182-820b-7c993f5989bb",
+      "comment": "",
+      "command": "type",
+      "target": "name=description",
+      "targets": [
+        ["name=description", "name"],
+        ["css=.form-group:nth-child(2) .form-control", "css:finder"],
+        ["xpath=//input[@name='description']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "Description"
+    }, {
+      "id": "fff32a0c-7899-4185-b71a-d1417f6277c8",
+      "comment": "",
+      "command": "type",
+      "target": "id=member",
+      "targets": [
+        ["id=member", "id"],
+        ["css=#member", "css:finder"],
+        ["xpath=//input[@id='member']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "olga"
+    }, {
+      "id": "1f6ac714-38df-43e5-b31a-e7722098f81f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "21edd1fb-4538-4049-88ed-0fe9251ca7d7",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bba63dfa-c069-4ecc-a1ed-5c97c64dec63",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "61acb31c-c003-4e3b-a0fb-e17ebb14a1d1",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-vertical > .row",
+      "targets": [
+        ["css=.form-vertical > .row", "css:finder"],
+        ["xpath=//main[@id='main']/section/div/form/div", "xpath:idRelative"],
+        ["xpath=//form/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ce05c7ce-a09f-475e-8bb8-43197db87175",
+      "comment": "",
+      "command": "type",
+      "target": "id=member",
+      "targets": [
+        ["id=member", "id"],
+        ["css=#member", "css:finder"],
+        ["xpath=//input[@id='member']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "bodin"
+    }, {
+      "id": "1d344d05-519e-443c-8fe3-88477e49ad5a",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=td:nth-child(1)",
+      "targets": [
+        ["css=td:nth-child(1)", "css:finder"],
+        ["xpath=//table[@id='membersToCall']/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'@olga')]", "xpath:innerText"]
+      ],
+      "value": "@olga"
+    }, {
+      "id": "12bdd95f-e9fe-4573-b65f-9ed95e79a009",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a1c99276-3d8f-404d-a972-4a7f1b37ccff",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=tr:nth-child(2) > td:nth-child(1)",
+      "targets": [
+        ["css=tr:nth-child(2) > td:nth-child(1)", "css:finder"],
+        ["xpath=//table[@id='membersToCall']/tr[2]/td", "xpath:idRelative"],
+        ["xpath=//tr[2]/td", "xpath:position"],
+        ["xpath=//td[contains(.,'@bodin')]", "xpath:innerText"]
+      ],
+      "value": "@bodin"
+    }, {
+      "id": "badea35d-ea3c-400c-bc39-7944e6198280",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-success",
+      "targets": [
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//input[@value='Create Group']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e1db35c9-3b73-4bfd-854a-999378f26956",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//section[@id='groups']/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "GROUPS"
+    }]
+  }, {
+    "id": "0ca2e71c-64ad-4db2-9441-3fd169c62388",
+    "name": "Kreiranje grupe TP5: Odustajanje od zvanja novog clana",
+    "commands": [{
+      "id": "00205d66-5c42-4ae0-a537-6463b0fc631d",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/group/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "44b5a201-7b24-4e0b-b426-cf8efa664536",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "81d598a7-5299-4d2c-b788-12ebebc3be67",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Create new",
+      "targets": [
+        ["linkText=Create new", "linkText"],
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//a[contains(text(),'Create new')]", "xpath:link"],
+        ["xpath=//section[@id='groups']/div/div[2]/div/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/renderNewGroup']", "xpath:href"],
+        ["xpath=//div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Create new')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a931101c-e07f-4758-8e2d-88a5402c6dc7",
+      "comment": "",
+      "command": "click",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "61d47050-23f9-4509-b8b7-bd22a111ff70",
+      "comment": "",
+      "command": "type",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "New group"
+    }, {
+      "id": "1144ebd8-e03f-4b9b-9572-e17e900b7746",
+      "comment": "",
+      "command": "type",
+      "target": "name=description",
+      "targets": [
+        ["name=description", "name"],
+        ["css=.form-group:nth-child(2) .form-control", "css:finder"],
+        ["xpath=//input[@name='description']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "New group"
+    }, {
+      "id": "03a5da93-7ace-4ab2-9119-9b510a81f1ca",
+      "comment": "",
+      "command": "type",
+      "target": "id=member",
+      "targets": [
+        ["id=member", "id"],
+        ["css=#member", "css:finder"],
+        ["xpath=//input[@id='member']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "olga"
+    }, {
+      "id": "295d7d8f-98a9-4fd2-a3b0-e373954fb7a6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "51a7f129-df47-418d-bfb8-5ed33b6e2200",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "48d156cf-38e5-49dc-8dd5-6ee69b9d3476",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ab3e0e9b-83dc-42b0-b7c1-f0cd6d8d98ec",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=td:nth-child(1)",
+      "targets": [
+        ["css=td:nth-child(1)", "css:finder"],
+        ["xpath=//table[@id='membersToCall']/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'@olga')]", "xpath:innerText"]
+      ],
+      "value": "@olga"
+    }, {
+      "id": "3c30f2ca-f927-4bb3-a9ef-0b68a71b41f8",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-vertical > .row",
+      "targets": [
+        ["css=.form-vertical > .row", "css:finder"],
+        ["xpath=//main[@id='main']/section/div/form/div", "xpath:idRelative"],
+        ["xpath=//form/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c697b082-e890-4402-885a-40a90280a79c",
+      "comment": "",
+      "command": "type",
+      "target": "id=member",
+      "targets": [
+        ["id=member", "id"],
+        ["css=#member", "css:finder"],
+        ["xpath=//input[@id='member']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "bodin"
+    }, {
+      "id": "03db6b1e-ee05-4b37-896b-7a8d5327d735",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8fdc60db-00f6-41cc-b415-3ca713c42068",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5a42b2f5-baee-4209-9e32-1de20b0924b4",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "466e0621-cdb8-4692-8c29-5ac3926171d9",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=tr:nth-child(2) > td:nth-child(1)",
+      "targets": [
+        ["css=tr:nth-child(2) > td:nth-child(1)", "css:finder"],
+        ["xpath=//table[@id='membersToCall']/tr[2]/td", "xpath:idRelative"],
+        ["xpath=//tr[2]/td", "xpath:position"],
+        ["xpath=//td[contains(.,'@bodin')]", "xpath:innerText"]
+      ],
+      "value": "@bodin"
+    }, {
+      "id": "c0f58da8-6e5d-44b1-83bf-abc4a1a587f1",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(2) .btn",
+      "targets": [
+        ["css=tr:nth-child(2) .btn", "css:finder"],
+        ["xpath=(//button[@name='dismissMember'])[2]", "xpath:attributes"],
+        ["xpath=//table[@id='membersToCall']/tr[2]/td[3]/button", "xpath:idRelative"],
+        ["xpath=//tr[2]/td[3]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "96b8e5fd-aa3a-4aa8-a1fb-5736671b5779",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "css=td:nth-child(1)",
+      "targets": [
+        ["css=td:nth-child(1)", "css:finder"],
+        ["xpath=//table[@id='membersToCall']/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'@olga')]", "xpath:innerText"]
+      ],
+      "value": "30000"
+    }, {
+      "id": "a6f6803b-891b-4951-be94-9242a80c586e",
+      "comment": "",
+      "command": "click",
+      "target": "name=dismissMember",
+      "targets": [
+        ["name=dismissMember", "name"],
+        ["css=.btn-outline-danger", "css:finder"],
+        ["xpath=//button[@name='dismissMember']", "xpath:attributes"],
+        ["xpath=//table[@id='membersToCall']/tr/td[3]/button", "xpath:idRelative"],
+        ["xpath=//td[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Dismiss')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "40c1f949-9e79-44ad-8a40-a98b6758d551",
+    "name": "Kreiranje grupe TP6: Uspesno kreirana grupa i slanje obavestenja novim clanovima",
+    "commands": [{
+      "id": "cfc0e150-30a4-4c32-9b8c-e5c4d156d6e3",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/group/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cb4c1a88-fc67-4528-bef7-d7380f0f7d10",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d8f2b100-67f2-4b02-adac-c6852575ace5",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Create new",
+      "targets": [
+        ["linkText=Create new", "linkText"],
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//a[contains(text(),'Create new')]", "xpath:link"],
+        ["xpath=//section[@id='groups']/div/div[2]/div/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/renderNewGroup']", "xpath:href"],
+        ["xpath=//div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Create new')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a9373cfd-2166-43fb-8715-15b63e077276",
+      "comment": "",
+      "command": "click",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "95c58695-aee3-4d12-bf67-878dddb457c5",
+      "comment": "",
+      "command": "type",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "New group"
+    }, {
+      "id": "5bccbbce-f014-44ad-9d4d-78e6badd801f",
+      "comment": "",
+      "command": "type",
+      "target": "name=description",
+      "targets": [
+        ["name=description", "name"],
+        ["css=.form-group:nth-child(2) .form-control", "css:finder"],
+        ["xpath=//input[@name='description']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "New group test"
+    }, {
+      "id": "ce988088-537d-46c8-8323-ad7583220ad4",
+      "comment": "",
+      "command": "type",
+      "target": "id=member",
+      "targets": [
+        ["id=member", "id"],
+        ["css=#member", "css:finder"],
+        ["xpath=//input[@id='member']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "Nemanja"
+    }, {
+      "id": "424fc247-e2d2-49ba-bfc2-14182593e8af",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "112832ec-4e9d-46db-b11a-ba975476c11a",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "638b00fd-5b78-4a82-b961-48784d77b9ee",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "226c060f-425a-4788-b941-bccc8e34041d",
+      "comment": "",
+      "command": "click",
+      "target": "id=group-img",
+      "targets": [
+        ["id=group-img", "id"],
+        ["css=#group-img", "css:finder"],
+        ["xpath=//img[contains(@src,'http://ssl.gstatic.com/accounts/ui/avatar_2x.png')]", "xpath:img"],
+        ["xpath=//img[@id='group-img']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div/div/label/img", "xpath:idRelative"],
+        ["xpath=//img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "61bb35cc-65fd-4200-a343-4996e373b739",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=td:nth-child(1)",
+      "targets": [
+        ["css=td:nth-child(1)", "css:finder"],
+        ["xpath=//table[@id='membersToCall']/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'@Nemanja')]", "xpath:innerText"]
+      ],
+      "value": "@Nemanja"
+    }, {
+      "id": "c4961705-8f80-4151-ad75-dff82697dd75",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-success",
+      "targets": [
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//input[@value='Create Group']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "21f5e1db-216a-45da-924a-7ec412e0d895",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=td:nth-child(2)",
+      "targets": [
+        ["css=td:nth-child(2)", "css:finder"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[2]", "xpath:idRelative"],
+        ["xpath=//td[2]", "xpath:position"],
+        ["xpath=//td[contains(.,'New group')]", "xpath:innerText"]
+      ],
+      "value": "New group"
+    }, {
+      "id": "5413d134-5cbd-43f3-ba37-e7094b322633",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Logout",
+      "targets": [
+        ["linkText=Logout", "linkText"],
+        ["css=.get-started-btn", "css:finder"],
+        ["xpath=//a[contains(text(),'Logout')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/login/logout']", "xpath:href"],
+        ["xpath=//header/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Logout')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "93cf598c-879d-4885-ba94-377085f92742",
+      "comment": "",
+      "command": "click",
+      "target": "name=login_username",
+      "targets": [
+        ["name=login_username", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='login_username']", "xpath:attributes"],
+        ["xpath=//div[@id='body']/div[2]/form/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f564d253-6402-49c2-a3f1-58004b377190",
+      "comment": "",
+      "command": "type",
+      "target": "name=login_username",
+      "targets": [
+        ["name=login_username", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='login_username']", "xpath:attributes"],
+        ["xpath=//div[@id='body']/div[2]/form/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Nemanja"
+    }, {
+      "id": "102d760b-146f-486a-b47b-8a5f6c3867dc",
+      "comment": "",
+      "command": "click",
+      "target": "name=login_password",
+      "targets": [
+        ["name=login_password", "name"],
+        ["css=.form-group:nth-child(2) .form-control", "css:finder"],
+        ["xpath=//input[@name='login_password']", "xpath:attributes"],
+        ["xpath=//div[@id='body']/div[2]/form/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "12e4e455-2cfb-4ddd-83e5-eaa40ade9875",
+      "comment": "",
+      "command": "type",
+      "target": "name=login_password",
+      "targets": [
+        ["name=login_password", "name"],
+        ["css=.form-group:nth-child(2) .form-control", "css:finder"],
+        ["xpath=//input[@name='login_password']", "xpath:attributes"],
+        ["xpath=//div[@id='body']/div[2]/form/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "123456"
+    }, {
+      "id": "9ed58cb4-0db3-4747-95ed-34aa63773c1d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//input[@value='Login']", "xpath:attributes"],
+        ["xpath=//div[@id='body']/div[2]/form/input", "xpath:idRelative"],
+        ["xpath=//form/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1b998786-13ad-4281-a44f-1b774c41e480",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Notifications",
+      "targets": [
+        ["linkText=Notifications", "linkText"],
+        ["css=.nav-menu li:nth-child(4) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Notifications')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/nav/ul/li[4]/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/notification/index']", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Notifications')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cd9960fb-2c27-4303-a9a4-d31c92f55203",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=td:nth-child(3)",
+      "targets": [
+        ["css=td:nth-child(3)", "css:finder"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]", "xpath:idRelative"],
+        ["xpath=//td[3]", "xpath:position"],
+        ["xpath=//td[contains(.,'Join group New group')]", "xpath:innerText"]
+      ],
+      "value": "Join group New group"
+    }, {
+      "id": "6a1408f8-663a-43e5-91b5-e99ef78e6052",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//main[@id='main']/section/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "NOTIFICATIONS"
+    }]
+  }, {
+    "id": "3b67053a-49d5-4dfa-b816-9478cd51b8b7",
+    "name": "Kreiranje grupe TP7: Korisnik odustaje od kreiranja nove grupe prelaskom na drugu stranicu",
+    "commands": [{
+      "id": "5af16925-9727-4b95-8421-b49e39ee88b2",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/group/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2bde426e-2fee-4610-aac1-33b203046236",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "15195fb8-4308-4ea8-a124-39ae4bf869ba",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Create new",
+      "targets": [
+        ["linkText=Create new", "linkText"],
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//a[contains(text(),'Create new')]", "xpath:link"],
+        ["xpath=//section[@id='groups']/div/div[2]/div/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/renderNewGroup']", "xpath:href"],
+        ["xpath=//div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Create new')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "898acfa9-138a-4403-822e-9ea561808cf8",
+      "comment": "",
+      "command": "click",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f5ed7033-319b-48a0-9b97-38817b5d59d1",
+      "comment": "",
+      "command": "type",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "Group1"
+    }, {
+      "id": "c20aedb3-1856-4633-a973-1826d6150b6e",
+      "comment": "",
+      "command": "click",
+      "target": "name=description",
+      "targets": [
+        ["name=description", "name"],
+        ["css=.form-group:nth-child(2) .form-control", "css:finder"],
+        ["xpath=//input[@name='description']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0c2c2bdd-1f24-4e67-a8e8-cebc60cc3377",
+      "comment": "",
+      "command": "type",
+      "target": "name=description",
+      "targets": [
+        ["name=description", "name"],
+        ["css=.form-group:nth-child(2) .form-control", "css:finder"],
+        ["xpath=//input[@name='description']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "Group for test"
+    }, {
+      "id": "8c7b4604-8733-43cc-a1e0-f49dd4858da6",
+      "comment": "",
+      "command": "click",
+      "target": "id=member",
+      "targets": [
+        ["id=member", "id"],
+        ["css=#member", "css:finder"],
+        ["xpath=//input[@id='member']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c685e897-947e-4a00-9db3-844fb8274db7",
+      "comment": "",
+      "command": "type",
+      "target": "id=member",
+      "targets": [
+        ["id=member", "id"],
+        ["css=#member", "css:finder"],
+        ["xpath=//input[@id='member']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "olga"
+    }, {
+      "id": "9be0f120-ae9a-423e-956c-3d97d1acefef",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f6b69070-0fc3-47d0-a3ac-071ef3d4c0b9",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c5c8195f-1855-45e3-a843-012b64f42fc7",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "290ac513-d603-43ea-8aa7-3bc96a2bf858",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Shopping list",
+      "targets": [
+        ["linkText=Shopping list", "linkText"],
+        ["css=.nav-menu li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Shopping list')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/nav/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/lists/index']", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Shopping list')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "26bc97bc-1d55-4066-bdfb-b0c950783eb5",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//main[@id='main']/section/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "SHOPPING LISTS"
+    }, {
+      "id": "8ac0db7e-18d2-449d-a7c4-18b13eb8a23c",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Groups",
+      "targets": [
+        ["linkText=Groups", "linkText"],
+        ["css=.nav-menu li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Groups')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/nav/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/index']", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Groups')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "39fb7c19-37d2-4109-bcd4-6af917765b84",
+      "comment": "",
+      "command": "assertNotText",
+      "target": "css=.row:nth-child(3) > .col-12  tbody",
+      "targets": [
+        ["css=.row:nth-child(3) > .col-12", "css:finder"],
+        ["xpath=//section[@id='groups']/div/div[3]/div", "xpath:idRelative"],
+        ["xpath=//div/div[3]/div", "xpath:position"]
+      ],
+      "value": "GROUPS\\nCreate new\\nImage Group Name Actions"
+    }]
+  }, {
+    "id": "08e4882a-4fd3-478c-9095-84195148954b",
+    "name": "Kreiranje grupe TP8: Uspesno kreiranje nove grupe - korisnik koji ju je kreirao postaje njen admin",
+    "commands": [{
+      "id": "ec203c16-795d-4b5e-8f33-f7eec451a8f0",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/group/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d188d8db-0cd1-4689-a592-e144f898f09f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3da51283-f2e3-4070-b6f1-7df62ff16ecb",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Create new",
+      "targets": [
+        ["linkText=Create new", "linkText"],
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//a[contains(text(),'Create new')]", "xpath:link"],
+        ["xpath=//section[@id='groups']/div/div[2]/div/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/renderNewGroup']", "xpath:href"],
+        ["xpath=//div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Create new')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5b9d2be3-0303-4c4c-8d7d-97db8d364496",
+      "comment": "",
+      "command": "click",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9cd5b988-0ed3-4018-98e8-2a353f153b6c",
+      "comment": "",
+      "command": "type",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "My group"
+    }, {
+      "id": "68a50681-e790-4c1a-9848-2a16d61c5504",
+      "comment": "",
+      "command": "type",
+      "target": "name=description",
+      "targets": [
+        ["name=description", "name"],
+        ["css=.form-group:nth-child(2) .form-control", "css:finder"],
+        ["xpath=//input[@name='description']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "I am admin"
+    }, {
+      "id": "4242c8cb-34ed-47b4-afe7-a2fc603c7aac",
+      "comment": "",
+      "command": "type",
+      "target": "id=member",
+      "targets": [
+        ["id=member", "id"],
+        ["css=#member", "css:finder"],
+        ["xpath=//input[@id='member']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "olga"
+    }, {
+      "id": "0169c6be-ee0b-4417-8763-169550732370",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/div[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Add')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7cf54c97-8f93-4901-90d7-245eec46ecd7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-success",
+      "targets": [
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//input[@value='Create Group']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2816595a-b36a-4ea3-8516-47c199b2314b",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//section[@id='groups']/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "GROUPS"
+    }, {
+      "id": "13e05a72-de8c-4539-987f-bf0770326641",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=td:nth-child(2)",
+      "targets": [
+        ["css=td:nth-child(2)", "css:finder"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[2]", "xpath:idRelative"],
+        ["xpath=//td[2]", "xpath:position"],
+        ["xpath=//td[contains(.,'My group')]", "xpath:innerText"]
+      ],
+      "value": "My group"
+    }, {
+      "id": "8351462b-1f3b-4195-a82b-4ac6c219148e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-info",
+      "targets": [
+        ["css=.btn-outline-info", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/viewGroup/26'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/div/button", "xpath:idRelative"],
+        ["xpath=//td[3]/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Info')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "890341bb-cee5-4163-9f54-df3dd0acee7a",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//section[@id='profile']/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "INFO"
+    }, {
+      "id": "413a13d8-a1b0-4be6-be28-151aaa446a46",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.bg-warning",
+      "targets": [
+        ["css=.bg-warning", "css:finder"],
+        ["xpath=//section[@id='profile']/div[2]/div/div[2]/div[2]/ul/li", "xpath:idRelative"],
+        ["xpath=//div[2]/ul/li", "xpath:position"],
+        ["xpath=//li[contains(.,'Bodin')]", "xpath:innerText"]
+      ],
+      "value": "Bodin"
+    }, {
+      "id": "88c2b1d1-848a-41a8-9f36-67ac08615c40",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=p",
+      "targets": [
+        ["css=p", "css:finder"],
+        ["xpath=//section[@id='profile']/div[2]/div/div[2]/div/p", "xpath:idRelative"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'1 members')]", "xpath:innerText"]
+      ],
+      "value": "1 members"
+    }]
+  }, {
+    "id": "951fd99a-fbd1-450a-ba9b-c5ff01d07a16",
+    "name": "Kreiranje grupe TP9: Kreiranje grupe nije uspelo - korisnik nije ulogovan / registrovan",
+    "commands": [{
+      "id": "eb14eaad-6d46-4b6c-b093-c888215f102f",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/group/renderNewGroup",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a6bd4ae0-7d81-4655-8f3b-bab7cd11b365",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1c695e6c-45e6-4fdd-8995-0a381fe4cddf",
+      "comment": "",
+      "command": "assertText",
+      "target": "linkText=Login",
+      "targets": [
+        ["linkText=Login", "linkText"],
+        ["css=.nav-item:nth-child(1) > .get-started-btn", "css:finder"],
+        ["xpath=//a[contains(text(),'Login')]", "xpath:link"],
+        ["xpath=//div[@id='body']/div[2]/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/login/renderLogin']", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Login')]", "xpath:innerText"]
+      ],
+      "value": "Login"
+    }]
+  }, {
+    "id": "2ff46e50-2404-47c4-a20e-549cc191ba43",
+    "name": "Pregled informacija o grupi TP1: Korisnik ulogovan i pripada barem jednoj grupi",
+    "commands": [{
+      "id": "0df4a056-b6e0-44b7-9173-5b2ecbf0a898",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/homePage/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "97bb67ce-eb61-4aa5-9754-53aac87b86c4",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "51f341b2-3567-42c4-a10c-1175f3e26cd5",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Groups",
+      "targets": [
+        ["linkText=Groups", "linkText"],
+        ["css=.nav-menu li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Groups')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/nav/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/index']", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Groups')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f6249cca-edc2-46aa-83db-fefd2ad16fc5",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//section[@id='groups']/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "GROUPS"
+    }, {
+      "id": "e81c5079-e4e2-4a9b-89ff-72e70aa0a0af",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=tr:nth-child(1) > td:nth-child(2)",
+      "targets": [
+        ["css=tr:nth-child(1) > td:nth-child(2)", "css:finder"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[2]", "xpath:idRelative"],
+        ["xpath=//td[2]", "xpath:position"],
+        ["xpath=//td[contains(.,'Porodica')]", "xpath:innerText"]
+      ],
+      "value": "Porodica"
+    }, {
+      "id": "b6105374-8707-4db7-8865-038d58d2e344",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(1) .btn-outline-info",
+      "targets": [
+        ["css=tr:nth-child(1) .btn-outline-info", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/viewGroup/1'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/div/button", "xpath:idRelative"],
+        ["xpath=//td[3]/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Info')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0c8525f5-80e8-4976-b555-8b26c4e68acf",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//section[@id='profile']/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "INFO"
+    }, {
+      "id": "42d95d9e-e84d-4e8b-a0c7-6b5e609c75b4",
+      "comment": "",
+      "command": "click",
+      "target": "css=h3:nth-child(2)",
+      "targets": [
+        ["css=h3:nth-child(2)", "css:finder"],
+        ["xpath=//section[@id='profile']/div[2]/div/div/h3", "xpath:idRelative"],
+        ["xpath=//h3", "xpath:position"],
+        ["xpath=//h3[contains(.,'Porodica')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "396fa528-44a6-4d1c-b735-b19bd1f31acc",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h3:nth-child(2)",
+      "targets": [
+        ["css=h3:nth-child(2)", "css:finder"],
+        ["xpath=//section[@id='profile']/div[2]/div/div/h3", "xpath:idRelative"],
+        ["xpath=//h3", "xpath:position"],
+        ["xpath=//h3[contains(.,'Porodica')]", "xpath:innerText"]
+      ],
+      "value": "Porodica"
+    }, {
+      "id": "db4d4281-4e63-40e0-9904-72c9959ea0ff",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=p",
+      "targets": [
+        ["css=p", "css:finder"],
+        ["xpath=//section[@id='profile']/div[2]/div/div[2]/div/p", "xpath:idRelative"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'2 members')]", "xpath:innerText"]
+      ],
+      "value": "2 members"
+    }, {
+      "id": "7ed57021-ea72-4c26-b6c9-48db610631dd",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.row:nth-child(1) caption",
+      "targets": [
+        ["css=.row:nth-child(1) caption", "css:finder"],
+        ["xpath=//section[@id='profile']/div[2]/div[2]/div/table/caption", "xpath:idRelative"],
+        ["xpath=//caption", "xpath:position"],
+        ["xpath=//caption[contains(.,'Monthly Spending / Monthly No Of Lists')]", "xpath:innerText"]
+      ],
+      "value": "Monthly Spending / Monthly No Of Lists"
+    }, {
+      "id": "d158b1b5-ae53-4222-8de7-99e9a5284173",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.row:nth-child(3) caption",
+      "targets": [
+        ["css=.row:nth-child(3) caption", "css:finder"],
+        ["xpath=//section[@id='profile']/div[2]/div[2]/div[3]/table/caption", "xpath:idRelative"],
+        ["xpath=//div[3]/table/caption", "xpath:position"],
+        ["xpath=//caption[contains(.,'Most frequently requested YEAR / MONTH')]", "xpath:innerText"]
+      ],
+      "value": "Most frequently requested YEAR / MONTH"
+    }, {
+      "id": "7cfdb145-589d-405c-bfc3-f9181cd68f41",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,63)",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "1ad86bcf-f937-4797-aa85-4a836875e5b5",
+    "name": "Pregled informacija o grupi TP2: Korsinik nije ulogovan / registrovan",
+    "commands": [{
+      "id": "2ab57200-d587-48df-9627-0c9ee7929513",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/group/renderNewGroup",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fae35cf2-a9d1-4ac5-858c-38efdacdf215",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "992a2268-0e7c-4f8c-8ce1-c0cd77e92f26",
+      "comment": "",
+      "command": "assertText",
+      "target": "linkText=Login",
+      "targets": [
+        ["linkText=Login", "linkText"],
+        ["css=.nav-item:nth-child(1) > .get-started-btn", "css:finder"],
+        ["xpath=//a[contains(text(),'Login')]", "xpath:link"],
+        ["xpath=//div[@id='body']/div[2]/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/login/renderLogin']", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Login')]", "xpath:innerText"]
+      ],
+      "value": "Login"
+    }, {
+      "id": "cc5495f9-a6eb-447d-91f1-0ef6b9bdc03d",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Login",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "af3511a1-2a75-4cf3-9b2a-27f1459d4071",
+    "name": "Menjanje grupe TP1: Korisnik nije ulogovan / registrovan",
+    "commands": [{
+      "id": "ccce2ceb-3269-4066-828c-758165e27a71",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/group/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fc54616d-2a2d-4e24-aeea-2310ea3a37a9",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "47eb016a-b00b-403c-b886-e9f2f59ac652",
+      "comment": "",
+      "command": "assertText",
+      "target": "linkText=Login",
+      "targets": [
+        ["linkText=Login", "linkText"],
+        ["css=.nav-item:nth-child(1) > .get-started-btn", "css:finder"],
+        ["xpath=//a[contains(text(),'Login')]", "xpath:link"],
+        ["xpath=//div[@id='body']/div[2]/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/login/renderLogin']", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Login')]", "xpath:innerText"]
+      ],
+      "value": "Login"
+    }, {
+      "id": "94e4cd0c-e7ee-41d4-81b3-db73c9d5e931",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Login",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "d6024cbd-9a1a-47f8-a200-86eb3cd9a0d1",
+    "name": "Menjanje grupe TP2: Korisnik nije admin grupe koju zeli da menja",
+    "commands": [{
+      "id": "95ccbc30-0f48-431d-be2d-d59ae676270d",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/homePage/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "24f0adc6-6a99-4bb3-a1a0-a0ff89ad9e57",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3f87b368-8a03-450f-a16a-030b1c072214",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Groups",
+      "targets": [
+        ["linkText=Groups", "linkText"],
+        ["css=.nav-menu li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Groups')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/nav/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/index']", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Groups')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3ecb7478-4184-49dd-a130-3b0500b065eb",
+      "comment": "",
+      "command": "click",
+      "target": "css=.row:nth-child(3) > .col-12",
+      "targets": [
+        ["css=.row:nth-child(3) > .col-12", "css:finder"],
+        ["xpath=//section[@id='groups']/div/div[3]/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "585be4e1-6eb8-410c-91e6-cba03d856303",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//section[@id='groups']/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "GROUPS"
+    }, {
+      "id": "5d1b7d10-1b16-4d81-94cb-51884811f65f",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(3) .btn-outline-info",
+      "targets": [
+        ["css=tr:nth-child(3) .btn-outline-info", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/viewGroup/31'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr[3]/td[3]/div/button", "xpath:idRelative"],
+        ["xpath=//tr[3]/td[3]/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "27dc53fd-2798-49d2-a335-607c797e821d",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h3:nth-child(2)",
+      "targets": [
+        ["css=h3:nth-child(2)", "css:finder"],
+        ["xpath=//section[@id='profile']/div[2]/div/div/h3", "xpath:idRelative"],
+        ["xpath=//h3", "xpath:position"],
+        ["xpath=//h3[contains(.,'My group')]", "xpath:innerText"]
+      ],
+      "value": "My group"
+    }, {
+      "id": "b031e1e5-ef6d-4231-a3fd-0ce9c0780cec",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.list li:nth-child(2)",
+      "targets": [
+        ["css=.list li:nth-child(2)", "css:finder"],
+        ["xpath=//section[@id='profile']/div[2]/div/div[2]/div[2]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/ul/li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'Ana')]", "xpath:innerText"]
+      ],
+      "value": "Ana"
+    }, {
+      "id": "60a11127-0095-4756-9a07-268e4ac47ded",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Groups",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "88b282da-a19d-4d0e-9649-c82329e1c25b",
+      "comment": "",
+      "command": "assertElementNotPresent",
+      "target": "#my-table > tbody > tr:nth-child(3) > td:nth-child(3) > div > button.btn.btn-outline-primary",
+      "targets": [],
+      "value": "disabled"
+    }, {
+      "id": "b4ef8f66-f9b9-4c55-8e9b-abddd44dbe11",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//section[@id='groups']/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "GROUPS"
+    }]
+  }, {
+    "id": "63d92629-2aa9-41b5-b084-c57827a38ce1",
+    "name": "Menjanje grupe TP3: Korisnik je admin grupe i uspesno menja njeno ime",
+    "commands": [{
+      "id": "ea3fc9a0-b25a-4d65-aa1d-1d18c32806b8",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/homePage/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f564ea8b-0941-4841-9fd6-56310a5cb0ef",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "439174c8-2eb6-47cf-b889-99ed03c26584",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Groups",
+      "targets": [
+        ["linkText=Groups", "linkText"],
+        ["css=.nav-menu li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Groups')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/nav/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/index']", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Groups')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8266783a-6f06-442a-948a-2e326290d6de",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=tr:nth-child(1) .btn-outline-primary",
+      "targets": [
+        ["css=tr:nth-child(1) .btn-outline-primary", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/renderEditGroup/1'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/div/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'Edit')]", "xpath:innerText"]
+      ],
+      "value": "Edit"
+    }, {
+      "id": "d1afe926-6e66-46e6-8c2f-cd3e60726355",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=tr:nth-child(1) .btn-outline-primary",
+      "targets": [
+        ["css=tr:nth-child(1) .btn-outline-primary", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/renderEditGroup/1'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/div/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'Edit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "97b3243e-3a11-44c4-b1a0-bf87e386154a",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(1) .btn-outline-primary",
+      "targets": [
+        ["css=tr:nth-child(1) .btn-outline-primary", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/renderEditGroup/1'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/div/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'Edit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3c54c1de-cd03-4d2d-95e8-da50bfb3110b",
+      "comment": "",
+      "command": "click",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9b296303-4ba0-45a5-b5da-c2490ac54d0c",
+      "comment": "",
+      "command": "type",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "Porodica new name"
+    }, {
+      "id": "3af88717-3a0e-447f-9973-2daecb3ff4d6",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//main[@id='main']/section/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "06dabf23-6f31-48fd-ab00-aeca1dd3f73a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-success",
+      "targets": [
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//input[@value='Save changes']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3417377b-bcfb-4bbe-9b11-8236981b1453",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=tr:nth-child(1) > td:nth-child(2)",
+      "targets": [
+        ["css=tr:nth-child(1) > td:nth-child(2)", "css:finder"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[2]", "xpath:idRelative"],
+        ["xpath=//td[2]", "xpath:position"],
+        ["xpath=//td[contains(.,'Porodica new name')]", "xpath:innerText"]
+      ],
+      "value": "Porodica new name"
+    }]
+  }, {
+    "id": "08faedac-ec51-4bbd-b20d-31605c4df557",
+    "name": "Menjanje grupe TP4: Korisnik je admin grupe i unosi nevalidno novo ime",
+    "commands": [{
+      "id": "0a5302a4-85e4-4dd9-956b-d4aee47bf25c",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/homePage/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1f5b2341-fbef-4baa-a105-b84723bea075",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1cb663f5-1c39-46bf-a5ad-d27bb1dcdc07",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Groups",
+      "targets": [
+        ["linkText=Groups", "linkText"],
+        ["css=.nav-menu li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Groups')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/nav/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/index']", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Groups')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0eaae508-75c9-422c-adb7-95bb1874c22a",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=tr:nth-child(1) .btn-outline-primary",
+      "targets": [
+        ["css=tr:nth-child(1) .btn-outline-primary", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/renderEditGroup/1'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/div/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'Edit')]", "xpath:innerText"]
+      ],
+      "value": "Edit"
+    }, {
+      "id": "d872118f-d451-4ce2-b919-29976057cf1a",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(1) .btn-outline-primary",
+      "targets": [
+        ["css=tr:nth-child(1) .btn-outline-primary", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/renderEditGroup/1'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/div/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'Edit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "245965ad-cfb7-446e-86fb-1a13c667b780",
+      "comment": "",
+      "command": "click",
+      "target": "css=.row",
+      "targets": [
+        ["css=.row", "css:finder"],
+        ["xpath=//main[@id='main']/section/div/form/div", "xpath:idRelative"],
+        ["xpath=//form/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "39b11668-a50f-4f85-a1fb-b8a6680f1a0c",
+      "comment": "",
+      "command": "type",
+      "target": "name=group_name",
+      "targets": [
+        ["name=group_name", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='group_name']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1b97fe25-10bb-4514-8d7d-aa84b5c153c3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-success",
+      "targets": [
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//input[@value='Save changes']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cbe72fda-8ac0-45d5-b161-dec8190673a3",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//main[@id='main']/section/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "EDIT GROUP"
+    }]
+  }, {
+    "id": "d8756f18-f311-4cf3-b9a7-830d7bfa1e7d",
+    "name": "Menjanje grupe TP2: Admin grupe uklanja clana grupe",
+    "commands": [{
+      "id": "0500699d-4984-4532-8f88-93bf77e57eab",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/homePage/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ad49881a-866e-4f64-ba4e-c48158122850",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "207a7e1d-0e2b-4e4a-8ab8-2d583e756cc1",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Groups",
+      "targets": [
+        ["linkText=Groups", "linkText"],
+        ["css=.nav-menu li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Groups')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/nav/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/index']", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Groups')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f2e3a899-29c5-4572-a790-9c88d5e37eff",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=tr:nth-child(1) > td:nth-child(2)",
+      "targets": [
+        ["css=tr:nth-child(1) > td:nth-child(2)", "css:finder"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[2]", "xpath:idRelative"],
+        ["xpath=//td[2]", "xpath:position"],
+        ["xpath=//td[contains(.,'Porodica new name')]", "xpath:innerText"]
+      ],
+      "value": "Porodica new name"
+    }, {
+      "id": "855aa188-8902-424f-81dd-800c09a8db5a",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=tr:nth-child(1) .btn-outline-primary",
+      "targets": [
+        ["css=tr:nth-child(1) .btn-outline-primary", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/renderEditGroup/1'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/div/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'Edit')]", "xpath:innerText"]
+      ],
+      "value": "Edit"
+    }, {
+      "id": "47cc8e15-81e4-489f-862c-391788deed03",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(1) .btn-outline-primary",
+      "targets": [
+        ["css=tr:nth-child(1) .btn-outline-primary", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/renderEditGroup/1'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/div/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'Edit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "983c20e5-0d70-4f1a-a95c-e15c9705bae7",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Remove",
+      "targets": [
+        ["linkText=Remove", "linkText"],
+        ["css=tr:nth-child(1) .btn", "css:finder"],
+        ["xpath=//a[contains(text(),'Remove')]", "xpath:link"],
+        ["xpath=//a[@onclick='toModal(this,13)']", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#exampleModalCenter')]", "xpath:href"],
+        ["xpath=//td[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Remove')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "795def77-c41e-4245-b9d6-f1eb717cc2f9",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=exampleModalLongTitle",
+      "targets": [
+        ["id=exampleModalLongTitle", "id"],
+        ["css=#exampleModalLongTitle", "css:finder"],
+        ["xpath=//h5[@id='exampleModalLongTitle']", "xpath:attributes"],
+        ["xpath=//div[@id='exampleModalCenter']/div/div/div/h5", "xpath:idRelative"],
+        ["xpath=//h5", "xpath:position"],
+        ["xpath=//h5[contains(.,'Are you sure you want to remove this member?')]", "xpath:innerText"]
+      ],
+      "value": "Are you sure you want to remove this member?"
+    }, {
+      "id": "afdfacb3-289f-4433-9503-7abe4dd854c6",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=#exampleModalCenter .modal-body",
+      "targets": [
+        ["css=#exampleModalCenter .modal-body", "css:finder"],
+        ["xpath=//div[@id='exampleModalCenter']/div/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div[2]", "xpath:position"]
+      ],
+      "value": "If you click Yes you will remove member from the group."
+    }, {
+      "id": "2e52dfae-c5f8-42c2-91a0-bd8cab617bd2",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=(//button[@type='button'])[4]", "xpath:attributes"],
+        ["xpath=//div[@id='exampleModalCenter']/div/div/div[3]/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Yes')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ff904206-aa87-4e36-9dd8-0846d922553e",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=td:nth-child(1)",
+      "targets": [
+        ["css=td:nth-child(1)", "css:finder"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'Ana (You)')]", "xpath:innerText"]
+      ],
+      "value": "Ana (You)"
+    }, {
+      "id": "40b46a42-c245-4f67-b35b-d534a7757f04",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-success",
+      "targets": [
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//input[@value='Save changes']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bca0b8c4-c919-4c23-a0e9-549ce5260109",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=tr:nth-child(1) > td:nth-child(2)",
+      "targets": [
+        ["css=tr:nth-child(1) > td:nth-child(2)", "css:finder"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[2]", "xpath:idRelative"],
+        ["xpath=//td[2]", "xpath:position"],
+        ["xpath=//td[contains(.,'Porodica new name')]", "xpath:innerText"]
+      ],
+      "value": "Porodica new name"
+    }, {
+      "id": "9f9de8b3-0d2a-4b83-a363-3ec42a11d795",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(1) .btn-outline-info",
+      "targets": [
+        ["css=tr:nth-child(1) .btn-outline-info", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/viewGroup/1'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/div/button", "xpath:idRelative"],
+        ["xpath=//td[3]/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Info')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7ce07f96-60fd-4f25-a98b-568eb6a96726",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=p",
+      "targets": [
+        ["css=p", "css:finder"],
+        ["xpath=//section[@id='profile']/div[2]/div/div[2]/div/p", "xpath:idRelative"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'1 members')]", "xpath:innerText"]
+      ],
+      "value": "1 members"
+    }]
+  }, {
+    "id": "abfd094f-ca65-457f-88ec-b8a07911476d",
+    "name": "Menjanje grupe TP5: Korisniik izlazi iz grupe kao poslednji clan - grupa se brise",
+    "commands": [{
+      "id": "8022ca50-5be7-40f8-a4b0-b8a3157f7d41",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/homePage/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c32d4da4-8497-4841-a80e-2d12f9b2c8bf",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4f976aeb-7223-492b-a717-38ded42fce9b",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Groups",
+      "targets": [
+        ["linkText=Groups", "linkText"],
+        ["css=.nav-menu li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Groups')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/nav/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/index']", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Groups')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8f24a3fc-5757-418c-ac8c-ba053d926f32",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=td:nth-child(2)",
+      "targets": [
+        ["css=td:nth-child(2)", "css:finder"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[2]", "xpath:idRelative"],
+        ["xpath=//td[2]", "xpath:position"],
+        ["xpath=//td[contains(.,'Porodica new name')]", "xpath:innerText"]
+      ],
+      "value": "Porodica"
+    }, {
+      "id": "4171f541-ecc3-4e9d-87be-592cb2ea244b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/renderEditGroup/1'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/div/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'Edit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8d58a306-fca6-4d5b-bdc1-e5c216e95c04",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=td:nth-child(1)",
+      "targets": [
+        ["css=td:nth-child(1)", "css:finder"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'Ana (You)')]", "xpath:innerText"]
+      ],
+      "value": "Ana (You)"
+    }, {
+      "id": "d0b2ea55-ee06-41c8-a357-b3194354d9b5",
+      "comment": "",
+      "command": "assertText",
+      "target": "linkText=Leave",
+      "targets": [
+        ["linkText=Leave", "linkText"],
+        ["css=.btn-outline-danger", "css:finder"],
+        ["xpath=//a[contains(text(),'Leave')]", "xpath:link"],
+        ["xpath=//a[@onclick='toModal(this,27)']", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#exampleModalCenter')]", "xpath:href"],
+        ["xpath=//td[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Leave')]", "xpath:innerText"]
+      ],
+      "value": "Leave"
+    }, {
+      "id": "e699a209-907d-4cb7-a364-d6c1365a5807",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Leave",
+      "targets": [
+        ["linkText=Leave", "linkText"],
+        ["css=.btn-outline-danger", "css:finder"],
+        ["xpath=//a[contains(text(),'Leave')]", "xpath:link"],
+        ["xpath=//a[@onclick='toModal(this,27)']", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#exampleModalCenter')]", "xpath:href"],
+        ["xpath=//td[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Leave')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7a6250b2-fba4-4137-992b-2ed65d2b84c1",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=exampleModalLongTitle",
+      "targets": [
+        ["id=exampleModalLongTitle", "id"],
+        ["css=#exampleModalLongTitle", "css:finder"],
+        ["xpath=//h5[@id='exampleModalLongTitle']", "xpath:attributes"],
+        ["xpath=//div[@id='exampleModalCenter']/div/div/div/h5", "xpath:idRelative"],
+        ["xpath=//h5", "xpath:position"],
+        ["xpath=//h5[contains(.,'Are you sure you want to remove this member?')]", "xpath:innerText"]
+      ],
+      "value": "Are you sure you want to remove this member?"
+    }, {
+      "id": "e6d7a004-b5f6-44fc-a093-5697025c2feb",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=#exampleModalCenter .modal-body",
+      "targets": [
+        ["css=#exampleModalCenter .modal-body", "css:finder"],
+        ["xpath=//div[@id='exampleModalCenter']/div/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div[2]", "xpath:position"]
+      ],
+      "value": "If you click Yes you will remove member from the group."
+    }, {
+      "id": "f5815bec-1150-42d1-9d73-a6b6c62a6267",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=(//button[@type='button'])[4]", "xpath:attributes"],
+        ["xpath=//div[@id='exampleModalCenter']/div/div/div[3]/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Yes')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "52ae73af-09eb-4fdb-8476-98eafa81d325",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//section[@id='groups']/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "GROUPS"
+    }, {
+      "id": "b3e70525-ea69-482c-9065-475c4e5804be",
+      "comment": "",
+      "command": "assertNotText",
+      "target": "css=.row:nth-child(3) > .col-12 tbody",
+      "targets": [
+        ["css=.row:nth-child(3) > .col-12", "css:finder"],
+        ["xpath=//section[@id='groups']/div/div[3]/div", "xpath:idRelative"],
+        ["xpath=//div/div[3]/div", "xpath:position"]
+      ],
+      "value": "GROUPS\\nCreate new\\nImage Group Name Actions"
+    }]
+  }, {
+    "id": "5615e665-c1ef-4185-8057-930ed42aa9a7",
+    "name": "Menjanje grupe TP6: Korisnik izlazi iz grupe ciji nije admin",
+    "commands": []
+  }, {
+    "id": "bb8f1230-4095-4e91-b1f2-73bd9ab4a1d6",
+    "name": "Dodavanje novog clana u postojecu grupu TP1",
+    "commands": [{
+      "id": "0cdd33d1-b714-487f-8e84-fa22b3cf83b8",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/homePage/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "67067f65-1df7-49b9-a322-be2d2ec063b9",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2d2d42bf-e299-486c-8712-fb0610dc8cf2",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Groups",
+      "targets": [
+        ["linkText=Groups", "linkText"],
+        ["css=.nav-menu li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Groups')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/nav/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/index']", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Groups')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a007d8d5-af2e-4668-9ff4-453385030ba0",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//section[@id='groups']/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "GROUPS"
+    }, {
+      "id": "c74d5cef-5840-48bc-b2ab-325cdd994039",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/renderEditGroup/35'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/div/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'Edit')]", "xpath:innerText"]
+      ],
+      "value": "Edit"
+    }, {
+      "id": "292eb2a4-023e-4afb-b0fa-4e9aeaebba68",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/renderEditGroup/35'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/div/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'Edit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f6676eda-9c00-4833-a65c-0c3ba42b0654",
+      "comment": "",
+      "command": "type",
+      "target": "id=invite_member",
+      "targets": [
+        ["id=invite_member", "id"],
+        ["name=invite_member", "name"],
+        ["css=#invite_member", "css:finder"],
+        ["xpath=//input[@id='invite_member']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "bodin"
+    }, {
+      "id": "ff1ee998-bf72-43f9-9dae-6550c49d46ba",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Invite",
+      "targets": [
+        ["linkText=Invite", "linkText"],
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=//a[contains(text(),'Invite')]", "xpath:link"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div[3]/div/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#membersModal')]", "xpath:href"],
+        ["xpath=//div[3]/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Invite')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8a6e19d4-87ab-4fef-96cc-1b74be4a6490",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=membersModalCenterTitle",
+      "targets": [
+        ["id=membersModalCenterTitle", "id"],
+        ["css=#membersModalCenterTitle", "css:finder"],
+        ["xpath=//h5[@id='membersModalCenterTitle']", "xpath:attributes"],
+        ["xpath=//div[@id='membersModal']/div/div/div/h5", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div/h5", "xpath:position"],
+        ["xpath=//h5[contains(.,'Invite sent')]", "xpath:innerText"]
+      ],
+      "value": "Invite sent"
+    }, {
+      "id": "e0123ae0-45ad-42fc-85f4-b045bb8dfad4",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=#membersModal .modal-body",
+      "targets": [
+        ["css=#membersModal .modal-body", "css:finder"],
+        ["xpath=//div[@id='membersModal']/div/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]", "xpath:position"]
+      ],
+      "value": "This will send someone invite to join your group. They will recive notification to join the group. You will get notification only if they accept."
+    }, {
+      "id": "4a6edbd1-5de3-4c12-939b-0da70064f3ba",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=(//button[@type='button'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='membersModal']/div/div/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'OK')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6f3590d3-fd62-4b81-b4a6-62901019687d",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.alert",
+      "targets": [
+        ["css=.alert", "css:finder"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div[4]", "xpath:idRelative"],
+        ["xpath=//div[4]", "xpath:position"]
+      ],
+      "value": "Invite sent\\n×"
+    }, {
+      "id": "ede2c21f-cb15-4163-9785-5caaca2ab553",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-success",
+      "targets": [
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//input[@value='Save changes']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6fe71228-137b-4ce0-ae31-ae1f39f71dde",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Logout",
+      "targets": [
+        ["linkText=Logout", "linkText"],
+        ["css=.get-started-btn", "css:finder"],
+        ["xpath=//a[contains(text(),'Logout')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/login/logout']", "xpath:href"],
+        ["xpath=//header/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Logout')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "533bcb90-5b33-4dcc-a728-f3438df81367",
+      "comment": "",
+      "command": "click",
+      "target": "name=login_username",
+      "targets": [
+        ["name=login_username", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='login_username']", "xpath:attributes"],
+        ["xpath=//div[@id='body']/div[2]/form/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "032b1fd3-d8b0-4fc5-a6fe-28f164413799",
+      "comment": "",
+      "command": "type",
+      "target": "name=login_username",
+      "targets": [
+        ["name=login_username", "name"],
+        ["css=.form-group:nth-child(1) .form-control", "css:finder"],
+        ["xpath=//input[@name='login_username']", "xpath:attributes"],
+        ["xpath=//div[@id='body']/div[2]/form/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "bodin"
+    }, {
+      "id": "c42de7bb-59d0-4810-98d1-d49b3837630a",
+      "comment": "",
+      "command": "click",
+      "target": "name=login_password",
+      "targets": [
+        ["name=login_password", "name"],
+        ["css=.form-group:nth-child(2) .form-control", "css:finder"],
+        ["xpath=//input[@name='login_password']", "xpath:attributes"],
+        ["xpath=//div[@id='body']/div[2]/form/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3ff0832e-f84e-4cd3-9be1-3cf8b82879a3",
+      "comment": "",
+      "command": "type",
+      "target": "name=login_password",
+      "targets": [
+        ["name=login_password", "name"],
+        ["css=.form-group:nth-child(2) .form-control", "css:finder"],
+        ["xpath=//input[@name='login_password']", "xpath:attributes"],
+        ["xpath=//div[@id='body']/div[2]/form/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "123456"
+    }, {
+      "id": "8aa1d456-f333-4fb4-b965-f723ce88217e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//input[@value='Login']", "xpath:attributes"],
+        ["xpath=//div[@id='body']/div[2]/form/input", "xpath:idRelative"],
+        ["xpath=//form/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "44283f6b-9081-4bd5-871d-6aebdacfb94c",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Notifications",
+      "targets": [
+        ["linkText=Notifications", "linkText"],
+        ["css=.nav-menu li:nth-child(4) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Notifications')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/nav/ul/li[4]/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/notification/index']", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Notifications')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d1cc174f-1ab4-49ed-ac30-02fecc9c1773",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//main[@id='main']/section/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "NOTIFICATIONS"
+    }, {
+      "id": "741577e9-4439-4245-89df-328f81ca873a",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.btn-success",
+      "targets": [
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/notification/approve/121'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[5]/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Approve')]", "xpath:innerText"]
+      ],
+      "value": "Approve"
+    }, {
+      "id": "d9ef0b90-7d2f-4679-a057-1288f29408fb",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-success",
+      "targets": [
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/notification/approve/121'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[5]/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Approve')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6614e937-5825-4ffe-9b77-aff6870f0230",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Groups",
+      "targets": [
+        ["linkText=Groups", "linkText"],
+        ["css=.nav-menu li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Groups')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/nav/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/index']", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Groups')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "710985df-9817-464f-afaa-08a4a08a34b6",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//section[@id='groups']/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "GROUPS"
+    }, {
+      "id": "ff92ce63-b021-4b98-9c48-87c7d5b46e2a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-info",
+      "targets": [
+        ["css=tr:nth-child(3) .btn-outline-info", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/viewGroup/35'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr[3]/td[3]/div/button", "xpath:idRelative"],
+        ["xpath=//tr[3]/td[3]/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d46a72bc-3a3e-463e-a9e1-40661856e39f",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=p",
+      "targets": [
+        ["css=p", "css:finder"],
+        ["xpath=//section[@id='profile']/div[2]/div/div[2]/div/p", "xpath:idRelative"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'2 members')]", "xpath:innerText"]
+      ],
+      "value": "2 members"
+    }, {
+      "id": "be1baebc-c2ab-4e50-b355-54d26cd9a803",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.list li:nth-child(2)",
+      "targets": [
+        ["css=.list li:nth-child(2)", "css:finder"],
+        ["xpath=//section[@id='profile']/div[2]/div/div[2]/div[2]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/ul/li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'Bodin')]", "xpath:innerText"]
+      ],
+      "value": "Bodin"
+    }]
+  }, {
+    "id": "bb38b70f-8db0-4f72-b05b-16856ce9b618",
+    "name": "Menjanje grupe TP6: Korisnik izlazi iz grupe ciji nije poslednji clan",
+    "commands": [{
+      "id": "db4130e2-0fc5-4fed-8826-652dcb20ada1",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/homePage/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a0b23106-0d6b-41ad-bc8c-ffd991a8d7b1",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "16921359-8c34-4838-8561-8585ed406a23",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Groups",
+      "targets": [
+        ["linkText=Groups", "linkText"],
+        ["css=.nav-menu li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Groups')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/nav/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/index']", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Groups')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2c72e4c9-a6c2-4118-98e7-9b8d4b98c493",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//section[@id='groups']/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "GROUPS"
+    }, {
+      "id": "fab135ec-7726-48e6-a5d4-75e2cbc0e29f",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.btn-outline-danger",
+      "targets": [
+        ["css=tr:nth-child(3) .btn-outline-danger", "css:finder"],
+        ["xpath=(//a[contains(text(),'Leave')])[3]", "xpath:link"],
+        ["xpath=//a[@onclick='toModal(this,35)']", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr[3]/td[3]/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#exampleModalCenter')])[3]", "xpath:href"],
+        ["xpath=//tr[3]/td[3]/div/a", "xpath:position"]
+      ],
+      "value": "Leave"
+    }, {
+      "id": "ab0ab5d3-34d7-4315-99bc-d5c171cfd54d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-danger",
+      "targets": [
+        ["css=tr:nth-child(3) .btn-outline-danger", "css:finder"],
+        ["xpath=(//a[contains(text(),'Leave')])[3]", "xpath:link"],
+        ["xpath=//a[@onclick='toModal(this,35)']", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr[3]/td[3]/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#exampleModalCenter')])[3]", "xpath:href"],
+        ["xpath=//tr[3]/td[3]/div/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "962e40b7-76b2-440d-b5b6-209494c6970b",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=exampleModalLongTitle",
+      "targets": [
+        ["id=exampleModalLongTitle", "id"],
+        ["css=#exampleModalLongTitle", "css:finder"],
+        ["xpath=//h5[@id='exampleModalLongTitle']", "xpath:attributes"],
+        ["xpath=//div[@id='exampleModalCenter']/div/div/div/h5", "xpath:idRelative"],
+        ["xpath=//h5", "xpath:position"],
+        ["xpath=//h5[contains(.,'Are you sure you want to leave?')]", "xpath:innerText"]
+      ],
+      "value": "Are you sure you want to leave?"
+    }, {
+      "id": "96fa724e-d3aa-4e46-b8a7-6f771e60754e",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.modal-body",
+      "targets": [
+        ["css=.modal-body", "css:finder"],
+        ["xpath=//div[@id='exampleModalCenter']/div/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div[2]", "xpath:position"]
+      ],
+      "value": "If you click Yes you will leave group and other members will have to call you back in."
+    }, {
+      "id": "6e461c5d-d4c3-4ad9-b89a-07c2a5dc4d69",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=(//button[@type='button'])[4]", "xpath:attributes"],
+        ["xpath=//div[@id='exampleModalCenter']/div/div/div[3]/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Yes')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "62d9199d-b7f7-46d9-9bee-2d58eecee0d5",
+      "comment": "",
+      "command": "assertElementNotPresent",
+      "target": "css=tr:nth-child(1) > td:nth-child(2)",
+      "targets": [
+        ["css=tr:nth-child(1) > td:nth-child(2)", "css:finder"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[2]", "xpath:idRelative"],
+        ["xpath=//td[2]", "xpath:position"],
+        ["xpath=//td[contains(.,'My group')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "852fdfc9-1078-4fa0-8e73-fadc662b2be8",
+    "name": "Dodavanje novog clana postojecoj grupi TP2 - clan vec postoji",
+    "commands": [{
+      "id": "2c6ba114-13b5-4128-9f7c-f6c86130db5e",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/homePage/index",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6757501c-9c61-4ed6-a515-9aed320de50f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "727812a4-c179-4ae3-b9d2-a5fa4f87423a",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Groups",
+      "targets": [
+        ["linkText=Groups", "linkText"],
+        ["css=.nav-menu li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Groups')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/nav/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/index']", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Groups')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5ab5bd71-96d3-4600-b115-fe10a2c46dd9",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h2",
+      "targets": [
+        ["css=h2", "css:finder"],
+        ["xpath=//section[@id='groups']/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"]
+      ],
+      "value": "GROUPS"
+    }, {
+      "id": "6e7dd856-d57e-4545-9924-fc04ac39397c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-info",
+      "targets": [
+        ["css=.btn-outline-info", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/viewGroup/35'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/div/button", "xpath:idRelative"],
+        ["xpath=//td[3]/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Info')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cae40bf2-4a38-4839-9b65-5775d28fe415",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=p",
+      "targets": [
+        ["css=p", "css:finder"],
+        ["xpath=//section[@id='profile']/div[2]/div/div[2]/div/p", "xpath:idRelative"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'2 members')]", "xpath:innerText"]
+      ],
+      "value": "2 members"
+    }, {
+      "id": "37430e93-cd67-4c3c-be54-bc5d85c6d7fb",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.list li:nth-child(2)",
+      "targets": [
+        ["css=.list li:nth-child(2)", "css:finder"],
+        ["xpath=//section[@id='profile']/div[2]/div/div[2]/div[2]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/ul/li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'Bodin')]", "xpath:innerText"]
+      ],
+      "value": "Bodin"
+    }, {
+      "id": "a1daf76d-3cce-4358-aba7-248fba69dcc6",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Groups",
+      "targets": [
+        ["linkText=Groups", "linkText"],
+        ["css=.nav-menu .active > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Groups')]", "xpath:link"],
+        ["xpath=//header[@id='header']/div/nav/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[@href='http://localhost:8080/group/index']", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Groups')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "78e6d009-3b83-41b2-ac30-db50ce056be3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@onclick=\"window.location.href='http://localhost:8080/group/renderEditGroup/35'\"]", "xpath:attributes"],
+        ["xpath=//table[@id='my-table']/tbody/tr/td[3]/div/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'Edit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "61f62891-0155-407b-a515-bca43cd0342d",
+      "comment": "",
+      "command": "click",
+      "target": "id=invite_member",
+      "targets": [
+        ["id=invite_member", "id"],
+        ["name=invite_member", "name"],
+        ["css=#invite_member", "css:finder"],
+        ["xpath=//input[@id='invite_member']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "281ff487-b751-4722-b401-4c41f58e6676",
+      "comment": "",
+      "command": "type",
+      "target": "id=invite_member",
+      "targets": [
+        ["id=invite_member", "id"],
+        ["name=invite_member", "name"],
+        ["css=#invite_member", "css:finder"],
+        ["xpath=//input[@id='invite_member']", "xpath:attributes"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "bodin"
+    }, {
+      "id": "5ad8376e-f6c3-4581-90f5-bd29702c6715",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Invite",
+      "targets": [
+        ["linkText=Invite", "linkText"],
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=//a[contains(text(),'Invite')]", "xpath:link"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div[3]/div/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#membersModal')]", "xpath:href"],
+        ["xpath=//div[3]/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Invite')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0046b5f1-daa7-44d9-9f2e-933091b914fa",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "linkText=Invite",
+      "targets": [
+        ["linkText=Invite", "linkText"],
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=//a[contains(text(),'Invite')]", "xpath:link"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div[3]/div/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#membersModal')]", "xpath:href"],
+        ["xpath=//div[3]/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Invite')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4b9e737a-2242-4f21-91a6-154e4b3b216e",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "linkText=Invite",
+      "targets": [
+        ["linkText=Invite", "linkText"],
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=//a[contains(text(),'Invite')]", "xpath:link"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div[3]/div/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#membersModal')]", "xpath:href"],
+        ["xpath=//div[3]/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Invite')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8aafb5a6-8ca0-421c-b5a2-19cb079570cf",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=membersModalCenterTitle",
+      "targets": [
+        ["id=membersModalCenterTitle", "id"],
+        ["css=#membersModalCenterTitle", "css:finder"],
+        ["xpath=//h5[@id='membersModalCenterTitle']", "xpath:attributes"],
+        ["xpath=//div[@id='membersModal']/div/div/div/h5", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div/h5", "xpath:position"],
+        ["xpath=//h5[contains(.,'Invite sent')]", "xpath:innerText"]
+      ],
+      "value": "Invite sent"
+    }, {
+      "id": "29752e15-8c5f-42fa-a415-2194f2c93b90",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=(//button[@type='button'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='membersModal']/div/div/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'OK')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a5dd5790-3393-4e51-89d1-5adcbe5dfc98",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.alert",
+      "targets": [
+        ["css=.alert", "css:finder"],
+        ["xpath=//main[@id='main']/section/div/form/div/div[2]/div[4]", "xpath:idRelative"],
+        ["xpath=//div[4]", "xpath:position"]
+      ],
+      "value": "User is member\\n×"
+    }]
+  }],
+  "suites": [{
+    "id": "1fcf2f26-568c-4e5c-8020-570bae69d8f3",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:8080/homePage/index", "http://localhost:8080/group/renderNewGroup", "http://localhost:8080/group/index"],
+  "plugins": []
+}

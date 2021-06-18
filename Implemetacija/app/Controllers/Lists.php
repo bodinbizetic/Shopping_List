@@ -144,12 +144,12 @@ class Lists extends BaseController
 
         $search = $this->request->getUri()->getQuery(['only' => ['search']]);
         $sorted = $this->request->getUri()->getQuery(['only' => ['sorted']]);
-
         if ($sorted)
             $sorted = explode('=', $this->request->getUri()->getQuery(['only' => ['sorted']]))[1];
 
         if($search)
-            $search = explode('=', $this->request->getUri()->getQuery(['only' => ['search']]))[1];
+            $search = $_GET['search'];
+//            $search = explode('=', $this->request->getUri()->getQuery(['only' => ['search']]))[1];
 /*
         $cenotekaItems = $itemCategoryModel->where('idCategory', $idCategory)->find();*/
 
@@ -320,6 +320,11 @@ class Lists extends BaseController
             Error::show("Not enough information");
         }
 
+        if(!is_numeric($quantity))
+        {
+            Error::show("Only numerical quantities are allowed.");
+        }
+
         $listModel = new ShoppingListModel();
         $list = $listModel->find($listId);
         if ($list == null || $list['active'] == 0)
@@ -469,6 +474,11 @@ class Lists extends BaseController
         if($name == null || $name == "" || $quantity == null || $quantity == "")
         {
             Error::show("Not enough information");
+        }
+
+        if(!is_numeric($quantity))
+        {
+            Error::show("Only numerical quantities are allowed.");
         }
 
         $listModel = new ShoppingListModel();

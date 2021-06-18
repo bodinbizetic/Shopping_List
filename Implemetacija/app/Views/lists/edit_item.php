@@ -188,6 +188,11 @@
         var strQuantity = equantity.value;
         var e = document.getElementById("quant");
         var strMeasure = e.options[e.selectedIndex].text;
-        window.location = "/lists/changeItem/<?=$idListContained?>/<?=$id?>/"+strName+"/"+strQuantity+"/"+strMeasure+"/<?=$idList?>";
+        if(e.value == 0)
+            strMeasure = ""
+        if((strName != "") && (strQuantity!=""))
+            window.location = "/lists/changeItem/<?=$idListContained?>/<?=$id?>/"+strName+"/"+strQuantity+"/"+strMeasure+"/<?=$idList?>";
+        else
+            alert("Missing information");
     }
 </script>

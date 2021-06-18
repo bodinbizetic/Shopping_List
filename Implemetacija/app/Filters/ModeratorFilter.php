@@ -1,6 +1,6 @@
 <?php
 /**
- * Authors - Andrej Gobeljic 0019/2018, Bodin Bizetic 0058/2018
+ * Authors - Andrej Gobeljic 0019/2018
  */
 
 namespace App\Filters;
@@ -12,10 +12,10 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 
 /**
- * Class LogedInFilter - propusta samo ako je korisnik ulogovan na platformu
+ * Class ModeratorFilter - propusta samo moderatore
  * @package App\Filters
  */
-class LogedInFilter implements FilterInterface
+class ModeratorFilter implements FilterInterface
 {
     /**
      * Poziva se pre metoda i odredjuje da li je korisnik ulogovan
@@ -29,8 +29,8 @@ class LogedInFilter implements FilterInterface
         if (session()->get('user') == null) {
             return redirect()->to('/login/index');
         }
-        if(session()->get('user')['type'] == '0'){
-            return redirect()->to('/moderator/index');
+        if(session()->get('user')['type'] == '1'){
+            return redirect()->to('/homePage/index');
         }
     }
 

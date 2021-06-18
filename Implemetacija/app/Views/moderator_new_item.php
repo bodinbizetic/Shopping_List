@@ -62,12 +62,12 @@
                             <div class="col-12">
                                 <div class="form-group ">
                                     <div class="input-group">
-                                        <input type="text" id="itemName" name="item_name" class="form-control" placeholder="Item Name" value="" required="required">
+                                        <input required type="text" id="itemName" name="item_name" class="form-control" placeholder="Item Name" value="" required="required">
                                     </div>
                                 </div>
                                 <div>
                                     <div>
-                                        <select name="Shops" id="shops" style="margin-bottom: 15px" class="form-control" size='1'>
+                                        <select required name="Shops" id="shops" style="margin-bottom: 15px" class="form-control" size='1'>
                                             <option class="form-control" selected disabled value="-1">Select a shop</option>
                                             <?php foreach ($shops as $shop): ?>
                                                 <option class="form-control" value="<?php echo $shop['idShopChain']; ?>"><?php echo $shop['name']; ?></option>
@@ -77,12 +77,12 @@
                                 </div>
                                 <div class="form-group ">
                                     <div class="input-group">
-                                        <input type="text" name="qty" id="quantity"  class="form-control" placeholder="Quantity" >
+                                        <input required type="text" name="qty" id="quantity"  class="form-control" placeholder="Quantity" >
                                     </div>
                                 </div>
                                 <div>
                                     <div>
-                                        <select style="margin-bottom: 15px" class="form-control" id="quant" size='1' name="measure">
+                                        <select required style="margin-bottom: 15px" class="form-control" id="quant" size='1' name="measure">
                                             <option selected>kom</option>
                                             <option>g</option>
                                             <option>kg</option>
@@ -93,7 +93,7 @@
                                 </div>
                                 <div>
                                     <div>
-                                        <select style="margin-bottom: 15px" class="form-control" id="category" size="1" name="category">
+                                        <select required style="margin-bottom: 15px" class="form-control" id="category" size="1" name="category">
                                             <?php foreach($allCategories as $category){ ?>
                                                 <option value="<?= $category['idCategory'] ?>"><?php echo $category['name']; ?></option>
                                             <?php } ?>
